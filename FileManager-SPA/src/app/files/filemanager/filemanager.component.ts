@@ -8,6 +8,7 @@ import { FileService } from 'app/_services/file.service';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { ModalService } from 'app/_services/modal.service';
 import { FileAddModule } from '../fileadd/fileadd.module';
+import { FileViewModule } from '../fileview/fileview.module';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('events', {static: false}) events: ElementRef;
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
+  @ViewChild('myFileView', {static: false}) myFileView: FileViewModule;
 
   selectedNodeId = -1;
   data: any[];
@@ -36,11 +38,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
+        const buttonview = '<button (click)=""  class="btn btn-primary btn-link btn-icon view rowview"' +
+                        ' title="View File Information"><i id="view' + row + '" class="fa fa-edit"></i></button>';
         const buttonedit = '<button (click)=""  class="btn btn-primary btn-link btn-icon edit rowedit"' +
                          ' title="Edit File"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
         const buttondel = '<button (click)="" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
                          ' title="Delete File"><i id="del' + row + '" class="fa fa-times"></i></button>';
-        const item = '<div>' + buttonedit + buttondel + '</div>';
+        const item = '<div>' + buttonview + buttonedit + buttondel + '</div>';
 
         return item;
       }},
@@ -144,7 +148,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
 
-  renderedRowButtons(fileService: FileService) {
+  renderedRowButtons() {
+    const viewbuttons = document.getElementsByClassName('rowview');
+    for (let i = 0; i < viewbuttons.length; i++) {
+      viewbuttons[i].addEventListener('click', () => {
+          const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
+          const idAttr = target.id;
+          window.dispatchEvent(new CustomEvent('custom-eventv', { detail: idAttr}));
+        });
+    }
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
         editbuttons[i].addEventListener('click', () => {
@@ -164,6 +176,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   };
 
+
+  @HostListener('window:custom-eventv', ['$event', ]) onClickv() {
+    let myId: string = (<string>event['detail'])
+    myId = myId.replace('view', '');
+    const myDBId: number = this.myDataTable.getRows()[myId]['id'];
+    this.openModal('fileviewmodal');
+    this.sweetAlertService.message('clicked v');
+  }
   @HostListener('window:custom-evente', ['$event', ]) onClicke() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('edit', '');

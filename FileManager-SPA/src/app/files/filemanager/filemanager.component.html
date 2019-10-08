@@ -28,10 +28,15 @@
 <jw-modal id="fileaddmodal" class="col-lg-6 col-sm-4">
   <div class="card">
     <div class="card-body">
-      <!-- <app-fileaddtest #myFileAdd></app-fileaddtest> -->
       <app-fileadd #myFileAdd ></app-fileadd>
-      <!-- <p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p> -->
       <button (click)="closeModal('fileaddmodal');">Close</button>
+    </div>
+  </div>      
+</jw-modal>
+<jw-modal id="fileviewmodal" class="col-lg-6 col-sm-4">
+  <div class="card">
+    <div class="card-body">
+      <button (click)="closeModal('fileviewmodal');">Close</button>
     </div>
   </div>      
 </jw-modal>
