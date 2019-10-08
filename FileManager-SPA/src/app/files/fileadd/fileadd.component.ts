@@ -14,7 +14,7 @@ export class FileAddComponent implements OnInit {
   @Input() fmAdminId: number;
   @Input() nodeId: number;
   @Output() getFileChange = new EventEmitter<string>();
-  uploader: FileUploader;
+  public uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   currentMain: File;
@@ -30,7 +30,6 @@ export class FileAddComponent implements OnInit {
   }
 
   initializeUploader() {
-    debugger
     this.uploader = new FileUploader({
       url: this.baseUrl + 'files/' + this.fmAdminId + '/' + this.nodeId,
       authToken: 'Bearer ' + localStorage.getItem('token'),
@@ -41,6 +40,7 @@ export class FileAddComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024
     });
 
+    this.uploader.onBeforeUploadItem = (file) => {file.url = this.baseUrl + 'files/' + this.fmAdminId + '/' + this.nodeId };
     this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
@@ -55,4 +55,6 @@ export class FileAddComponent implements OnInit {
       }
     };
   }
+
+  
 }

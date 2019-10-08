@@ -109,6 +109,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
   select(event: any): void {
       this.selectedNodeId = event.args.element.id;
+      this.myFileAdd = new FileAddModule();
       if (this.fmAdmin != null) {
         this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 20 ).subscribe(
             (res: PaginatedResult<File[]>) => {
@@ -157,7 +158,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
-    debugger
     this.myFileAdd.nodeId = this.selectedNodeId;
     this.myFileAdd.fmAdminId = this.fmAdmin.id;
     this.openModal('fileaddmodal');

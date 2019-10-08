@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 
-import { SweetAlertService } from 'app/_services/sweetalert.service';
 
 @Component({
   selector: 'app-fileaddtest',
@@ -9,9 +8,10 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 })
 
 export class FileAddTestComponent implements OnInit {
-  constructor(private sweetAlertService: SweetAlertService) { }
+  constructor() { }
 
   ngOnInit() {
+
   }
 
 }
