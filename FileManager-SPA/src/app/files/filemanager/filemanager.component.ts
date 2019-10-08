@@ -10,6 +10,7 @@ import { FileService } from 'app/_services/file.service';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { ModalService } from 'app/_services/modal.service';
 import { FileAddModule } from '../fileadd/fileadd.module';
+import { Attribute } from '@angular/compiler';
 
 
 @Component({
@@ -38,10 +39,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const buttonedit = '<button (click)="" id="edit' + row + '" class="btn btn-primary btn-link btn-icon edit rowedit"' +
-                         ' title="Edit File"><i class="fa fa-edit"></i></button>';
-        const buttondel = '<button (click)="" id="del' + row + '" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
-                         ' title="Delete File"><i class="fa fa-times"></i></button>';
+        const buttonedit = '<button (click)=""  class="btn btn-primary btn-link btn-icon edit rowedit"' +
+                         ' title="Edit File"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
+        const buttondel = '<button (click)="" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
+                         ' title="Delete File"><i id="del' + row + '" class="fa fa-times"></i></button>';
         const item = '<div>' + buttonedit + buttondel + '</div>';
 
         return item;
@@ -140,21 +141,29 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
         editbuttons[i].addEventListener('click', () => {
-            window.dispatchEvent(new Event('custom-evente'));
+          debugger;
+          let target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
+          let idAttr = target.id;
+          window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
         });
     }
 
     const delbuttons = document.getElementsByClassName('rowdelete');
     for (let i = 0; i < delbuttons.length; i++) {
         delbuttons[i].addEventListener('click', () => {
-            window.dispatchEvent(new Event('custom-eventd'));
+          let target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
+          let idAttr = target.id;
+          window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
         });
     }
   };
-  @HostListener('window:custom-evente', ['$event']) onClicke() {
+
+  @HostListener('window:custom-evente', ['$event', ]) onClicke() {
+    debugger;
     this.sweetAlertService.message('clicked e');
   }
   @HostListener('window:custom-eventd', ['$event']) onClickd() {
+    debugger;
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
