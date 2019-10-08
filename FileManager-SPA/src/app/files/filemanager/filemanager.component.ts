@@ -141,9 +141,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
         editbuttons[i].addEventListener('click', () => {
-          debugger;
-          let target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-          let idAttr = target.id;
+          const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
+          const idAttr = target.id;
           window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
         });
     }
@@ -151,19 +150,19 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const delbuttons = document.getElementsByClassName('rowdelete');
     for (let i = 0; i < delbuttons.length; i++) {
         delbuttons[i].addEventListener('click', () => {
-          let target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-          let idAttr = target.id;
+          const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
+          const idAttr = target.id;
           window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
         });
     }
   };
 
   @HostListener('window:custom-evente', ['$event', ]) onClicke() {
-    debugger;
+    const myID: string = (<string>event['detail'])
     this.sweetAlertService.message('clicked e');
   }
   @HostListener('window:custom-eventd', ['$event']) onClickd() {
-    debugger;
+    const myID: string = (<string>event['detail'])
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
