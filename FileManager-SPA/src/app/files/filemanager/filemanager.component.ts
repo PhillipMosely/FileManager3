@@ -1,7 +1,6 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener, ɵSWITCH_CHANGE_DETECTOR_REF_FACTORY__POST_R3__ } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
-import { ActivatedRoute } from '@angular/router';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
@@ -45,11 +44,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 300 },
-      { text: 'Size (kb)', dataField: 'size', cellsFormat: 'd', cellsAlign: 'center', align: 'center', width: 120 },
+      { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 250 },
+      { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 300 }
+      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 400 }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -122,6 +121,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                       { name: 'ext', type: 'string' },
                       { name: 'url', type: 'string' },
                       { name: 'size', type: 'number' },
+                      { name: 'sizeKb', type: 'number' },
                       { name: 'dateCreated', type: 'date' },
                       { name: 'dateModified', type: 'date' },
                       { name: 'description', type: 'string' },

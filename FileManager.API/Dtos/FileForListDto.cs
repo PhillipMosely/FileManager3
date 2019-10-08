@@ -13,6 +13,13 @@ namespace FileManager.API.Dtos
 
         public string Description { get; set; }
         public long Size { get; set; }
+
+        public double SizeKb { 
+            get {
+                return Size / 1000.00;
+                }
+        }
+
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public int NodeId {get; set;}        
