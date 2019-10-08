@@ -30,6 +30,7 @@ export class FileAddComponent implements OnInit {
   }
 
   initializeUploader() {
+    debugger
     this.uploader = new FileUploader({
       url: this.baseUrl + 'files/' + this.fmAdminId + '/' + this.nodeId,
       authToken: 'Bearer ' + localStorage.getItem('token'),

@@ -157,6 +157,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
+    debugger
     this.myFileAdd.nodeId = this.selectedNodeId;
     this.myFileAdd.fmAdminId = this.fmAdmin.id;
     this.openModal('fileaddmodal');
