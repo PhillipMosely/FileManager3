@@ -82,9 +82,14 @@ namespace FileManager.API.Controllers
         }
 
         [HttpPost("{fmAdminId}/{nodeId}")]
-        public async Task<IActionResult> AddFile(int fmAdminId, int nodeId, [FromForm]IFormFile myFile)
+        public async Task<IActionResult> AddFile(int fmAdminId, int nodeId, [FromForm]FileForAddDto fileForAddDto)
         {
-            FileForAddDto fileForAddDto = new FileForAddDto(){FileManagerAdminId = fmAdminId, NodeId = nodeId};
+            //FileForAddDto fileForAddDto = new FileForAddDto(){FileManagerAdminId = fmAdminId, NodeId = nodeId};
+            var myFile = fileForAddDto.File;
+            fileForAddDto.FileManagerAdminId = fmAdminId;
+            fileForAddDto.NodeId = nodeId;
+            
+
             if (await _repo.FileExists(fileForAddDto.FileName,
                                        fileForAddDto.FileManagerAdminId,
                                        fileForAddDto.NodeId))

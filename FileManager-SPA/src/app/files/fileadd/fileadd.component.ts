@@ -37,7 +37,7 @@ export class FileAddComponent implements OnInit {
       allowedFileType: ['image'],
       removeAfterUpload: true,
       autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024
+      maxFileSize: 10 * 1024 * 1024,
     });
 
     this.uploader.onBeforeUploadItem = (file) => {file.url = this.baseUrl + 'files/' + this.fmAdminId + '/' + this.nodeId };
