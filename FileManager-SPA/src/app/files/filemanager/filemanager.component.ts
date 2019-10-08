@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener, ɵSWITCH_CHANGE_DETECTOR_REF_FACTORY__POST_R3__ } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
 import { ActivatedRoute } from '@angular/router';
@@ -52,8 +52,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 300 }
   ];
 
-  constructor(private route: ActivatedRoute,
-              private fileManagerAdminService: FileManagerAdminService,
+  constructor(private fileManagerAdminService: FileManagerAdminService,
               private fileService: FileService,
               private sweetAlertService: SweetAlertService,
               private modalService: ModalService) {
@@ -157,17 +156,21 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   };
 
   @HostListener('window:custom-evente', ['$event', ]) onClicke() {
-    debugger;
     let myId: string = (<string>event['detail'])
     myId = myId.replace('edit', '');
-    let myDBId = this.myDataTable.getRows()[myId]['id'];
+    const myDBId: number = this.myDataTable.getRows()[myId]['id'];
+
     this.sweetAlertService.message('clicked e');
   }
   @HostListener('window:custom-eventd', ['$event']) onClickd() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('del', '');
-    let myDBId = this.myDataTable.getRows()[myId]['id'];
-    this.sweetAlertService.message('clicked d');
+    const myDBId: number = this.myDataTable.getRows()[myId]['id'];
+    this.fileService.deleteFile(myDBId).subscribe(next => {
+      this.sweetAlertService.success('Successfully deleted file');
+    }, error => {
+      this.sweetAlertService.error('Not able to delete file');
+    });
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
     this.myFileAdd.nodeId = this.selectedNodeId;

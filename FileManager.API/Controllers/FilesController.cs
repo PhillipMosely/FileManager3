@@ -110,7 +110,7 @@ namespace FileManager.API.Controllers
                 {
                     using (var stream = myFile.OpenReadStream())
                     {
-                        blob.UploadFromStreamAsync(stream).Wait();
+                        await blob.UploadFromStreamAsync(stream);
                     }
                 }
             }
@@ -131,9 +131,20 @@ namespace FileManager.API.Controllers
             if (fileToDelete == null)
                 return NotFound();
 
-            if (await _repo.Delete(fileToDelete))
-                return Ok();
-            
+            if (!string.IsNullOrEmpty(fileToDelete.StorageId)) 
+            {
+                CloudBlockBlob blob = azureContainer.GetBlockBlobReference(fileToDelete.StorageId);
+                if (await _repo.Delete(fileToDelete)) {
+                    await blob.DeleteIfExistsAsync();
+                    return Ok();
+                }
+            }
+            else
+            {
+                if (await _repo.Delete(fileToDelete)) {
+                    return Ok();
+                }
+            }
             throw new Exception($"Could not delete File {id}");
         }
     }
