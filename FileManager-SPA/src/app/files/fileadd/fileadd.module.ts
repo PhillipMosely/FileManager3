@@ -1,4 +1,4 @@
-import { Input, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Input, NgModule, CUSTOM_ELEMENTS_SCHEMA, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalModule } from 'app/components/modal/modal.module';
@@ -21,4 +21,5 @@ exports: [FileAddComponent]
 export class FileAddModule {
   @Input() fmAdminId: number;
   @Input() nodeId: number;
+  @Output() getFileChange = new EventEmitter<string>();
 }

@@ -107,34 +107,38 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
   select(event: any): void {
       this.selectedNodeId = event.args.element.id;
-      this.myFileAdd = new FileAddModule();
-      if (this.fmAdmin != null) {
-        this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 20 ).subscribe(
-            (res: PaginatedResult<File[]>) => {
-                this.tableSource = {
-                    dataType: 'json',
-                    dataFields: [
-                        { name: 'fileName', type: 'string' },
-                        { name: 'ext', type: 'string' },
-                        { name: 'url', type: 'string' },
-                        { name: 'size', type: 'number' },
-                        { name: 'dateCreated', type: 'date' },
-                        { name: 'dateModified', type: 'date' },
-                        { name: 'description', type: 'string' },
-                        { name: 'id', type: 'string'}
-                    ],
-                    localdata: res
-                };
-                this.tableDataAdaptor = new jqx.dataAdapter(this.tableSource);
-
-            }, error => {
-                this.sweetAlertService.error('Could not load Files');
-            }
-        );
-
-      }
+      this.refreshDataTable();
   }
 
+  refreshDataTable() {
+    // this.myFileAdd = new FileAddModule();
+    if (this.fmAdmin != null) {
+      this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 20 ).subscribe(
+          (res: PaginatedResult<File[]>) => {
+              this.tableSource = {
+                  dataType: 'json',
+                  dataFields: [
+                      { name: 'fileName', type: 'string' },
+                      { name: 'ext', type: 'string' },
+                      { name: 'url', type: 'string' },
+                      { name: 'size', type: 'number' },
+                      { name: 'dateCreated', type: 'date' },
+                      { name: 'dateModified', type: 'date' },
+                      { name: 'description', type: 'string' },
+                      { name: 'id', type: 'string'}
+                  ],
+                  localdata: res
+              };
+              this.tableDataAdaptor = new jqx.dataAdapter(this.tableSource);
+
+          }, error => {
+              this.sweetAlertService.error('Could not load Files');
+          }
+      );
+    }
+  }
+
+  
   renderedRowButtons(fileService: FileService) {
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
@@ -169,6 +173,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const myFileName: string = this.myDataTable.getRows()[myId]['fileName'];
     this.sweetAlertService.confirm('Are you sure you want to delete \'' + myFileName + '\'', 'delete', () => {
       this.fileService.deleteFile(myDBId).subscribe(next => {
+        this.refreshDataTable();
         this.sweetAlertService.success('Successfully deleted file');
       }, error => {
         this.sweetAlertService.error('Not able to delete file');
