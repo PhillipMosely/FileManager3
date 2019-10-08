@@ -48,7 +48,12 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 400 }
+      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 400 },
+      { text: 'URL2', cellsAlign: 'left', align: 'left',  width: 400,
+      cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
+        const item = '<div style="width: 400px; white-space: nowrap; overflow-x: scroll;">' + rowData.url + '</div>'
+        return item;
+      }}
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -138,7 +143,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   }
 
-  
+
   renderedRowButtons(fileService: FileService) {
     const editbuttons = document.getElementsByClassName('rowedit');
     for (let i = 0; i < editbuttons.length; i++) {
