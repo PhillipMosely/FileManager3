@@ -21,5 +21,4 @@ exports: [FileAddComponent]
 export class FileAddModule {
   @Input() fmAdminId: number;
   @Input() nodeId: number;
-  @Output() getFileChange = new EventEmitter<string>();
 }
