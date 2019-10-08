@@ -91,7 +91,7 @@ namespace FileManager.API.Data
                     FileName = "user.png",
                     Ext = "png",
                     Url = "./assets/img/user.png",
-                    Size = 12.5,
+                    Size = 12000,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
                     NodeId = 2

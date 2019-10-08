@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,6 +11,8 @@ using FileManager.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FileManager.API.Controllers
 {
@@ -23,7 +25,7 @@ namespace FileManager.API.Controllers
         private readonly IMapper _mapper;
 
         private CloudBlobClient serviceClient;
-        private xxx azureContainer;
+        private CloudBlobContainer azureContainer;
 
         public FilesController(IFileManagerRepository repository, IMapper mapper,
                                IOptions<AzureSettings> azureConfig)
@@ -31,10 +33,10 @@ namespace FileManager.API.Controllers
             _mapper = mapper;
             _repo = repository;
 
-            CloudStorageAccount account = CloudStorageAccount.Parse(azureConfig.ConnectionString);
+            CloudStorageAccount account = CloudStorageAccount.Parse(azureConfig.Value.ConnectionString);
             serviceClient = account.CreateCloudBlobClient();
 
-            azureContainer = serviceClient.GetContainerReference("mycontainer");
+            azureContainer = serviceClient.GetContainerReference("filemanagercontainer");
            
         }
 
@@ -87,7 +89,30 @@ namespace FileManager.API.Controllers
                                        fileForAddDto.NodeId))
                 return BadRequest("File already exists for folder");
 
-            var fileToAdd = _mapper.Map<File>(fileForAddDto);
+            var myfile = fileForAddDto.File;
+            var fmAdmin = await _repo.GetFMAdmin(fileForAddDto.FileManagerAdminId);
+
+            if (myfile != null)
+            {
+                fileForAddDto.FileName = myfile.FileName;
+                fileForAddDto.Ext = Path.GetExtension(myfile.FileName);
+                fileForAddDto.Size = myfile.Length;
+                string _imageName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(myfile.FileName);
+                CloudBlockBlob blob = azureContainer.GetBlockBlobReference(_imageName);
+                blob.Properties.ContentType = myfile.ContentType;
+                fileForAddDto.StorageId = _imageName;
+                fileForAddDto.Url = blob.Uri.ToString();
+
+                if (myfile.Length > 0)
+                {
+                    using (var stream = myfile.OpenReadStream())
+                    {
+                        blob.UploadFromStreamAsync(stream).Wait();
+                    }
+                }
+            }
+
+            var fileToAdd = _mapper.Map<FileManager.API.Models.File>(fileForAddDto);
 
             var createdFile = await _repo.AddFile(fileToAdd);
 
