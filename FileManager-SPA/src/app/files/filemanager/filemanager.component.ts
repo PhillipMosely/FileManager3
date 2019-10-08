@@ -166,11 +166,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('del', '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
-    this.fileService.deleteFile(myDBId).subscribe(next => {
-      this.sweetAlertService.success('Successfully deleted file');
-    }, error => {
-      this.sweetAlertService.error('Not able to delete file');
+    const myFileName: string = this.myDataTable.getRows()[myId]['fileName'];
+    this.sweetAlertService.confirm('Are you sure you want to delete \'' + myFileName + '\'', 'delete', () => {
+      this.fileService.deleteFile(myDBId).subscribe(next => {
+        this.sweetAlertService.success('Successfully deleted file');
+      }, error => {
+        this.sweetAlertService.error('Not able to delete file');
+      });
     });
+
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
     this.myFileAdd.nodeId = this.selectedNodeId;
