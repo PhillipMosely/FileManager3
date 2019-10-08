@@ -14,7 +14,7 @@ import { FilemanagerRoutes } from './filemanager.routing';
 import { FilemanagerComponent } from './filemanager.component';
 import { ModalModule } from 'app/components/modal/modal.module';
 import { FileAddModule } from '../fileadd/fileadd.module';
-import { FileAddTestModule } from '../fileaddtest/fileaddtest.module';
+import { FileAddTestComponent } from '../fileaddtest/fileaddtest.component';
 
 
 @NgModule({
@@ -28,7 +28,6 @@ import { FileAddTestModule } from '../fileaddtest/fileaddtest.module';
     jqxButtonModule,
     ModalModule,
     FileAddModule,
-    FileAddTestModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
