@@ -22,10 +22,19 @@ namespace FileManager.API.Controllers
         private readonly IFileManagerRepository _repo;
         private readonly IMapper _mapper;
 
-        public FilesController(IFileManagerRepository repository, IMapper mapper)
+        private CloudBlobClient serviceClient;
+        private xxx azureContainer;
+
+        public FilesController(IFileManagerRepository repository, IMapper mapper,
+                               IOptions<AzureSettings> azureConfig)
         {
             _mapper = mapper;
             _repo = repository;
+
+            CloudStorageAccount account = CloudStorageAccount.Parse(azureConfig.ConnectionString);
+            serviceClient = account.CreateCloudBlobClient();
+
+            azureContainer = serviceClient.GetContainerReference("mycontainer");
            
         }
 

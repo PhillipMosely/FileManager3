@@ -58,6 +58,7 @@ namespace FileManager.API
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
             services.AddCors();
+            services.Configure<AzureSettings>(Configuration.GetSection("AzureSettings"));            
             services.AddAutoMapper(typeof(FileManagerRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IFileManagerRepository, FileManagerRepository>();
