@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
-import { jqxButtonComponent } from 'jqwidgets-ng/jqxbuttons'; 
 import { ActivatedRoute } from '@angular/router';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
@@ -10,7 +9,6 @@ import { FileService } from 'app/_services/file.service';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { ModalService } from 'app/_services/modal.service';
 import { FileAddModule } from '../fileadd/fileadd.module';
-import { Attribute } from '@angular/compiler';
 
 
 @Component({
@@ -123,7 +121,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                         { name: 'size', type: 'number' },
                         { name: 'dateCreated', type: 'date' },
                         { name: 'dateModified', type: 'date' },
-                        { name: 'description', type: 'string' }
+                        { name: 'description', type: 'string' },
+                        { name: 'id', type: 'string'}
                     ],
                     localdata: res
                 };
@@ -158,11 +157,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   };
 
   @HostListener('window:custom-evente', ['$event', ]) onClicke() {
-    const myID: string = (<string>event['detail'])
+    debugger;
+    let myId: string = (<string>event['detail'])
+    myId = myId.replace('edit', '');
+    let myDBId = this.myDataTable.getRows()[myId]['id'];
     this.sweetAlertService.message('clicked e');
   }
   @HostListener('window:custom-eventd', ['$event']) onClickd() {
-    const myID: string = (<string>event['detail'])
+    let myId: string = (<string>event['detail'])
+    myId = myId.replace('del', '');
+    let myDBId = this.myDataTable.getRows()[myId]['id'];
     this.sweetAlertService.message('clicked d');
   }
   @HostListener('window:custom-eventa', ['$event']) onClicka() {
