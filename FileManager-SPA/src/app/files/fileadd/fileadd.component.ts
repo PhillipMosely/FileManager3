@@ -19,7 +19,7 @@ export class FileAddComponent implements OnInit {
   baseUrl = environment.apiUrl;
   currentMain: File;
 
-  constructor(private sweetAlertService: SweetAlertService) { }
+  constructor(private sweetAlertService: SweetAlertService) {}
 
   ngOnInit() {
     this.initializeUploader();
@@ -31,7 +31,7 @@ export class FileAddComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'files/',
+      url: this.baseUrl + 'files/' + this.fmAdminId + '/' + this.nodeId,
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],

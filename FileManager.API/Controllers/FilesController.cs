@@ -9,6 +9,7 @@ using FileManager.API.Dtos;
 using FileManager.API.Helpers;
 using FileManager.API.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
@@ -36,7 +37,7 @@ namespace FileManager.API.Controllers
             CloudStorageAccount account = CloudStorageAccount.Parse(azureConfig.Value.ConnectionString);
             serviceClient = account.CreateCloudBlobClient();
 
-            azureContainer = serviceClient.GetContainerReference("filemanagercontainer");
+            azureContainer = serviceClient.GetContainerReference(azureConfig.Value.Container);
            
         }
 
@@ -80,32 +81,29 @@ namespace FileManager.API.Controllers
             throw new Exception($"Updating File {id} failed on save");
         }
 
-        [HttpPost("AddFile")]
-        public async Task<IActionResult> AddFile([FromForm]FileForAddDto fileForAddDto)
+        [HttpPost("{fmAdminId}/{nodeId}")]
+        public async Task<IActionResult> AddFile(int fmAdminId, int nodeId, [FromForm]IFormFile myFile)
         {
-
+            FileForAddDto fileForAddDto = new FileForAddDto(){FileManagerAdminId = fmAdminId, NodeId = nodeId};
             if (await _repo.FileExists(fileForAddDto.FileName,
                                        fileForAddDto.FileManagerAdminId,
                                        fileForAddDto.NodeId))
                 return BadRequest("File already exists for folder");
-
-            var myfile = fileForAddDto.File;
-            var fmAdmin = await _repo.GetFMAdmin(fileForAddDto.FileManagerAdminId);
-
-            if (myfile != null)
+            
+            if (myFile != null)
             {
-                fileForAddDto.FileName = myfile.FileName;
-                fileForAddDto.Ext = Path.GetExtension(myfile.FileName);
-                fileForAddDto.Size = myfile.Length;
-                string _imageName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(myfile.FileName);
+                fileForAddDto.FileName = myFile.FileName;
+                fileForAddDto.Ext = Path.GetExtension(myFile.FileName);
+                fileForAddDto.Size = myFile.Length;
+                string _imageName = Guid.NewGuid().ToString() + "-" + Path.GetExtension(myFile.FileName);
                 CloudBlockBlob blob = azureContainer.GetBlockBlobReference(_imageName);
-                blob.Properties.ContentType = myfile.ContentType;
+                blob.Properties.ContentType = myFile.ContentType;
                 fileForAddDto.StorageId = _imageName;
                 fileForAddDto.Url = blob.Uri.ToString();
 
-                if (myfile.Length > 0)
+                if (myFile.Length > 0)
                 {
-                    using (var stream = myfile.OpenReadStream())
+                    using (var stream = myFile.OpenReadStream())
                     {
                         blob.UploadFromStreamAsync(stream).Wait();
                     }

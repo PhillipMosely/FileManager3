@@ -9,7 +9,6 @@ namespace FileManager.API.Dtos
         [Required]
         public string FileName { get; set; }
         public string Ext { get; set; }
-        public IFormFile File { get; set; }
         public string Url { get; set; }
         public string StorageId {get; set;}
 
