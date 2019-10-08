@@ -81,7 +81,7 @@ namespace FileManager.API.Controllers
         }
 
         [HttpPost("AddFile")]
-        public async Task<IActionResult> AddFile(FileForAddDto fileForAddDto)
+        public async Task<IActionResult> AddFile([FromForm]FileForAddDto fileForAddDto)
         {
 
             if (await _repo.FileExists(fileForAddDto.FileName,

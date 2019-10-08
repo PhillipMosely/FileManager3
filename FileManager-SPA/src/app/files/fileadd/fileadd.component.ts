@@ -44,19 +44,12 @@ export class FileAddComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        // const res: File = JSON.parse(response);
-        // const file = {
-        //   id: res.id,
-        //   fileName: res.fileName,
-        //   ext: res.ext,
-        //   url: res.url,
-        //   description: res.description,
-        //   size: res.size,
-        //   dateCreated: res.dateCreated,
-        //   dateModified: res.dateModified,
-        //   fileManagerAdminId: res.fileManagerAdminId,
-        //   nodeId: res.nodeId
-        // };
+        const res: File = JSON.parse(response);
+        const file = {
+          fileName: res.fileName,
+          fileManagerAdminId: res.fileManagerAdminId,
+          nodeId: res.nodeId
+        };
         // this.files.push(file);
       }
     };
