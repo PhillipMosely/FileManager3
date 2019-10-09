@@ -99,7 +99,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                   this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
                   this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
                   this.myTree.source(this.records);
-                  this.myTree.expandItem(document.getElementById('0'));                  
+                  this.myTree.expandItem(document.getElementById('0'));
                   this.myTree.refresh();
             }, error => {
                 this.sweetAlertService.error('Could not load FM admin');
@@ -127,20 +127,41 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (selectedItem != null) {
         this.myTree.addTo({ label: 'Item' }, selectedItem.element);
         this.myTree.render();
-    } else {
-        this.myTree.addTo({ label: 'Item' }, null);
-        this.myTree.render();
-    }
+    }  
   };
 
   myTreeRemoveOnClick(): void {
-    const selectedItem = this.myTree.getSelectedItem();
-    if (selectedItem != null) {
-        this.myTree.removeItem(selectedItem.element);
-        this.myTree.render();
-    }
+    // const selectedItem = this.myTree.getSelectedItem();
+    // if (selectedItem != null) {
+    //   this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
+    //     const mySource = this.GetFolderDataString()
+    //     this.myTree.removeItem(selectedItem.element);
+    //     this.fmAdmin.folderData = this.GetFolderDataString();
+    //     this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next => {
+    //       this.refreshDataTable();
+    //       this.sweetAlertService.success('Successfully deleted folder');
+    //     }, error => {
+    //       this.sweetAlertService.error('Not able to delete folder');
+    //     });
+    //     this.myTree.render();
+    //   });
+    // }
   };
-  
+
+  GetFolderDataString(): string {
+    debugger
+    let myJSON = '';
+    // for ( let i = 0; i < this.myTree.getItems().length; i++) {
+    //   let item: jqwidgets.TreeItem = this.myTree.getItems()[i];
+    //   myJSON += myJSON.length > 0 ? ',' : '' + '{"id": "' + item.id +
+    //   '", "text": "' + element.label +
+    //   '", "parentid": "' + element.parentElement +
+    //    '"value": "' + element.value + '"}';
+    // }
+
+    return myJSON
+  }
+
   select(event: any): void {
       this.selectedNodeId = event.args.element.id;
       this.refreshDataTable();
