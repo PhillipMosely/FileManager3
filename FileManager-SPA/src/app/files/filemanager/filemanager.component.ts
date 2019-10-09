@@ -10,6 +10,8 @@ import { ModalService } from 'app/_services/modal.service';
 import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { APIFile } from '../../_models/file';
+import { User } from '../../_models/user';
+import { UserComponent } from 'app/userpage/user.component';
 
 
 @Component({
@@ -79,7 +81,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-     this.fileManagerAdminService.getFMAdminForUserId(2)
+     const myUser: User = JSON.parse(localStorage.getItem('user'));
+     this.fileManagerAdminService.getFMAdminForUserId(myUser.id)
         .subscribe(
             (res: FileManagerAdmin) => {
                 this.fmAdmin = res;
