@@ -107,8 +107,11 @@ namespace FileManager.API.Controllers
             if (fmAdminToDelete == null)
                 return NotFound();
 
-            if (await _repo.Delete(fmAdminToDelete))
-                return Ok();
+            if (await _repo.DeleteFilesforFM(id)) 
+            {
+                if (await _repo.Delete(fmAdminToDelete))
+                    return Ok();
+            }
             
             throw new Exception($"File Manager Admin {id} failed on Delete");
         }          

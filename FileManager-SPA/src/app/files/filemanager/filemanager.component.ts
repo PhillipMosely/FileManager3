@@ -138,16 +138,27 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const selectedItem = this.myTree.getSelectedItem();
     if (selectedItem != null) {
        this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
-          const mySource = this.GetFolderDataString()
+          const mySourceTree = this.myTree;
           this.myTree.removeItem(selectedItem.element);
           this.fmAdmin.folderData = this.GetFolderDataString();
-          this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next => {
-            this.refreshDataTable();
-            this.sweetAlertService.success('Successfully deleted folder');
+          this.fileService.deleteFilesforFMNode(this.fmAdmin.id, +selectedItem.id).subscribe(next => {
+            this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next2 => {
+              this.refreshDataTable();
+              this.myTree.render();
+              this.sweetAlertService.success('Successfully deleted folder');
+
+            }, error2 => {
+              this.myTree = mySourceTree;
+              this.myTree.render();
+              this.sweetAlertService.error('Not able to delete folder');
+            });
+
           }, error => {
-            this.sweetAlertService.error('Not able to delete folder');
-          });
-          this.myTree.render();
+            this.myTree = mySourceTree;
+            this.sweetAlertService.error('Not able to delete files for folder');
+            this.myTree.render();
+          })
+
        });
     }
   };

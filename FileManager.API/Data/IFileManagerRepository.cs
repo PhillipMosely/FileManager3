@@ -28,6 +28,8 @@ namespace FileManager.API.Data
          Task<PagedList<File>> GetFiles(UserParams userParams, int fmAdminId, int nodeId);
          Task<File> AddFile(File file);
          Task<bool> FileExists(string filename, int fmadminid, int nodeid);
+         Task<bool> DeleteFilesforFMandNode(int fmAdminId, int nodeId);
+         Task<bool> DeleteFilesforFM(int fmAdminId);
 
          Task<Role> GetRole(int id);
          Task<PagedList<Role>> GetRoles(UserParams userParams);

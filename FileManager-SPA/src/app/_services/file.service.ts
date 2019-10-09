@@ -49,4 +49,11 @@ export class FileService {
     return this.http.post(this.baseUrl + 'files/', file)
   }
 
+  deleteFilesforFMNode(fmAdminId: number, nodeId: number) {
+    return this.http.delete(this.baseUrl + 'files/' + fmAdminId + '/' + nodeId);
+  }
+
+  // deleteFileforFM(fmAdminId: number, nodeId: number) {
+  //   return this.http.delete(this.baseUrl + 'files/' + fmAdminId + '/' + nodeId);
+  // }
 }

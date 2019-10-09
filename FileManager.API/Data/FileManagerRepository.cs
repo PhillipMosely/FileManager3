@@ -73,6 +73,31 @@ namespace FileManager.API.Data
                 return true;
             return false;
         }        
+
+        public async Task<bool> DeleteFilesforFMandNode(int fmAdminId, int nodeId)
+        {
+            var files = _context.Files
+                .Where(u => u.FileManagerAdminId == fmAdminId && u.NodeId == nodeId);
+            
+            foreach(File myFile in files)
+            {
+                _context.Remove(myFile);
+            }
+            await _context.SaveChangesAsync();     
+            return true;          
+        }
+        public async Task<bool> DeleteFilesforFM(int fmAdminId)
+        {
+            var files = _context.Files
+                .Where(u => u.FileManagerAdminId == fmAdminId);
+            
+            foreach(File myFile in files)
+            {
+                _context.Remove(myFile);
+            }
+            await _context.SaveChangesAsync();     
+            return true;          
+        }
         public async Task<Role> GetRole(int id)
         {
             var Role = await _context.Roles.FirstOrDefaultAsync(p => p.Id == id);
@@ -165,5 +190,6 @@ namespace FileManager.API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-      }
+
+    }
 }

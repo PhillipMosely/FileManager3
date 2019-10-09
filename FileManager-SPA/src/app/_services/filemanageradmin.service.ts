@@ -42,8 +42,10 @@ export class FileManagerAdminService {
   getFMAdmin(id): Observable<FileManagerAdmin> {
     return this.http.get<FileManagerAdmin>(this.baseUrl + 'fmadmins/' + id);
   }
+
   updateFMAdmin(id: number, fmAdmin: FileManagerAdmin) {
     return this.http.put(this.baseUrl + 'fmadmins/' + id, fmAdmin);
   }
+
 
 }

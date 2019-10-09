@@ -147,5 +147,42 @@ namespace FileManager.API.Controllers
             }
             throw new Exception($"Could not delete File {id}");
         }
+
+        [HttpDelete("{fmAdminId}/{nodeId}", Name="DeleteFilesforFMNode")]
+        public async Task<IActionResult> DeleteFilesforFMNode(int fmAdminId, int nodeId)
+        {
+            bool DeletedOk = true;
+            var myParams = new UserParams();
+            myParams.PageNumber = 0;
+            myParams.PageSize = 999999;
+            var filestoDelete = await _repo.GetFiles(myParams,fmAdminId,nodeId);
+            if (filestoDelete == null)
+                return Ok();
+
+            foreach(Models.File file in filestoDelete)
+            {
+                if (!string.IsNullOrEmpty(file.StorageId)) 
+                {
+                    CloudBlockBlob blob = azureContainer.GetBlockBlobReference(file.StorageId);
+                    if (await _repo.Delete(file)) {
+                        await blob.DeleteIfExistsAsync();
+                    }
+                    else
+                        DeletedOk = false;
+                }
+                else
+                {
+                    if (await _repo.Delete(file)) {
+                    }
+                    else
+                        DeletedOk = false;
+                }
+            }
+            if (!DeletedOk)
+                throw new Exception($"Could not delete All Files");
+
+            return Ok();
+
+        }
     }
 }
