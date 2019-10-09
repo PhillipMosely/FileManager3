@@ -265,6 +265,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < buttons.length; i++) {
         fragment.appendChild(buttons[i]);
     }
+    // const buttonadd = '<button (click)="" class="btn btn-primary btn-link" style="padding: 0px; margin: 0px; border: none;"' +
+    //                   ' title="Add File"><i class="fa fa-plus"></i></button>';
+    // const element = document.createElement('button');
+    // element.innerHTML = buttonadd;
+    // element.addEventListener('click', () => {
+    //   window.dispatchEvent(new Event('custom-eventa'));
+    // });
+    // fragment.appendChild(element);
     container.appendChild(fragment);
     toolBar[0].appendChild(container);
     const addButtonOptions: jqwidgets.ButtonOptions = {
@@ -276,6 +284,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     // we use TypeScript way of creating widgets here
     this.myAddButton = jqwidgets.createInstance(buttons[0], 'jqxButton', addButtonOptions);
     this.myUpdateButton = jqwidgets.createInstance(buttons[1], 'jqxButton', otherButtonsOptions);
+
+
     const addTooltopOptions: jqwidgets.TooltipOptions = {
             position: 'bottom', content: 'Add'
         }
