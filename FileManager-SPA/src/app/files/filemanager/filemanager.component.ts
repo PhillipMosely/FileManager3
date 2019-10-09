@@ -133,6 +133,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   };
 
+  myTreeRemoveOnClick(): void {
+    const selectedItem = this.myTree.getSelectedItem();
+    if (selectedItem != null) {
+        this.myTree.removeItem(selectedItem.element);
+        this.myTree.render();
+    }
+  };
+  
   select(event: any): void {
       this.selectedNodeId = event.args.element.id;
       this.refreshDataTable();

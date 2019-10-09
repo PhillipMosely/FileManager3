@@ -5,7 +5,12 @@
       <div class="card-body">
         <jqxSplitter #splitter  style="border: none;"
           [width]="'100%'" [height]="600" [panels]="[{ size: 250}]">
+
           <div>
+            <div>
+                <button class="btn btn-primary btn-link" (click)="myTreeAddOnClick()"><i class="fa fa-plus"></i> Add Folder </button>
+                <button class="btn btn-warning btn-link" (click)="myTreeRemoveOnClick()"><i class="fa fa-remove"></i> Remove Folder </button>
+            </div>
             <jqxTree #myTree
             (onSelect)="select($event)"
             [width]="'100%'" [height]="'100%'" [source]="records" style="border: none;" >
