@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
-import { File } from '../../_models/file';
+import { APIFile } from '../../_models/file';
 import { environment } from '../../../environments/environment';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 
@@ -45,7 +45,7 @@ export class FileAddComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        const res: File = JSON.parse(response);
+        const res: APIFile = JSON.parse(response);
         const file = {
           fileName: res.fileName,
           fileManagerAdminId: res.fileManagerAdminId,

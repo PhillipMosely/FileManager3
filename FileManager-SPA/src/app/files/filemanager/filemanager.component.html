@@ -36,7 +36,7 @@
 <jw-modal id="fileviewmodal" class="col-lg-8 col-sm-4">
   <div class="card">
     <div class="card-body">
-      <app-fileview #myFileView ></app-fileview>
+      <app-fileview #myFileView [myFile]="this.myFileView" ></app-fileview>
       <button class="btn btn-primary btn-link" (click)="closeModal('fileviewmodal');">Close</button>
     </div>
   </div>      

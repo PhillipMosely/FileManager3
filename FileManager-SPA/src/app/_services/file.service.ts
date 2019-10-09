@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/Pagination';
 import { map } from 'rxjs/operators';
+import { APIFile } from '../_models/file';
 
 
 @Injectable({
@@ -13,8 +14,8 @@ export class FileService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
-  getFiles(fmAdminId: number, nodeId: number, page?, itemsPerPage?): Observable<PaginatedResult<File[]>> {
-    const paginatedResult: PaginatedResult<File[]> = new PaginatedResult<File[]>();
+  getFiles(fmAdminId: number, nodeId: number, page?, itemsPerPage?): Observable<PaginatedResult<APIFile[]>> {
+    const paginatedResult: PaginatedResult<APIFile[]> = new PaginatedResult<APIFile[]>();
 
     let params = new HttpParams();
     if (page != null && itemsPerPage != null) {
@@ -22,7 +23,7 @@ export class FileService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<File[]>(this.baseUrl + 'files/' + fmAdminId + '/' + nodeId, { observe: 'response', params})
+    return this.http.get<APIFile[]>(this.baseUrl + 'files/' + fmAdminId + '/' + nodeId, { observe: 'response', params})
       .pipe(
         map(response => {
           paginatedResult.result = response.body;
@@ -34,10 +35,10 @@ export class FileService {
       );
   }
 
-  getFile(id): Observable<File> {
-    return this.http.get<File>(this.baseUrl + 'files/' + id);
+  getFile(id): Observable<APIFile> {
+    return this.http.get<APIFile>(this.baseUrl + 'files/' + id);
   }
-  updateFile(id: number, file: File) {
+  updateFile(id: number, file: APIFile) {
     return this.http.put(this.baseUrl + 'files/' + id, file);
   }
   deleteFile(id: number) {

@@ -1,4 +1,4 @@
-export interface File {
+export interface APIFile {
     id: number;
     fileName: string;
     ext: string;

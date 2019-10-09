@@ -9,6 +9,7 @@ import { PaginatedResult } from 'app/_models/Pagination';
 import { ModalService } from 'app/_services/modal.service';
 import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
+import { APIFile } from '../../_models/file';
 
 
 @Component({
@@ -122,7 +123,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     // this.myFileAdd = new FileAddModule();
     if (this.fmAdmin != null) {
       this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 20 ).subscribe(
-          (res: PaginatedResult<File[]>) => {
+          (res: PaginatedResult<APIFile[]>) => {
               this.tableSource = {
                   dataType: 'json',
                   dataFields: [
@@ -181,7 +182,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('view', '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
-    this.openModal('fileviewmodal');
+    this.fileService.getFile(myDBId).subscribe(next => {
+      this.myFileView.myFile = next;
+      this.openModal('fileviewmodal');
+    }, error => {
+      this.sweetAlertService.error('Not able to view file');
+    })
+
   }
   @HostListener('window:custom-evente', ['$event']) onClicke() {
     let myId: string = (<string>event['detail'])

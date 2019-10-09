@@ -1,3 +1,20 @@
-<p>
-  fileview works! 
-</p>
+<div class="container mt-4">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <strong>File Name:</strong>
+            <p>{{myFile.fileName}}</p>
+          </div>
+          <div>
+            <strong>Date Created:</strong>
+            <p>{{myFile.dateCreated | date: 'mediumDate'}}</p>
+          </div>
+          <div>
+            <strong>URL:</strong>
+            <p>{{myFile.url}}</p>
+          </div>
+          <div></div>
+          <a href="{{myFile.url}}" target="new">Click to View the File</a>
+    </div>
+  </div>
+</div>

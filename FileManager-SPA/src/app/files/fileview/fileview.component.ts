@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { File } from '../../_models/file';
+import { APIFile } from '../../_models/file';
 
 @Component({
   selector: 'app-fileview',
@@ -7,9 +7,9 @@ import { File } from '../../_models/file';
   styleUrls: ['./fileview.component.css']
 })
 export class FileViewComponent implements OnInit {
-  @Input() myFile: File;
+  @Input() myFile: APIFile;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
