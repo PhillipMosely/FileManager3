@@ -29,7 +29,7 @@
   <div class="card">
     <div class="card-body">
       <app-fileadd #myFileAdd ></app-fileadd>
-      <button class="btn btn-primary btn-link" (click)="closeModal('fileaddmodal');">Close</button>
+      <button style="float:right;" class="btn btn-primary btn-link" (click)="closeModal('fileaddmodal');">Close</button>
     </div>
   </div>      
 </jw-modal>
@@ -37,7 +37,7 @@
   <div class="card">
     <div class="card-body">
       <app-fileview #myFileView [myFile]="this.myFileView" ></app-fileview>
-      <button class="btn btn-primary btn-link" (click)="closeModal('fileviewmodal');">Close</button>
+      <button style="float:right;" class="btn btn-primary btn-link" (click)="closeModal('fileviewmodal');">Close</button>
     </div>
   </div>      
 </jw-modal>

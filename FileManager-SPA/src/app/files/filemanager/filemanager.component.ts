@@ -39,11 +39,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const buttonview = '<button (click)=""  class="btn btn-primary btn-link btn-icon view rowview"' +
-                        ' title="View File Information"><i id="view' + row + '" class="fa fa-edit"></i></button>';
-        const buttonedit = '<button (click)=""  class="btn btn-primary btn-link btn-icon edit rowedit"' +
+        const buttonview = '<button (click)=""  class="btn btn-primary btn-link btn-icon rowview"' +
+                        ' title="View File Information"><i id="view' + row + '" class="fa fa-info"></i></button>';
+        const buttonedit = '<button (click)=""  class="btn btn-primary btn-link btn-icon rowedit"' +
                          ' title="Edit File"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
-        const buttondel = '<button (click)="" class="btn btn-warning btn-link btn-icon remove rowdelete"' +
+        const buttondel = '<button (click)="" class="btn btn-warning btn-link btn-icon rowdelete"' +
                          ' title="Delete File"><i id="del' + row + '" class="fa fa-times"></i></button>';
         const item = '<div>' + buttonview + buttonedit + buttondel + '</div>';
 
@@ -53,12 +53,12 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 400 },
-      { text: 'URL2', cellsAlign: 'left', align: 'left',  width: 400,
-      cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const item = '<div style="width: 400px; white-space: nowrap; overflow-x: scroll;">' + rowData.url + '</div>'
-        return item;
-      }}
+      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 810 }
+      // { text: 'URL2', cellsAlign: 'left', align: 'left',  width: 400,
+      // cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
+      //   const item = '<div style="width: 400px; white-space: nowrap; overflow-x: scroll;">' + rowData.url + '</div>'
+      //   return item;
+      // }}
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
