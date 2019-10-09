@@ -249,18 +249,21 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const fragment = document.createDocumentFragment();
     container.style.cssText = 'overflow: hidden; position: hidden; height: "100%"; width: "100%"'
     container.className = 'ToolbarButtonDiv';
-    const createButtons = (name: string, cssClass: string): any => {
+    const createButtons = (name: string, cssClass: string, myTitle: string, myTextContent: string): any => {
         this[name] = document.createElement('div');
-        this[name].style.cssText = 'padding: 3px; margin: 2px; float: left; border: none'
+        this[name].style.cssText = 'padding: 3px; margin: 2px; float: left; border: none;';
+        this[name].text = 'Add';
         const iconDiv = document.createElement('div');
         iconDiv.style.cssText = 'margin: 4px; width: 16px; height: 16px;'
         iconDiv.className = cssClass;
+        iconDiv.title = myTitle;
+        // iconDiv.textContent = myTextContent;
         this[name].appendChild(iconDiv);
         return this[name];
     }
     const buttons = [
-        createButtons('addButton', toTheme('jqx-icon-plus')),
-        createButtons('updateButton', toTheme('jqx-icon-save'))
+        createButtons('addButton', toTheme('jqx-icon-plus'), 'Upload File(s)', 'Upload'),
+        createButtons('updateButton', toTheme('jqx-icon-save'), 'Update File', 'Update')
     ];
     for (let i = 0; i < buttons.length; i++) {
         fragment.appendChild(buttons[i]);
@@ -284,7 +287,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     // we use TypeScript way of creating widgets here
     this.myAddButton = jqwidgets.createInstance(buttons[0], 'jqxButton', addButtonOptions);
     this.myUpdateButton = jqwidgets.createInstance(buttons[1], 'jqxButton', otherButtonsOptions);
-
 
     const addTooltopOptions: jqwidgets.TooltipOptions = {
             position: 'bottom', content: 'Add'
@@ -328,10 +330,12 @@ updateButtons(action: string): void {
           break;
   }
 };
+
 onRowSelect(event: any): void {
   this.rowIndex = event.args.index;
   this.updateButtons('Select');
 };
+
 onRowUnselect(event: any): void {
   this.updateButtons('Unselect');
 };
