@@ -177,14 +177,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   };
 
 
-  @HostListener('window:custom-eventv', ['$event', ]) onClickv() {
+  @HostListener('window:custom-eventv', ['$event']) onClickv() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('view', '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
     this.openModal('fileviewmodal');
-    this.sweetAlertService.message('clicked v');
   }
-  @HostListener('window:custom-evente', ['$event', ]) onClicke() {
+  @HostListener('window:custom-evente', ['$event']) onClicke() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('edit', '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];

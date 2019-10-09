@@ -25,18 +25,19 @@
 </div>
 </div>
 
-<jw-modal id="fileaddmodal" class="col-lg-6 col-sm-4">
+<jw-modal id="fileaddmodal" class="col-lg-8 col-sm-4">
   <div class="card">
     <div class="card-body">
       <app-fileadd #myFileAdd ></app-fileadd>
-      <button (click)="closeModal('fileaddmodal');">Close</button>
+      <button class="btn btn-primary btn-link" (click)="closeModal('fileaddmodal');">Close</button>
     </div>
   </div>      
 </jw-modal>
-<jw-modal id="fileviewmodal" class="col-lg-6 col-sm-4">
+<jw-modal id="fileviewmodal" class="col-lg-8 col-sm-4">
   <div class="card">
     <div class="card-body">
-      <button (click)="closeModal('fileviewmodal');">Close</button>
+      <!-- <app-fileview #myFileView ></app-fileview> -->
+      <button class="btn btn-primary btn-link" (click)="closeModal('fileviewmodal');">Close</button>
     </div>
   </div>      
 </jw-modal>

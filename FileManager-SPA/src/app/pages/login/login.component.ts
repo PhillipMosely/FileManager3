@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit{
 
     login() {
         this.authService.login(this.model).subscribe(next => {
-          this.sweetAlertService.success('logged in successfully');
         }, error => {
           this.sweetAlertService.error('not able to login');
         }, () => {
