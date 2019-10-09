@@ -25,6 +25,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
   @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
 
+  rowIndex: number;
+  myAddButton: jqwidgets.jqxButton;
+  myUpdateButton: jqwidgets.jqxButton;
+
   selectedNodeId = -1;
   data: any[];
   fmAdmin: FileManagerAdmin;
@@ -103,16 +107,17 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
       this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
-      const buttonadd = '<button (click)="" class="btn btn-success btn-round btn-icon btn-sm"' +
-                        ' style="position: relative; margin: 4px; float: right;"' +
-                        ' title="Add File"><i class="nc-icon nc-simple-add"></i></button>';
-      const addtoolbar = document.getElementsByClassName('jqx-grid-toolbar');
-      const element = document.createElement('button');
-      element.innerHTML = buttonadd;
-      element.addEventListener('click', () => {
-        window.dispatchEvent(new Event('custom-eventa'));
-      });
-      addtoolbar[0].parentElement.appendChild(element);
+      // const buttonadd = '<button (click)="" class="btn-sm btn-primary btn-round btn-icon"' +
+      //                   ' style="position: relative; margin: 4px; float: left;"' +
+      //                   ' title="Add File"><i class="nc-icon nc-simple-add"></i></button>Add File(s)';
+      // const addtoolbar = document.getElementsByClassName('jqx-grid-toolbar');
+      // const element = document.createElement('button');
+      // element.innerHTML = buttonadd;
+      // element.addEventListener('click', () => {
+      //   window.dispatchEvent(new Event('custom-eventa'));
+      // });
+      // const inputgroup = addtoolbar[1].getElementsByClassName('jqx-input-group');
+      // inputgroup[0].appendChild(element);
   }
   select(event: any): void {
       this.selectedNodeId = event.args.element.id;
@@ -122,7 +127,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   refreshDataTable() {
     // this.myFileAdd = new FileAddModule();
     if (this.fmAdmin != null) {
-      this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 20 ).subscribe(
+      this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 200 ).subscribe(
           (res: PaginatedResult<APIFile[]>) => {
               this.tableSource = {
                   dataType: 'json',
@@ -212,11 +217,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     });
 
   }
-  @HostListener('window:custom-eventa', ['$event']) onClicka() {
-    this.myFileAdd.nodeId = this.selectedNodeId;
-    this.myFileAdd.fmAdminId = this.fmAdmin.id;
-    this.openModal('fileaddmodal');
-  }
+  // @HostListener('window:custom-eventa', ['$event']) onClicka() {
+  //   this.myFileAdd.nodeId = this.selectedNodeId;
+  //   this.myFileAdd.fmAdminId = this.fmAdmin.id;
+  //   this.openModal('fileaddmodal');
+  // }
 
   openModal(id: string) {
     this.modalService.open(id);
@@ -225,4 +230,117 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   closeModal(id: string) {
     this.modalService.close(id);
   }
+
+  renderToolbar = (toolBar: any): void => {
+
+    if (!(document.getElementsByClassName('ToolbarButtonDiv').length === 0)) {
+      return;
+    }
+
+    const theme = jqx.theme;
+    const toTheme = (className: string): string => {
+        if (theme == '') return className;
+        return className + ' ' + className + '-' + theme;
+    }
+    // appends buttons to the status bar.
+    const container = document.createElement('div');
+    const fragment = document.createDocumentFragment();
+    container.style.cssText = 'overflow: hidden; position: hidden; height: "100%"; width: "100%"'
+    container.className = 'ToolbarButtonDiv';
+    const createButtons = (name: string, cssClass: string): any => {
+        this[name] = document.createElement('div');
+        this[name].style.cssText = 'padding: 3px; margin: 2px; float: left; border: none'
+        const iconDiv = document.createElement('div');
+        iconDiv.style.cssText = 'margin: 4px; width: 16px; height: 16px;'
+        iconDiv.className = cssClass;
+        this[name].appendChild(iconDiv);
+        return this[name];
+    }
+    const buttons = [
+        createButtons('addButton', toTheme('jqx-icon-plus')),
+        createButtons('updateButton', toTheme('jqx-icon-save'))
+    ];
+    for (let i = 0; i < buttons.length; i++) {
+        fragment.appendChild(buttons[i]);
+    }
+    container.appendChild(fragment);
+    toolBar[0].appendChild(container);
+    const addButtonOptions: jqwidgets.ButtonOptions =
+        {
+            height: 25, width: 25
+        }
+    const otherButtonsOptions: jqwidgets.ButtonOptions =
+        {
+            disabled: true, height: 25, width: 25
+        }
+    // we use TypeScript way of creating widgets here
+    this.myAddButton = jqwidgets.createInstance(buttons[0], 'jqxButton', addButtonOptions);
+    this.myUpdateButton = jqwidgets.createInstance(buttons[1], 'jqxButton', otherButtonsOptions);
+    const addTooltopOptions: jqwidgets.TooltipOptions =
+        {
+            position: 'bottom', content: 'Add'
+        }
+    const updateTooltopOptions: jqwidgets.TooltipOptions =
+        {
+            position: 'bottom', content: 'Save Changes'
+        }
+
+    const myAddToolTip: jqwidgets.jqxTooltip = jqwidgets.createInstance(buttons[0], 'jqxTooltip', addTooltopOptions);
+    const myUpdateToolTip: jqwidgets.jqxTooltip = jqwidgets.createInstance(buttons[1], 'jqxTooltip', updateTooltopOptions);
+    this.myAddButton.addEventHandler('click', (event: any) => {
+        if (!this.myAddButton.disabled) {
+            // // add new empty row.
+            // this.myDataTable.addRow(null, {}, 'first')
+            // // select the first row and clear the selection.
+            // this.myDataTable.clearSelection();
+            // this.myDataTable.selectRow(0);
+            // // edit the new row.
+            // this.myDataTable.beginRowEdit(0);
+            // this.updateButtons('add');
+            this.myFileAdd.nodeId = this.selectedNodeId;
+            this.myFileAdd.fmAdminId = this.fmAdmin.id;
+            this.openModal('fileaddmodal');
+        }
+    });
+    this.myUpdateButton.addEventHandler('click', (event: any) => {
+        if (!this.myUpdateButton.disabled) {
+            // save changes.
+            this.myDataTable.endRowEdit(this.rowIndex, false);
+        }
+    });
+};
+
+updateButtons(action: string): void {
+  switch (action) {
+      case 'Select':
+          this.myAddButton.setOptions({ disabled: false });
+          this.myUpdateButton.setOptions({ disabled: true });
+          break;
+      case 'Unselect':
+          this.myAddButton.setOptions({ disabled: false });
+          this.myUpdateButton.setOptions({ disabled: true });
+          break;
+      case 'Edit':
+          this.myAddButton.setOptions({ disabled: true });
+          this.myUpdateButton.setOptions({ disabled: false });
+          break;
+      case 'End Edit':
+          this.myAddButton.setOptions({ disabled: false });
+          this.myUpdateButton.setOptions({ disabled: true });
+          break;
+  }
+};
+onRowSelect(event: any): void {
+  this.rowIndex = event.args.index;
+  this.updateButtons('Select');
+};
+onRowUnselect(event: any): void {
+  this.updateButtons('Unselect');
+};
+onRowEndEdit(event: any): void {
+  this.updateButtons('End Edit');
+};
+onRowBeginEdit(event: any): void {
+  this.updateButtons('Edit');
+};
 }
