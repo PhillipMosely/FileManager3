@@ -28,9 +28,6 @@ import { FileService } from './_services/file.service';
 import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { FileAddModule } from './files/fileadd/fileadd.module';
-import { FileViewComponent } from './files/fileview/fileview.component';
-
-
 
 export function tokenGetter() {
     return localStorage.getItem('token');

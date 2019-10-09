@@ -11,7 +11,7 @@ import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
-import { UserComponent } from 'app/userpage/user.component';
+import { FolderNameComponent } from '../foldername/foldername.component';
 
 
 @Component({
@@ -26,6 +26,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('events', {static: false}) events: ElementRef;
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
   @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
+  @ViewChild('myFolderName', {static: false}) myFolderName: FolderNameComponent;
 
   rowIndex: number;
   myAddButton: jqwidgets.jqxButton;
@@ -111,7 +112,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-      //this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
+      // this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
 
       // const buttonadd = '<button (click)="" class="btn-sm btn-primary btn-round btn-icon"' +
       //                   ' style="position: relative; margin: 4px; float: left;"' +
