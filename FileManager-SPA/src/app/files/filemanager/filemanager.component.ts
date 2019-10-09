@@ -239,7 +239,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
     const theme = jqx.theme;
     const toTheme = (className: string): string => {
-        if (theme == '') return className;
+        if (theme === '') {
+          return className;
+        }
         return className + ' ' + className + '-' + theme;
     }
     // appends buttons to the status bar.
@@ -265,38 +267,24 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
     container.appendChild(fragment);
     toolBar[0].appendChild(container);
-    const addButtonOptions: jqwidgets.ButtonOptions =
-        {
+    const addButtonOptions: jqwidgets.ButtonOptions = {
             height: 25, width: 25
         }
-    const otherButtonsOptions: jqwidgets.ButtonOptions =
-        {
+    const otherButtonsOptions: jqwidgets.ButtonOptions = {
             disabled: true, height: 25, width: 25
         }
     // we use TypeScript way of creating widgets here
     this.myAddButton = jqwidgets.createInstance(buttons[0], 'jqxButton', addButtonOptions);
     this.myUpdateButton = jqwidgets.createInstance(buttons[1], 'jqxButton', otherButtonsOptions);
-    const addTooltopOptions: jqwidgets.TooltipOptions =
-        {
+    const addTooltopOptions: jqwidgets.TooltipOptions = {
             position: 'bottom', content: 'Add'
         }
-    const updateTooltopOptions: jqwidgets.TooltipOptions =
-        {
+    const updateTooltopOptions: jqwidgets.TooltipOptions = {
             position: 'bottom', content: 'Save Changes'
         }
 
-    const myAddToolTip: jqwidgets.jqxTooltip = jqwidgets.createInstance(buttons[0], 'jqxTooltip', addTooltopOptions);
-    const myUpdateToolTip: jqwidgets.jqxTooltip = jqwidgets.createInstance(buttons[1], 'jqxTooltip', updateTooltopOptions);
     this.myAddButton.addEventHandler('click', (event: any) => {
         if (!this.myAddButton.disabled) {
-            // // add new empty row.
-            // this.myDataTable.addRow(null, {}, 'first')
-            // // select the first row and clear the selection.
-            // this.myDataTable.clearSelection();
-            // this.myDataTable.selectRow(0);
-            // // edit the new row.
-            // this.myDataTable.beginRowEdit(0);
-            // this.updateButtons('add');
             this.myFileAdd.nodeId = this.selectedNodeId;
             this.myFileAdd.fmAdminId = this.fmAdmin.id;
             this.openModal('fileaddmodal');
