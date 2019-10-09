@@ -108,7 +108,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-      this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
+      //this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
+
       // const buttonadd = '<button (click)="" class="btn-sm btn-primary btn-round btn-icon"' +
       //                   ' style="position: relative; margin: 4px; float: left;"' +
       //                   ' title="Add File"><i class="nc-icon nc-simple-add"></i></button>Add File(s)';
@@ -127,38 +128,39 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (selectedItem != null) {
         this.myTree.addTo({ label: 'Item' }, selectedItem.element);
         this.myTree.render();
-    }  
+    }
   };
 
   myTreeRemoveOnClick(): void {
-    // const selectedItem = this.myTree.getSelectedItem();
-    // if (selectedItem != null) {
-    //   this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
-    //     const mySource = this.GetFolderDataString()
-    //     this.myTree.removeItem(selectedItem.element);
-    //     this.fmAdmin.folderData = this.GetFolderDataString();
-    //     this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next => {
-    //       this.refreshDataTable();
-    //       this.sweetAlertService.success('Successfully deleted folder');
-    //     }, error => {
-    //       this.sweetAlertService.error('Not able to delete folder');
-    //     });
-    //     this.myTree.render();
-    //   });
-    // }
+    const selectedItem = this.myTree.getSelectedItem();
+    if (selectedItem != null) {
+       this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
+          const mySource = this.GetFolderDataString()
+          this.myTree.removeItem(selectedItem.element);
+          this.fmAdmin.folderData = this.GetFolderDataString();
+          this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next => {
+            this.refreshDataTable();
+            this.sweetAlertService.success('Successfully deleted folder');
+          }, error => {
+            this.sweetAlertService.error('Not able to delete folder');
+          });
+          this.myTree.render();
+       });
+    }
   };
 
   GetFolderDataString(): string {
-    debugger
     let myJSON = '';
-    // for ( let i = 0; i < this.myTree.getItems().length; i++) {
-    //   let item: jqwidgets.TreeItem = this.myTree.getItems()[i];
-    //   myJSON += myJSON.length > 0 ? ',' : '' + '{"id": "' + item.id +
-    //   '", "text": "' + element.label +
-    //   '", "parentid": "' + element.parentElement +
-    //    '"value": "' + element.value + '"}';
-    // }
-
+    for ( let i = 0; i < this.myTree.getItems().length; i++) {
+      const item: jqwidgets.TreeItem = this.myTree.getItems()[i];
+      if (item.id !== '0') {
+        myJSON += (myJSON.length > 0 ? ',' : '[') + '{"id": "' + item.id +
+        '", "text": "' + item.label +
+        '", "parentid": "' + item.parentId +
+        '", "value": "' + item.value + '"}';
+      }
+      myJSON += ']';
+    }
     return myJSON
   }
 
