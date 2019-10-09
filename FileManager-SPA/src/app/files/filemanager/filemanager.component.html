@@ -6,9 +6,9 @@
         <jqxSplitter #splitter  style="border: none;"
           [width]="'100%'" [height]="600" [panels]="[{ size: 250}]">
           <div>
-            <jqxTree style="border: none;" #myTree
+            <jqxTree #myTree
             (onSelect)="select($event)"
-            [width]="'100%'" [height]="'100%'" [source]="records">
+            [width]="'100%'" [height]="'100%'" [source]="records" style="border: none;" >
             </jqxTree>
           </div>
           <div #ContentPanel  >

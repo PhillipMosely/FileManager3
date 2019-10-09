@@ -84,6 +84,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
             (res: FileManagerAdmin) => {
                 this.fmAdmin = res;
                 this.data  = JSON.parse(this.fmAdmin.folderData);
+                this.data.push({ 'id': '0', 'parentid': '-1', 'text': this.fmAdmin.subFolderName, 'value': ''  });
                 this.source = {
                     datatype: 'json',
                     datafields: [
@@ -98,6 +99,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                   this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
                   this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
                   this.myTree.source(this.records);
+                  this.myTree.expandItem(document.getElementById('0'));                  
                   this.myTree.refresh();
             }, error => {
                 this.sweetAlertService.error('Could not load FM admin');
@@ -119,6 +121,18 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       // const inputgroup = addtoolbar[1].getElementsByClassName('jqx-input-group');
       // inputgroup[0].appendChild(element);
   }
+
+  myTreeAddOnClick(): void {
+    const selectedItem = this.myTree.getSelectedItem();
+    if (selectedItem != null) {
+        this.myTree.addTo({ label: 'Item' }, selectedItem.element);
+        this.myTree.render();
+    } else {
+        this.myTree.addTo({ label: 'Item' }, null);
+        this.myTree.render();
+    }
+  };
+
   select(event: any): void {
       this.selectedNodeId = event.args.element.id;
       this.refreshDataTable();
