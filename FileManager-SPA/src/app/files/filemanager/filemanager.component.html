@@ -18,8 +18,6 @@
           </div>
           <div #ContentPanel  >
               <jqxDataTable #myDataTable [autoRowHeight]="false"
-                (onRowSelect)="onRowSelect($event)"  (onRowUnselect)="onRowUnselect($event)"
-                (onRowEndEdit)="onRowEndEdit($event)"  (onRowBeginEdit)="onRowBeginEdit($event)"
                 [width]="getTableWidth()" [height]="'100%'" [source]="tableDataAdaptor" [columns]="tableColumns"
                 [pageable]="true" [altRows]="true" [filterable]="true" [rendered]="renderedRowButtons" 
                 [showToolbar]="true" [toolbarHeight]="35" [renderToolbar]="renderToolbar"

@@ -265,11 +265,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     });
 
   }
-  // @HostListener('window:custom-eventa', ['$event']) onClicka() {
-  //   this.myFileAdd.nodeId = this.selectedNodeId;
-  //   this.myFileAdd.fmAdminId = this.fmAdmin.id;
-  //   this.openModal('fileaddmodal');
-  // }
 
   openModal(id: string) {
     this.modalService.open(id);
@@ -277,6 +272,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
+    if (id === 'fileaddmodal') {
+      this.refreshDataTable();
+    }
   }
 
   renderToolbar = (toolBar: any): void => {
@@ -358,39 +356,4 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     });
 };
 
-updateButtons(action: string): void {
-  switch (action) {
-      case 'Select':
-          this.myAddButton.setOptions({ disabled: false });
-          this.myUpdateButton.setOptions({ disabled: true });
-          break;
-      case 'Unselect':
-          this.myAddButton.setOptions({ disabled: false });
-          this.myUpdateButton.setOptions({ disabled: true });
-          break;
-      case 'Edit':
-          this.myAddButton.setOptions({ disabled: true });
-          this.myUpdateButton.setOptions({ disabled: false });
-          break;
-      case 'End Edit':
-          this.myAddButton.setOptions({ disabled: false });
-          this.myUpdateButton.setOptions({ disabled: true });
-          break;
-  }
-};
-
-onRowSelect(event: any): void {
-  this.rowIndex = event.args.index;
-  this.updateButtons('Select');
-};
-
-onRowUnselect(event: any): void {
-  this.updateButtons('Unselect');
-};
-onRowEndEdit(event: any): void {
-  this.updateButtons('End Edit');
-};
-onRowBeginEdit(event: any): void {
-  this.updateButtons('Edit');
-};
 }
