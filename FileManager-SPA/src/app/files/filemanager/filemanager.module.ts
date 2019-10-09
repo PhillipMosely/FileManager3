@@ -14,7 +14,8 @@ import { FilemanagerRoutes } from './filemanager.routing';
 import { FilemanagerComponent } from './filemanager.component';
 import { ModalModule } from 'app/components/modal/modal.module';
 import { FileAddModule } from '../fileadd/fileadd.module';
-import { FileViewModule } from '../fileview/fileview.module';
+import { FileViewComponent } from '../fileview/fileview.component';
+
 
 
 @NgModule({
@@ -28,12 +29,12 @@ import { FileViewModule } from '../fileview/fileview.module';
     jqxButtonModule,
     ModalModule,
     FileAddModule,
-    FileViewModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
 ],
-declarations: [FilemanagerComponent],
+declarations: [FilemanagerComponent,
+  FileViewComponent],
 schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FilemanagerModule { }

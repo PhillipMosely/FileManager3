@@ -8,7 +8,7 @@ import { FileService } from 'app/_services/file.service';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { ModalService } from 'app/_services/modal.service';
 import { FileAddModule } from '../fileadd/fileadd.module';
-import { FileViewModule } from '../fileview/fileview.module';
+import { FileViewComponent } from '../fileview/fileview.component';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('events', {static: false}) events: ElementRef;
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
-  @ViewChild('myFileView', {static: false}) myFileView: FileViewModule;
+  @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
 
   selectedNodeId = -1;
   data: any[];
