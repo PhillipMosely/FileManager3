@@ -348,6 +348,35 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   }
 
+  myFilterSelectonChange(): void {
+    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
+    const myFilterCondition = <any>document.getElementsByClassName('myFilterCondition');
+    if (!(myFilterSelect[0] === null)) {
+      const mySelect = <any>myFilterSelect[0];
+      const myFilterField = mySelect[mySelect.selectedIndex].text;
+      switch ( myFilterField ) {
+        case 'File Name':
+        case 'Ext':
+        case 'URL': {
+          myFilterCondition[0].innerText = 'Contains'
+          break;
+        }
+        case 'Size (kb)': {
+          myFilterCondition[0].innerText = 'Larger Than';
+          break;
+        }
+        case 'Date Modified': {
+          myFilterCondition[0].innerText = 'Later Than';
+          break;
+        }
+        default: {
+          myFilterCondition[0].innerText = 'Contains'
+          break;
+        }
+      }
+    }
+  }
+
   applyTableFilter(res: PaginatedResult<APIFile[]>): PaginatedResult<APIFile[]> {
     const myReturn: PaginatedResult<APIFile[]> = res;
     if (this.tableFilterTextInput) {
@@ -358,7 +387,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
               break;
             }
             case 'Size (kb)': {
-              myReturn.result = myReturn.result.filter(x => x.size > +(filterItem.filterText) / 1000);
+              myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
               break;
             }
             case 'Ext': {
@@ -367,6 +396,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
             }
             case 'URL': {
               myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              break;
+            }
+            case 'Date Modified': {
+              // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
               break;
             }
             default: {

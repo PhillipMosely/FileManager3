@@ -22,8 +22,9 @@
                 <button class="btn btn-primary btn-link" (click)="myTableAddOnClick()" title="Add Files for selected folder"><i class="fa fa-plus"></i> Add Files</button>
                 <span style="padding-left: 40px;" class="myFilterSpan"> 
                   Filter:
-                  <select class="myFilterSelect">
+                  <select class="myFilterSelect" (change)="myFilterSelectonChange()">
                   </select>
+                  <span style="padding-left: 10px; padding-right: 10px;" class="myFilterCondition" >Contains</span> 
                   <input type="text" name="tableFilterTextInput" [(ngModel)]="tableFilterTextInput" style="width: 250px;" >
                   <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
                   <button class="btn btn-warning btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
