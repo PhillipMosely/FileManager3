@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <jqxSplitter #splitter  style="border: none;"
-          [width]="'100%'" [height]="600" [panels]="[{ size: 300}]">
+          [width]="'100%'" [height]="600" [panels]="[{ size: 250}]">
 
           <div>
             <div>
@@ -18,11 +18,15 @@
             </jqxTree>
           </div>
           <div #ContentPanel  >
+            <div>
+                <button class="btn btn-primary btn-link" (click)="myTableAddOnClick()" title="Add Files for selected folder"><i class="fa fa-plus"></i> Add Files</button>
+                <select #myFilterColumn>
+                </select>
+            </div>
               <jqxDataTable #myDataTable [autoRowHeight]="false"
                 [width]="getTableWidth()" [height]="'100%'" [source]="tableDataAdaptor" [columns]="tableColumns"
-                [pageable]="true" [altRows]="true" [filterable]="true" [rendered]="renderedRowButtons" 
-                [showToolbar]="true" [toolbarHeight]="35" [renderToolbar]="renderToolbar"
-                [pagerButtonsCount]="8" [sortable]="true" >
+                [pageable]="true" [altRows]="true" [rendered]="renderedRowButtons" 
+                [pagerButtonsCount]="8" [sortable]="true"  >
               </jqxDataTable>
           </div>
         </jqxSplitter>
