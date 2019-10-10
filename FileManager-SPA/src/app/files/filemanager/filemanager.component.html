@@ -20,8 +20,12 @@
           <div #ContentPanel  >
             <div>
                 <button class="btn btn-primary btn-link" (click)="myTableAddOnClick()" title="Add Files for selected folder"><i class="fa fa-plus"></i> Add Files</button>
-                <select #myFilterColumn>
-                </select>
+                <span style="padding-left: 40px;" class="myFilterSpan"> 
+                  Filter:
+                  <select class="myFilterSelect">
+                  </select>
+                </span>
+
             </div>
               <jqxDataTable #myDataTable [autoRowHeight]="false"
                 [width]="getTableWidth()" [height]="'100%'" [source]="tableDataAdaptor" [columns]="tableColumns"

@@ -112,19 +112,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-      // this.myTree.elementRef.nativeElement.firstChild.style.border = 'none';
-
-      // const buttonadd = '<button (click)="" class="btn-sm btn-primary btn-round btn-icon"' +
-      //                   ' style="position: relative; margin: 4px; float: left;"' +
-      //                   ' title="Add File"><i class="nc-icon nc-simple-add"></i></button>Add File(s)';
-      // const addtoolbar = document.getElementsByClassName('jqx-grid-toolbar');
-      // const element = document.createElement('button');
-      // element.innerHTML = buttonadd;
-      // element.addEventListener('click', () => {
-      //   window.dispatchEvent(new Event('custom-eventa'));
-      // });
-      // const inputgroup = addtoolbar[1].getElementsByClassName('jqx-input-group');
-      // inputgroup[0].appendChild(element);
+    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
+    this.tableColumns.forEach(element => {
+      if (element.text !== 'Actions') {
+        const item = document.createElement('option');
+        item.value = element.text;
+        item.text = element.text;
+        myFilterSelect[0].appendChild(item);
+      }
+    });
   }
 
   myTreeAddOnClick(): void {
