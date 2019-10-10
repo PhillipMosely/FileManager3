@@ -8,9 +8,9 @@
 
           <div>
             <div>
-                <button class="btn btn-primary btn-link" (click)="myTreeAddOnClick()" Text="Add New Folder"><i class="fa fa-plus"></i> Add</button>
-                <button class="btn btn-primary btn-link" (click)="myTreeUpdateOnClick()" Text="Update Selected Folder"><i class="fa fa-edit"></i> Update </button>
-                <button class="btn btn-warning btn-link" (click)="myTreeRemoveOnClick()" Text="Remove Selected Folder"><i class="fa fa-remove"></i> Remove </button>
+                <button class="btn btn-primary btn-link" (click)="myTreeAddOnClick()" title="Add New Folder"><i class="fa fa-plus"></i> Add</button>
+                <button class="btn btn-primary btn-link" (click)="myTreeUpdateOnClick()" title="Update Selected Folder"><i class="fa fa-edit"></i> Update </button>
+                <button class="btn btn-warning btn-link" (click)="myTreeRemoveOnClick()" title="Remove Selected Folder"><i class="fa fa-remove"></i> Remove </button>
             </div>
             <jqxTree #myTree
             (onSelect)="select($event)"
