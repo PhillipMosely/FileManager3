@@ -8,8 +8,9 @@
 
           <div>
             <div>
-                <button class="btn btn-primary btn-link" (click)="myTreeAddOnClick()"><i class="fa fa-plus"></i> Add Folder </button>
-                <button class="btn btn-warning btn-link" (click)="myTreeRemoveOnClick()"><i class="fa fa-remove"></i> Remove Folder </button>
+                <button class="btn btn-primary btn-link" (click)="myTreeAddOnClick()" Text="Add New Folder"><i class="fa fa-plus"></i> Add</button>
+                <button class="btn btn-primary btn-link" (click)="myTreeUpdateOnClick()" Text="Update Selected Folder"><i class="fa fa-edit"></i> Update </button>
+                <button class="btn btn-warning btn-link" (click)="myTreeRemoveOnClick()" Text="Remove Selected Folder"><i class="fa fa-remove"></i> Remove </button>
             </div>
             <jqxTree #myTree
             (onSelect)="select($event)"
@@ -51,8 +52,8 @@
     <div class="card">
       <div class="card-body">
         <app-foldername #myFolderName [folder]=""></app-foldername>
-        <button style="float:right;" class="btn btn-primary btn-link" (click)="myTreeAddFinish(true);">Save</button>
-        <button style="float:right;" class="btn btn-primary btn-link" (click)="myTreeAddFinish(false);">Cancel</button>
+        <button style="float:right;" class="btn btn-primary btn-link" (click)="myTreeAddUpdateFinish(true);">Save</button>
+        <button style="float:right;" class="btn btn-primary btn-link" (click)="myTreeAddUpdateFinish(false);">Cancel</button>
       </div>
     </div>      
 </jw-modal>

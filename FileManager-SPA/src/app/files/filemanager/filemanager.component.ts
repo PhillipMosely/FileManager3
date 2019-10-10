@@ -132,18 +132,33 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (selectedItem != null) {
         this.myFolderName.id =  this.GetNewNodeId().toString();
         this.myFolderName.folder = 'New Folder';
+        this.myFolderName.addMode = true;
         this.openModal('foldernamemodal');
     }
   };
 
-  myTreeAddFinish(update: boolean): void {
-    if ( !update ) {
+  myTreeUpdateOnClick(): void {
+    const selectedItem = this.myTree.getSelectedItem();
+    if (selectedItem != null) {
+        this.myFolderName.id =  selectedItem.id;
+        this.myFolderName.folder = selectedItem.label;
+        this.myFolderName.addMode = false;
+        this.openModal('foldernamemodal');
+    }
+  };
+
+  myTreeAddUpdateFinish(updated: boolean): void {
+    if ( !updated ) {
       this.closeModal('foldernamemodal')
       return;
     }
     const mySourceTree = this.myTree;
     const selectedItem = this.myTree.getSelectedItem();
-    this.myTree.addTo({ label: this.myFolderName.folder, id: this.myFolderName.id }, selectedItem.element);
+    if (this.myFolderName.addMode) {
+      this.myTree.addTo({ label: this.myFolderName.folder, id: this.myFolderName.id }, selectedItem.element);
+    } else {
+      this.myTree.updateItem({label: this.myFolderName.folder}, selectedItem.element);
+    }
     this.fmAdmin.folderData = this.GetFolderDataString();
     this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next2 => {
       this.sweetAlertService.success('Successfully added folder');
@@ -156,6 +171,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       this.myTree.render();
     });
   }
+
+
 
   myTreeRemoveOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();

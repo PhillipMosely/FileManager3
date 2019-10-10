@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class FolderNameComponent implements OnInit {
   @Input() folder: string;
   @Input() id: string;
+  @Input() addMode: boolean;
   constructor() { }
 
   ngOnInit() {
