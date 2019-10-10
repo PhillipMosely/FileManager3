@@ -100,7 +100,7 @@ namespace FileManager.API.Controllers
                 fileForAddDto.FileName = myFile.FileName;
                 fileForAddDto.Ext = Path.GetExtension(myFile.FileName);
                 fileForAddDto.Size = myFile.Length;
-                string myGuid = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Replace("=","");
+                string myGuid = Guid.NewGuid().ToString();
                 string _imageName = myGuid + "-" + Path.GetExtension(myFile.FileName);
                 CloudBlockBlob blob = azureContainer.GetBlockBlobReference(_imageName);
                 blob.Properties.ContentType = myFile.ContentType;
