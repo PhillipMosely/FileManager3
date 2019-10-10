@@ -1,11 +1,11 @@
 <div class="container mt-2 ">
-  <div class="text-center ">
+  <div class="text-center" style="font-size: 1.5em;" >
     <strong>{{myTitle}}</strong>
   </div>
   <div class="row mt-4">
     <div class="column">
       <div *ngFor="let item of myFields" >  
-        <label for="{{item.field}}">Folder: </label>
+        <label for="{{item.field}}">{{item.field}}: </label>
         <input class="ml-2" type="text" name="{{item.field}}" [(ngModel)]="item.value" size="{{item.size}}" >
       </div>
     </div>
