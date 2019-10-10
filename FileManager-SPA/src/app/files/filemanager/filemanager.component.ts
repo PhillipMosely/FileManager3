@@ -11,7 +11,6 @@ import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
-import { FolderNameComponent } from '../foldername/foldername.component';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 
 
@@ -27,7 +26,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('events', {static: false}) events: ElementRef;
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
   @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
-  @ViewChild('myFolderName', {static: false}) myFolderName: FolderNameComponent;
   @ViewChild('myFieldUpdate', {static: false}) myFieldUpdate: FieldUpdateComponent;
 
   selectedNodeId = -1;
@@ -121,34 +119,32 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   myTreeAddOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();
     if (selectedItem != null) {
-        this.myFolderName.id =  this.GetNewNodeId().toString();
-        this.myFolderName.folder = 'New Folder';
-        this.myFolderName.addMode = true;
-        this.openModal('foldernamemodal');
+        this.myFieldUpdate.myId = this.GetNewNodeId();
+        this.myFieldUpdate.myTitle = 'New Folder';
+        this.myFieldUpdate.myType = 'New Folder';
+        this.myFieldUpdate.myFields = [{field: 'Folder Name', value: 'New Folder', size: 50, type: 'Text'}];
+        this.openModal('fieldupdatemodal');
     }
   };
 
   myTreeUpdateOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();
     if (selectedItem != null) {
-        this.myFolderName.id =  selectedItem.id;
-        this.myFolderName.folder = selectedItem.label;
-        this.myFolderName.addMode = false;
-        this.openModal('foldernamemodal');
+        this.myFieldUpdate.myId = +selectedItem.id;
+        this.myFieldUpdate.myTitle = 'Update Folder Name';
+        this.myFieldUpdate.myType = 'Update Folder Name';
+        this.myFieldUpdate.myFields = [{field: 'Folder Name', value: selectedItem.label, size: 50, type: 'Text'}];
+        this.openModal('fieldupdatemodal');
     }
   };
 
-  myTreeAddUpdateFinish(updated: boolean): void {
-    if ( !updated ) {
-      this.closeModal('foldernamemodal')
-      return;
-    }
+  myTreeAddUpdateFinish(): void {
     const mySourceTree = this.myTree;
     const selectedItem = this.myTree.getSelectedItem();
-    if (this.myFolderName.addMode) {
-      this.myTree.addTo({ label: this.myFolderName.folder, id: this.myFolderName.id }, selectedItem.element);
+    if (this.myFieldUpdate.myType === 'New Folder') {
+      this.myTree.addTo({ label: this.myFieldUpdate.myFields[0].value, id: this.myFieldUpdate.myId }, selectedItem.element);
     } else {
-      this.myTree.updateItem({label: this.myFolderName.folder}, selectedItem.element);
+      this.myTree.updateItem({label: this.myFieldUpdate.myFields[0].value}, selectedItem.element);
     }
     this.fmAdmin.folderData = this.GetFolderDataString();
     this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next2 => {
@@ -157,7 +153,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       this.myTree = mySourceTree;
       this.sweetAlertService.error('Not able to add folder');
     }, () => {
-      this.closeModal('foldernamemodal')
+      this.closeModal('fieldupdatemodal')
       this.refreshDataTable();
       this.myTree.render();
     });
@@ -302,7 +298,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const myExt: string = this.myDataTable.getRows()[myId]['ext'];
     myFileName = myFileName.replace(myExt, '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
-    this.myFieldUpdate.myDdId = myDBId;
+    this.myFieldUpdate.myId = myDBId;
     this.myFieldUpdate.myTitle = 'File Name Update';
     this.myFieldUpdate.myType = 'File Name Update';
     this.myFieldUpdate.myFields = [{field: 'File Name', value: myFileName, size: 50, type: 'Text'}];
@@ -442,9 +438,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     switch ( this.myFieldUpdate.myType ) {
       case 'File Name Update': {
         this.closeModal('fieldupdatemodal');
-        this.fileService.getFile(this.myFieldUpdate.myDdId).subscribe(next => {
+        this.fileService.getFile(this.myFieldUpdate.myId).subscribe(next => {
           next.fileName = this.myFieldUpdate.myFields[0].value + next.ext;
-          this.fileService.updateFile(this.myFieldUpdate.myDdId, next).subscribe(next2 => {
+          this.fileService.updateFile(this.myFieldUpdate.myId, next).subscribe(next2 => {
             this.refreshDataTable();
             this.sweetAlertService.message('File name updated successfully');
           }, error => {
@@ -453,6 +449,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         }, error => {
           this.sweetAlertService.error('Not able to update file name');
         })
+        break;
+      }
+      case 'Update Folder Name':
+      case 'New Folder': {
+        this.myTreeAddUpdateFinish();
         break;
       }
       default: {

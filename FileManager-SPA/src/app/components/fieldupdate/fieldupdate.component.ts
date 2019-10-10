@@ -7,7 +7,7 @@ import { Field } from 'app/_models/field';
   styleUrls: ['./fieldupdate.component.css']
 })
 export class FieldUpdateComponent implements OnInit {
-  @Input() myDdId: number;
+  @Input() myId: number;
   @Input() myType: string;
   @Input() myTitle: string;
   @Input() myFields: Field[]; // Field,Value,Type,Width

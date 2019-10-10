@@ -15,7 +15,6 @@ import { FilemanagerComponent } from './filemanager.component';
 import { ModalModule } from 'app/components/modal/modal.module';
 import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
-import { FolderNameComponent } from '../foldername/foldername.component';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 
 
@@ -37,7 +36,6 @@ import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.com
 ],
 declarations: [FilemanagerComponent,
   FileViewComponent,
-  FolderNameComponent,
   FieldUpdateComponent],
 schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
