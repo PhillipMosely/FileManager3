@@ -34,7 +34,7 @@ export class FileAddComponent implements OnInit {
       url: this.baseUrl + 'files/' + this.fmAdminId + '/' + this.nodeId,
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
-      allowedFileType: ['image'],
+      allowedFileType: ['image', 'pdf', 'compress', 'doc', 'xls', 'ppt', 'psd', 'txt', 'xlsx'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024,
