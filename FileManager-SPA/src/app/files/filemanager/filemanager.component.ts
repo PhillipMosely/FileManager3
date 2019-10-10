@@ -28,10 +28,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
   @ViewChild('myFolderName', {static: false}) myFolderName: FolderNameComponent;
 
-  rowIndex: number;
-  myAddButton: jqwidgets.jqxButton;
-  myUpdateButton: jqwidgets.jqxButton;
-
   selectedNodeId = -1;
   data: any[];
   fmAdmin: FileManagerAdmin;
@@ -39,6 +35,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   dataAdapter: any;
   records: any;
 
+  tableFilterTextInput = '';
+  tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
   tableDataAdaptor: any;
@@ -233,6 +231,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (this.fmAdmin != null) {
       this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 200 ).subscribe(
           (res: PaginatedResult<APIFile[]>) => {
+              res = this.applyTableFilter(res);
               this.tableSource = {
                   dataType: 'json',
                   dataFields: [
@@ -333,8 +332,53 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   }
 
-  myTableFilter(): void {
+  myTableFilterOnClick(clear: boolean): void {
+    if (clear) {
+        this.tableFilterTextInput = '';
+        this.tableFilterQuery = [];
+        this.refreshDataTable();
+    } else {
+      const myFilterSelect = document.getElementsByClassName('myFilterSelect');
+      if (!(myFilterSelect[0] === null)) {
+        const mySelect = <any>myFilterSelect[0];
+        const myFilterField = mySelect[mySelect.selectedIndex].text;
+        this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
+        this.refreshDataTable();
+      }
+    }
+  }
 
+  applyTableFilter(res: PaginatedResult<APIFile[]>): PaginatedResult<APIFile[]> {
+    const myReturn: PaginatedResult<APIFile[]> = res;
+    if (this.tableFilterTextInput) {
+      this.tableFilterQuery.forEach(filterItem => {
+          switch ( filterItem.field ) {
+            case 'File Name': {
+              myReturn.result = myReturn.result.filter(x => x.fileName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              break;
+            }
+            case 'Size (kb)': {
+              myReturn.result = myReturn.result.filter(x => x.size > +(filterItem.filterText) / 1000);
+              break;
+            }
+            case 'Ext': {
+              myReturn.result = myReturn.result.filter(x => x.ext.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              break;
+            }
+            case 'URL': {
+              myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              break;
+            }
+            default: {
+              this.tableFilterTextInput = '';
+              this.tableFilterQuery = [];
+              break;
+            }
+        }
+      });
+    };
+
+    return myReturn;
   }
 
   openModal(id: string) {
