@@ -69,3 +69,12 @@
       </div>
     </div>      
 </jw-modal>
+<jw-modal id="fieldupdatemodal" class="col-lg-8 col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <app-fieldupdate #myFieldUpdate></app-fieldupdate>
+        <button style="float:right;" class="btn btn-primary btn-link" (click)="myFieldUpdateFinish(true);">Save</button>
+        <button style="float:right;" class="btn btn-primary btn-link" (click)="myFieldUpdateFinish(false);">Cancel</button>
+      </div>
+    </div>      
+</jw-modal>

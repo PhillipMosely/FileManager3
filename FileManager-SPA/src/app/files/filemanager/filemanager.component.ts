@@ -12,6 +12,7 @@ import { FileViewComponent } from '../fileview/fileview.component';
 import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
 import { FolderNameComponent } from '../foldername/foldername.component';
+import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
   @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
   @ViewChild('myFolderName', {static: false}) myFolderName: FolderNameComponent;
+  @ViewChild('myFieldUpdate', {static: false}) myFieldUpdate: FieldUpdateComponent;
 
   selectedNodeId = -1;
   data: any[];
@@ -59,11 +61,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
       { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
       { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 700 }
-      // { text: 'URL2', cellsAlign: 'left', align: 'left',  width: 400,
-      // cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-      //   const item = '<div style="width: 400px; white-space: nowrap; overflow-x: scroll;">' + rowData.url + '</div>'
-      //   return item;
-      // }}
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -301,10 +298,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @HostListener('window:custom-evente', ['$event']) onClicke() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('edit', '');
+    const myfilename: string = this.myDataTable.getRows()[myId]['fileName'];
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
-
-    this.sweetAlertService.message('clicked e');
+    this.myFieldUpdate.myDdId = myDBId;
+    this.myFieldUpdate.myTitle = 'File Name Update';
+    this.myFieldUpdate.myType = 'File Name Update';
+    this.myFieldUpdate.myFields = [{field: 'File Name', value: myfilename, width: 300, type: 'Text'}];
+    this.openModal('fieldupdatemodal');
   }
+
   @HostListener('window:custom-eventd', ['$event']) onClickd() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('del', '');
@@ -365,7 +367,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
           myFilterCondition[0].innerText = 'Larger Than';
           break;
         }
-        case 'Date Modified': {
+        case 'Date Modified':
+        case 'Date Created': {
           myFilterCondition[0].innerText = 'Later Than';
           break;
         }
@@ -402,6 +405,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
               // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
               break;
             }
+            case 'Date Created': {
+              // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              break;
+            }
             default: {
               this.tableFilterTextInput = '';
               this.tableFilterQuery = [];
@@ -423,5 +430,32 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (id === 'fileaddmodal') {
       this.refreshDataTable();
     }
+  }
+
+  myFieldUpdateFinish(updated: boolean) {
+    if ( !updated ) {
+      this.closeModal('fieldupdatemodal')
+      return;
+    }
+
+    switch ( this.myFieldUpdate.myType ) {
+      case 'File Name Update': {
+        this.fileService.getFile(this.myFieldUpdate.myDdId).subscribe(next => {
+          next.fileName = this.myFieldUpdate.myFields[0].value;
+          this.fileService.updateFile(this.myFieldUpdate.myDdId, next).subscribe(next2 => {
+            this.sweetAlertService.message('File name updated successfully');
+          }, error => {
+            this.sweetAlertService.error('Not able to update file name');
+          })
+        }, error => {
+          this.sweetAlertService.error('Not able to update file name');
+        })
+        break;
+      }
+      default: {
+        break;
+      }
+  }
+
   }
 }
