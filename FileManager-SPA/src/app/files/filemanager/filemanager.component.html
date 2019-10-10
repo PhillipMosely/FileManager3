@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <jqxSplitter #splitter  style="border: none;"
-          [width]="'100%'" [height]="600" [panels]="[{ size: 250}]">
+          [width]="'100%'" [height]="700" [panels]="[{ size: 250}]">
 
           <div>
             <div>
@@ -31,7 +31,7 @@
 
             </div>
               <jqxDataTable #myDataTable [autoRowHeight]="false"
-                [width]="getTableWidth()" [height]="'100%'" [source]="tableDataAdaptor" [columns]="tableColumns"
+                [width]="getTableWidth()" [height]="'90%'" [source]="tableDataAdaptor" [columns]="tableColumns"
                 [pageable]="true" [altRows]="true" [rendered]="renderedRowButtons" 
                 [pagerButtonsCount]="8" [sortable]="true"  >
               </jqxDataTable>
