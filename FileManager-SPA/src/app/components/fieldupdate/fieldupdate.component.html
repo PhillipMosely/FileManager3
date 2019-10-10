@@ -1,14 +1,13 @@
-<div class="container mt-4">
-  Hello World
-  <!-- <div class="row">
-    <h1>{{myTitle}}</h1>
+<div class="container mt-2 ">
+  <div class="text-center">
+    <strong>{{myTitle}}</strong>
   </div>
-  <div class="row">
-    <div class="card">
+  <div class="row mt-4">
+    <div class="column">
       <div *ngFor="let item of myFields" >  
-        <label for="{{item.Field}}">Folder: </label>
-        <input type="text" name="{{item.Field}}" [(ngModel)]="item.Value" width="{{item.Width}}">
+        <label for="{{item.field}}">Folder: </label>
+        <input class="ml-2" type="text" name="{{item.field}}" [(ngModel)]="item.value" width="{{item.width}}px;">
       </div>
     </div>
-  </div> -->
+  </div>
 </div>
