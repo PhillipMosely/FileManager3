@@ -298,12 +298,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @HostListener('window:custom-evente', ['$event']) onClicke() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('edit', '');
-    const myfilename: string = this.myDataTable.getRows()[myId]['fileName'];
+    let myFileName: string = this.myDataTable.getRows()[myId]['fileName'];
+    const myExt: string = this.myDataTable.getRows()[myId]['ext'];
+    myFileName = myFileName.replace(myExt, '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
     this.myFieldUpdate.myDdId = myDBId;
     this.myFieldUpdate.myTitle = 'File Name Update';
     this.myFieldUpdate.myType = 'File Name Update';
-    this.myFieldUpdate.myFields = [{field: 'File Name', value: myfilename, width: 300, type: 'Text'}];
+    this.myFieldUpdate.myFields = [{field: 'File Name', value: myFileName, size: 50, type: 'Text'}];
     this.openModal('fieldupdatemodal');
   }
 
@@ -437,12 +439,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       this.closeModal('fieldupdatemodal')
       return;
     }
-
     switch ( this.myFieldUpdate.myType ) {
       case 'File Name Update': {
+        this.closeModal('fieldupdatemodal');
         this.fileService.getFile(this.myFieldUpdate.myDdId).subscribe(next => {
-          next.fileName = this.myFieldUpdate.myFields[0].value;
+          next.fileName = this.myFieldUpdate.myFields[0].value + next.ext;
           this.fileService.updateFile(this.myFieldUpdate.myDdId, next).subscribe(next2 => {
+            this.refreshDataTable();
             this.sweetAlertService.message('File name updated successfully');
           }, error => {
             this.sweetAlertService.error('Not able to update file name');

@@ -1,6 +1,6 @@
 export interface Field {
     field: string;
     value: string;
-    width: number;
+    size: number;
     type: string;
 }
