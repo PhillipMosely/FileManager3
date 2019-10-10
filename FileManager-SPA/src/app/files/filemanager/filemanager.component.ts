@@ -130,10 +130,32 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   myTreeAddOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();
     if (selectedItem != null) {
-        this.myTree.addTo({ label: 'Item' }, selectedItem.element);
-        this.myTree.render();
+        this.myFolderName.id =  this.GetNewNodeId().toString();
+        this.myFolderName.folder = 'New Folder';
+        this.openModal('foldernamemodal');
     }
   };
+
+  myTreeAddFinish(update: boolean): void {
+    if ( !update ) {
+      this.closeModal('foldernamemodal')
+      return;
+    }
+    const mySourceTree = this.myTree;
+    const selectedItem = this.myTree.getSelectedItem();
+    this.myTree.addTo({ label: this.myFolderName.folder, id: this.myFolderName.id }, selectedItem.element);
+    this.fmAdmin.folderData = this.GetFolderDataString();
+    this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next2 => {
+      this.sweetAlertService.success('Successfully added folder');
+    }, error2 => {
+      this.myTree = mySourceTree;
+      this.sweetAlertService.error('Not able to add folder');
+    }, () => {
+      this.closeModal('foldernamemodal')
+      this.refreshDataTable();
+      this.myTree.render();
+    });
+  }
 
   myTreeRemoveOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();
@@ -174,9 +196,18 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         '", "parentid": "' + item.parentId +
         '", "value": "' + item.value + '"}';
       }
-      myJSON += ']';
     }
+    myJSON = (myJSON.length > 0 ? myJSON + ']' : '');
     return myJSON
+  }
+
+  GetNewNodeId(): number {
+    let newNodeId = 1;
+    for ( let i = 0; i < this.myTree.getItems().length; i++) {
+      const item: jqwidgets.TreeItem = this.myTree.getItems()[i];
+      newNodeId = +item.id > newNodeId ? +item.id : newNodeId;
+    }
+    return newNodeId + 1;
   }
 
   select(event: any): void {
