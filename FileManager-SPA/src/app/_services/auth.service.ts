@@ -55,4 +55,11 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
+
+  updateUserInfo(user: User) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUser = user;
+    this.changeMemberPhoto(this.currentUser.photoUrl);
+    this.changeMemberFullName(this.currentUser);
+  }
 }

@@ -1,10 +1,11 @@
 import { Component, ViewChild, HostListener, OnInit, Input } from '@angular/core';
 import { User } from 'app/_models/user';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { UserService } from 'app/_services/user.service';
 import { AuthService } from 'app/_services/auth.service';
+
 
 @Component({
     moduleId: module.id,
@@ -24,7 +25,8 @@ export class UserAddEditComponent implements OnInit{
 
     constructor(private sweetAlertService: SweetAlertService,
                 private userService: UserService,
-                private fb: FormBuilder) { }
+                private fb: FormBuilder, private router: Router,
+                private authService: AuthService) { }
 
     ngOnInit() {
         if (!this.user) {
@@ -56,12 +58,18 @@ export class UserAddEditComponent implements OnInit{
         this.user.knownAs = this.editForm.value.knownas;
         this.user.city = this. editForm.value.city;
         this.user.country = this.editForm.value.country;
-        debugger;
+
         this.userService.updateUser(this.user.id, this.user).subscribe(next => {
+            this.authService.updateUserInfo(this.user);
             this.sweetAlertService.success('Successfully updated user');
+            this.router.navigate(['/filemanager']);
           }, error => {
             this.sweetAlertService.error('Not able to update user');
           });
 
+    }
+
+    cancelUpdate() {
+        this.router.navigate(['/filemanager']);
     }
  }
