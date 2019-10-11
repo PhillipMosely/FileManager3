@@ -128,7 +128,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   };
 
   myTreeUpdateOnClick(): void {
-    const selectedItem = this.myTree.getSelectedItem();
+    const selectedItem: any = this.myTree.getSelectedItem();
     if (selectedItem != null) {
         this.myFieldUpdate.myId = +selectedItem.id;
         this.myFieldUpdate.myTitle = 'Update Folder Name';
@@ -162,7 +162,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
 
   myTreeRemoveOnClick(): void {
-    const selectedItem = this.myTree.getSelectedItem();
+    const selectedItem: any = this.myTree.getSelectedItem();
     if (selectedItem != null) {
        this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
           const mySourceTree = this.myTree;
@@ -193,7 +193,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   GetFolderDataString(): string {
     let myJSON = '';
     for ( let i = 0; i < this.myTree.getItems().length; i++) {
-      const item: jqwidgets.TreeItem = this.myTree.getItems()[i];
+      const item: any = this.myTree.getItems()[i];
       if (item.id !== '0') {
         myJSON += (myJSON.length > 0 ? ',' : '[') + '{"id": "' + item.id +
         '", "text": "' + item.label +
@@ -208,7 +208,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   GetNewNodeId(): number {
     let newNodeId = 1;
     for ( let i = 0; i < this.myTree.getItems().length; i++) {
-      const item: jqwidgets.TreeItem = this.myTree.getItems()[i];
+      const item: any = this.myTree.getItems()[i];
       newNodeId = +item.id > newNodeId ? +item.id : newNodeId;
     }
     return newNodeId + 1;
