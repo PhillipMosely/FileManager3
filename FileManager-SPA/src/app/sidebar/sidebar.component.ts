@@ -139,8 +139,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
-        this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
-        this.authService.currentFullName.subscribe(fullName => this.fullName = fullName);
+        this.photoUrl = this.authService.currentUser.photoUrl;
+        this.fullName = this.authService.fullName;
     }
     ngAfterViewInit() {
     }
