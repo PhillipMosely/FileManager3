@@ -44,6 +44,9 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
+            if (user == null)
+                return NotFound();
+
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
         }

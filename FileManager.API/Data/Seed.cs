@@ -18,6 +18,20 @@ namespace FileManager.API.Data
                     DateModified = DateTime.Now
                 };
                 context.Companies.Add(company);
+                
+                var company2 = new Company {
+                    CompanyName = "HRTMS Inc",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now
+                };
+                context.Companies.Add(company2);
+
+                var company3 = new Company {
+                    CompanyName = "Lexus Nexus",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now
+                };
+                context.Companies.Add(company3);
 
                 var role = new Role { 
                     RoleName="Admin",
@@ -56,7 +70,7 @@ namespace FileManager.API.Data
                     UserName = "testuser",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    Company = company
+                    Company = company3
                 };            
                 
                 CreatePasswordHash("password",out passwordHash, out passwordSalt);

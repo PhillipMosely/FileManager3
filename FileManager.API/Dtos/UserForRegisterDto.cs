@@ -12,10 +12,14 @@ namespace FileManager.API.Dtos
         [Required]
         [StringLength(8,MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 8 characters")]
         public string Password { get; set; }
-        
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
+        public int CompanyId { get; set; }
         public string MobilePhone { get; set; }
         public string PhotoUrl { get; set; }
         public string KnownAs { get; set; }
