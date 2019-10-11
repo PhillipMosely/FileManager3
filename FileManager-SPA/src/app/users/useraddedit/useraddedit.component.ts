@@ -41,13 +41,22 @@ export class UserAddEditComponent implements OnInit{
             username: [this.user.userName, Validators.required],
             mobilephone: [this.user.mobilePhone],
             email: [this.user.email, Validators.required],
-            knownAs: [this.user.knownAs],
+            knownas: [this.user.knownAs],
             city: [this.user.city],
             country: [this.user.country]
         });
     }
 
     updateUser() {
+        this.user.userName = this.editForm.value.username;
+        this.user.firstName = this.editForm.value.firstname;
+        this.user.lastName = this.editForm.value.lastname;
+        this.user.mobilePhone = this.editForm.value.mobilephone;
+        this.user.email = this.editForm.value.email;
+        this.user.knownAs = this.editForm.value.knownas;
+        this.user.city = this. editForm.value.city;
+        this.user.country = this.editForm.value.country;
+        debugger;
         this.userService.updateUser(this.user.id, this.user).subscribe(next => {
             this.sweetAlertService.success('Successfully updated user');
           }, error => {
