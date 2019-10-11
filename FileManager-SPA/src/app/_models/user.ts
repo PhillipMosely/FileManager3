@@ -6,6 +6,8 @@ export interface User {
     knownAs: string;
     firstName: string;
     lastName: string;
+    email: string;
+    mobilePhone: string;
     dateCreated: Date;
     dateModified: Date;
     lastActive: any;

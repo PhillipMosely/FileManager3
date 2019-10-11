@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener, OnInit } from '@angular/core';
+import { Component, ViewChild, HostListener, OnInit, Input } from '@angular/core';
 import { User } from 'app/_models/user';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { AuthService } from 'app/_services/auth.service';
 
 export class UserAddEditComponent implements OnInit{
     @ViewChild('editForm', {static: true}) editForm: NgForm;
-    user: User;
+    @Input() user: User;
     photoUrl: string;
     // @HostListener('window:beforeunload', ['$event'])
     //   unloadNotification($event: any) {
@@ -27,10 +27,10 @@ export class UserAddEditComponent implements OnInit{
         private userService: UserService, private authService: AuthService) { }
 
     ngOnInit() {
-        this.route.data.subscribe(data => {
-          this.user = data['user'];
-        });
-        this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+        if (!this.user)
+        {
+            this.user = JSON.parse(localStorage.getItem('user'));
+        }
     }
 
     updateUser() {
