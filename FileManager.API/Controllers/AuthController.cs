@@ -23,16 +23,19 @@ namespace FileManager.API.Controllers
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
+        private readonly IFileManagerRepository _fmrepo;
 
-        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
+        public AuthController(IAuthRepository repo, IConfiguration config,
+                              IMapper mapper, IFileManagerRepository fmrepo)
         {
+            _fmrepo = fmrepo;
             _mapper = mapper;
             _repo = repo;
             _config = config;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+        [HttpPost("register/{subfolder}")]
+        public async Task<IActionResult> Register(string subfolder, UserForRegisterDto userForRegisterDto)
         {
 
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
@@ -44,11 +47,13 @@ namespace FileManager.API.Controllers
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password, subfolder);
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
 
-            return CreatedAtRoute("GetUser", new {controller = "Users", id= createdUser.Id},userToReturn);
+            var createdfmadmin = await _fmrepo.AddFMAdmin(myfmadmin);
+
+            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
         }
 
         [HttpPost("login")]

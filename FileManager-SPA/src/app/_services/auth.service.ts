@@ -40,8 +40,8 @@ export class AuthService {
     );
   }
 
-  register(user: User) {
-    return this.http.post(this.baseurl + 'register', user);
+  register(user: User, subfolder: string) {
+    return this.http.post(this.baseurl + 'register/' + subfolder, user);
   }
 
   LoggedIn() {
