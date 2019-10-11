@@ -22,12 +22,11 @@ export class UserAddEditComponent implements OnInit{
     //     }
     // }
 
-    constructor(private route: ActivatedRoute, private sweetAlert: SweetAlertService,
-        private userService: UserService, private authService: AuthService,
-        private fb: FormBuilder) { }
+    constructor(private sweetAlertService: SweetAlertService,
+                private userService: UserService,
+                private fb: FormBuilder) { }
 
     ngOnInit() {
-        debugger;
         if (!this.user) {
             this.user = JSON.parse(localStorage.getItem('user'));
         }
@@ -46,21 +45,14 @@ export class UserAddEditComponent implements OnInit{
             city: [this.user.city],
             country: [this.user.country]
         });
-        // const control = <FormArray>this.editForm.controls.arrayOfData;
-        // his.editForm
-        //   .forEach().forEach(x => {
-        //     x control.push(this.patchValue(x.first_name, x.pcode))
-        //})
-    }
-
-    patchValue(name, code) {
-        return this.fb.group({
-          name: [name],
-          pcode: [code]
-        })
     }
 
     updateUser() {
+        this.userService.updateUser(this.user.id, this.user).subscribe(next => {
+            this.sweetAlertService.success('Successfully updated user');
+          }, error => {
+            this.sweetAlertService.error('Not able to update user');
+          });
 
     }
  }
