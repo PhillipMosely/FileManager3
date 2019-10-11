@@ -7,6 +7,7 @@ import { UserService } from 'app/_services/user.service';
 import { AuthService } from 'app/_services/auth.service';
 import { CompanyService } from 'app/_services/company.service';
 import { Company } from 'app/_models/company';
+import { UserComponent } from 'app/userpage/user.component';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Company } from 'app/_models/company';
 
 export class UserAddComponent implements OnInit{
     editForm: FormGroup;
-    user: User;
+    user = {} as User;
     companys: Company[];
 
     constructor(private sweetAlertService: SweetAlertService,
@@ -48,10 +49,19 @@ export class UserAddComponent implements OnInit{
     }
 
     updateUser() {
-        debugger;
-        this.user = Object.assign('', this.editForm.value);
+        this.user.companyId = +this.editForm.value.companyid;
+        this.user.userName = this.editForm.value.username;
+        this.user.firstName = this.editForm.value.firstname;
+        this.user.lastName = this.editForm.value.lastname;
+        this.user.mobilePhone = this.editForm.value.mobilephone;
+        this.user.email = this.editForm.value.email;
+        this.user.knownAs = this.editForm.value.knownas;
+        this.user.city = this. editForm.value.city;
+        this.user.country = this.editForm.value.country;
+
         this.authService.register(this.user).subscribe(next => {
             this.sweetAlertService.success('Successfully Added user');
+            this.router.navigate(['/filemanager']);
           }, error => {
             this.sweetAlertService.error('Not able to Add user');
           });

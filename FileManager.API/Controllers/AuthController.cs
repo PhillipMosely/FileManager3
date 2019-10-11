@@ -39,6 +39,9 @@ namespace FileManager.API.Controllers
             if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("Username already exists");
 
+            if (string.IsNullOrEmpty(userForRegisterDto.Password))
+                userForRegisterDto.Password = "password";
+
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
