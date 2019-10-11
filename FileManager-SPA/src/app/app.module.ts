@@ -28,6 +28,7 @@ import { FileService } from './_services/file.service';
 import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { FileAddModule } from './files/fileadd/fileadd.module';
+import { CompanyService } from './_services/company.service';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -72,7 +73,8 @@ export function tokenGetter() {
         SweetAlertService,
         FileManagerAdminService,
         FileService,
-        ModalService
+        ModalService,
+        CompanyService
     ],
     bootstrap:    [ AppComponent ]
 })

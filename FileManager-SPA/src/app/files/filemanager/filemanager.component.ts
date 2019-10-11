@@ -222,7 +222,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   refreshDataTable() {
     // this.myFileAdd = new FileAddModule();
     if (this.fmAdmin != null) {
-      this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId, 1, 200 ).subscribe(
+      this.fileService.getFiles(this.fmAdmin.id, this.selectedNodeId ).subscribe(
           (res: PaginatedResult<APIFile[]>) => {
               res = this.applyTableFilter(res);
               this.tableSource = {
