@@ -11,7 +11,7 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                     <label for="company">Company (disabled)</label>
-                    <input disabled="true" type="text" type="knownas" formControlName="knownas" class="form-control" >
+                    <input disabled="true" type="text" formControlName="company" class="form-control" >
                 </div>
               </div>
             </div>
@@ -55,7 +55,9 @@
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input placeholder="Email" type="text" formControlName="email" class="form-control" >
+                    <input placeholder="Email" type="text" formControlName="email" class="form-control" 
+                    [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}">
+                    <div class="invalid-feedback">Please enter an email</div>                    
                   </div>                  
                 </div>
                 <div class="col-md-4 pr-1">                  

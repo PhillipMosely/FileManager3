@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule.forChild(UserAddEditRoutes),
-    FormsModule,
     ReactiveFormsModule
 
 ],

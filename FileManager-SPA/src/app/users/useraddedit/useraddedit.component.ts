@@ -14,7 +14,6 @@ import { AuthService } from 'app/_services/auth.service';
 
 export class UserAddEditComponent implements OnInit{
     @Input() user: User;
-    photoUrl: string;
     editForm: FormGroup;
     // @HostListener('window:beforeunload', ['$event'])
     //   unloadNotification($event: any) {
@@ -37,6 +36,7 @@ export class UserAddEditComponent implements OnInit{
 
     createEditForm() {
         this.editForm = this.fb.group({
+            company: [this.user.company.companyName],
             firstname: [this.user.firstName, Validators.required],
             lastname: [this.user.lastName, Validators.required],
             username: [this.user.username, Validators.required],
