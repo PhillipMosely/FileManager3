@@ -114,7 +114,18 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'register', title: 'Register Page', ab:'RP'},
             {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
         ]
-    }
+    },
+    {
+        path: '/siteadmin',
+        title: 'Site Admin',
+        type: 'sub',
+        collapse: 'siteadmin',
+        icontype: 'fa fa-gear',
+        children: [
+            {path: 'edituser', title: 'Edit User', ab:'EU'},
+            {path: 'adduser', title: 'Add User', ab:'AU'}
+        ]
+    }    
 ];
 
 @Component({
