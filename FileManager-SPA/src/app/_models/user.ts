@@ -2,7 +2,7 @@ import { Company } from './company';
 
 export interface User {
     id: number;
-    username: string;
+    userName: string;
     knownAs: string;
     firstName: string;
     lastName: string;

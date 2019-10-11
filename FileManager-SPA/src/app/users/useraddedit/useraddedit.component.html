@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="firstname">First Name</label>
                     <input placeholder="Firstname" type="text" formControlName="firstname" class="form-control" 
-                    [ngClass]="{'is-invalid': registerForm.get('firstname').errors && registerForm.get('firstname').touched}">
+                    [ngClass]="{'is-invalid': editForm.get('firstname').errors && editForm.get('firstname').touched}">
                     <div class="invalid-feedback">Please enter a first name</div>
                 </div>
               </div>
@@ -28,7 +28,7 @@
                 <div class="form-group">
                   <label for="lastname">Last Name</label>
                   <input placeholder="Lastname" type="text" formControlName="lastname" class="form-control"
-                  [ngClass]="{'is-invalid': registerForm.get('lastname').errors && registerForm.get('lastname').touched}">
+                  [ngClass]="{'is-invalid': editForm.get('lastname').errors && editForm.get('lastname').touched}">
                   <div class="invalid-feedback">Please enter a last name</div>
               </div>                  
             </div>
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input placeholder="Username" type="text" formControlName="username" class="form-control"
-                      [ngClass]="{'is-invalid': registerForm.get('username').errors && registerForm.get('username').touched}">
+                      [ngClass]="{'is-invalid': editForm.get('username').errors && editForm.get('username').touched}">
                     <div class="invalid-feedback">Please enter a username</div>
                 </div>
               </div>
@@ -50,13 +50,13 @@
                   <input type="text" formControlName="knownas" class="form-control" >
                 </div>                  
               </div>
-              </div>
+            </div>
               <div class="row">
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input placeholder="Email" type="text" formControlName="email" class="form-control" 
-                    [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}">
+                    [ngClass]="{'is-invalid': editForm.get('email').errors && editForm.get('email').touched}">
                     <div class="invalid-feedback">Please enter an email</div>                    
                   </div>                  
                 </div>

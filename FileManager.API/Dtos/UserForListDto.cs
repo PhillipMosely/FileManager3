@@ -1,4 +1,5 @@
 using System;
+using FileManager.API.Models;
 
 namespace FileManager.API.Dtos
 {
@@ -17,6 +18,6 @@ namespace FileManager.API.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public string  PhotoUrl { get; set; }        
-        public string CompanyName { get; set;}
+        public Company Company { get; set; }
     }
 }
