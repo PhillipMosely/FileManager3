@@ -40,7 +40,7 @@ namespace FileManager.API.Data
             return true;
         }
 
-        public async Task<User> Register(User user, string password, string foldername)
+        public async Task<User> Register(User user, string password, string subfolder)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password,out passwordHash,out passwordSalt);
@@ -52,8 +52,10 @@ namespace FileManager.API.Data
             await _context.SaveChangesAsync();
 
             var myfmadmin = new FileManagerAdmin();
-            myfmadmin.UserId = createdUser.UserId;
+            myfmadmin.UserId = user.Id;
             myfmadmin.SubFolderName = subfolder;
+            myfmadmin.DateCreated = DateTime.Now;
+            myfmadmin.DateModified = myfmadmin.DateCreated;
             await _context.FileManagerAdmin.AddAsync(myfmadmin);
             await _context.SaveChangesAsync();            
 
