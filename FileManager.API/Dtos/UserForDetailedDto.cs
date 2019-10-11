@@ -18,5 +18,6 @@ namespace FileManager.API.Dtos
         public string City { get; set; }
         public string Country { get; set; }      
         public string PhotoUrl {get; set;}  
+        public Company Company { get; set; }
     }
 }

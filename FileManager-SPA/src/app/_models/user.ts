@@ -1,3 +1,4 @@
+import { Company } from './company';
 
 export interface User {
     id: number;
@@ -11,5 +12,5 @@ export interface User {
     photoUrl: string;
     city: string;
     country: string;
-
+    company: Company;
 }

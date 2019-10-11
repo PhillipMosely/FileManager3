@@ -33,7 +33,7 @@ namespace FileManager.API.Controllers
         public async Task<IActionResult> GetRole(int id)
         {
             var rolefromRepo = await _repo.GetRole(id);
-            if (roleFromRepo == null)
+            if ( rolefromRepo == null)
                 return NotFound();            
 
             var role = _mapper.Map<RoleForListDto>(rolefromRepo);
