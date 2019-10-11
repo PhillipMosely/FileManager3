@@ -6,12 +6,12 @@
           <h5 class="title">Edit Profile</h5>
         </div>
         <div class="card-body">
-          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+          <form [formGroup]="editForm" (ngSubmit)= "updateUser()">
             <div class="row">
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                     <label for="company">Company (disabled)</label>
-                    <input type="text" class="form-control" disabled="" name="company" [(ngModel)]="user.company">
+                    <input disabled="true" type="text" type="knownas" formControlName="knownas" class="form-control" >
                 </div>
               </div>
             </div>
@@ -19,29 +19,35 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                     <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" name="firstname" [(ngModel)]="user.firstName" >
+                    <input placeholder="Firstname" type="text" formControlName="firstname" class="form-control" 
+                    [ngClass]="{'is-invalid': registerForm.get('firstname').errors && registerForm.get('firstname').touched}">
+                    <div class="invalid-feedback">Please enter a first name</div>
                 </div>
               </div>
               <div class="col-md-6 p4-1">                  
                 <div class="form-group">
                   <label for="lastname">Last Name</label>
-                  <input type="email" class="form-control" name="lastname" [(ngModel)]="user.lastName" >
-                </div>                  
-              </div>
+                  <input placeholder="Lastname" type="text" formControlName="lastname" class="form-control"
+                  [ngClass]="{'is-invalid': registerForm.get('lastname').errors && registerForm.get('lastname').touched}">
+                  <div class="invalid-feedback">Please enter a last name</div>
+              </div>                  
+            </div>
               
             </div>
             <div class="row">                
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" [(ngModel)]="user.username" >
+                    <input placeholder="Username" type="text" formControlName="username" class="form-control"
+                      [ngClass]="{'is-invalid': registerForm.get('username').errors && registerForm.get('username').touched}">
+                    <div class="invalid-feedback">Please enter a username</div>
                 </div>
               </div>
 
               <div class="col-md-4 pr-1">                  
                 <div class="form-group">
                   <label for="knownas">Known As</label>
-                  <input type="text" class="form-control" name="knownas" [(ngModel)]="user.knownAs" >
+                  <input type="text" formControlName="knownas" class="form-control" >
                 </div>                  
               </div>
               </div>
@@ -49,13 +55,13 @@
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" >
+                    <input placeholder="Email" type="text" formControlName="email" class="form-control" >
                   </div>                  
                 </div>
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
                     <label for="mobilephone">Mobile Phone</label>
-                    <input type="mobilephone" class="form-control" name="mobilephone" [(ngModel)]="user.mobilePhone" >
+                    <input type="text" formControlName="mobilephone" class="form-control" >
                   </div>                  
                 </div>                                
               </div>
@@ -63,16 +69,18 @@
                 <div class="col-md-4 pr-1">
                   <div class="form-group">
                       <label for="city">City</label>
-                      <input type="text" class="form-control" name="city" [(ngModel)]="user.city" >
+                      <input type="text" formControlName="city" class="form-control" >
                   </div>
                 </div>
                 <div class="col-md-4 pr-1">
                   <div class="form-group">
                       <label for="country">Country</label>
-                      <input type="text" class="form-control" name="country" [(ngModel)]="user.country" >
+                      <input type="text" formControlName="country" class="form-control" >
                   </div>
                 </div>                
               </div>
+              <button [disabled]="!editForm.valid" class="btn btn-success my-2 my-sm-0" 
+                type="submit" >Save</button>              
             </form>
           </div>
         </div>

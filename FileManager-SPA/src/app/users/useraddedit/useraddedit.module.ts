@@ -1,18 +1,17 @@
-import { Input, NgModule, CUSTOM_ELEMENTS_SCHEMA, Output, EventEmitter } from '@angular/core';
+import { Input, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { UserAddEditComponent } from './useraddedit.component';
 import { UserAddEditRoutes } from './useraddedit.routing';
 import { RouterModule } from '@angular/router';
 import { User } from 'app/_models/user';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(UserAddEditRoutes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
 ],
 declarations: [UserAddEditComponent],

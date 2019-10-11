@@ -1,6 +1,6 @@
 import { Component, ViewChild, HostListener, OnInit, Input } from '@angular/core';
 import { User } from 'app/_models/user';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { UserService } from 'app/_services/user.service';
@@ -13,9 +13,9 @@ import { AuthService } from 'app/_services/auth.service';
 })
 
 export class UserAddEditComponent implements OnInit{
-    @ViewChild('editForm', {static: true}) editForm: NgForm;
     @Input() user: User;
     photoUrl: string;
+    editForm: FormGroup;
     // @HostListener('window:beforeunload', ['$event'])
     //   unloadNotification($event: any) {
     //     if (this.editForm.dirty) {
@@ -24,16 +24,31 @@ export class UserAddEditComponent implements OnInit{
     // }
 
     constructor(private route: ActivatedRoute, private sweetAlert: SweetAlertService,
-        private userService: UserService, private authService: AuthService) { }
+        private userService: UserService, private authService: AuthService,
+        private fb: FormBuilder) { }
 
     ngOnInit() {
-        if (!this.user)
-        {
+        debugger;
+        if (!this.user) {
             this.user = JSON.parse(localStorage.getItem('user'));
         }
+        this.createEditForm();
+    }
+
+    createEditForm() {
+        this.editForm = this.fb.group({
+            firstname: [this.user.firstName, Validators.required],
+            lastname: [this.user.lastName, Validators.required],
+            username: [this.user.username, Validators.required],
+            mobilephone: [this.user.mobilePhone],
+            email: [this.user.email, Validators.required],
+            knownAs: [this.user.knownAs],
+            city: [this.user.city],
+            country: [this.user.country]
+        });
     }
 
     updateUser() {
-        
+
     }
  }

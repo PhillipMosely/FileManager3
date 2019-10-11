@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { APP_BASE_HREF } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule} from '@angular/common/http';
@@ -40,6 +40,7 @@ export function tokenGetter() {
         RouterModule.forRoot(AppRoutes,{
           useHash: true
         }),
+        ReactiveFormsModule,
         NgbModule.forRoot(),
         HttpModule,
         HttpClientModule,
