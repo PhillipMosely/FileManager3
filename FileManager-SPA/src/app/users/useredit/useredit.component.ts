@@ -9,11 +9,11 @@ import { AuthService } from 'app/_services/auth.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'app-useraddedit',
-    templateUrl: 'useraddedit.component.html'
+    selector: 'app-useredit',
+    templateUrl: 'useredit.component.html'
 })
 
-export class UserAddEditComponent implements OnInit{
+export class UserEditComponent implements OnInit{
     @Input() user: User;
     editForm: FormGroup;
     // @HostListener('window:beforeunload', ['$event'])

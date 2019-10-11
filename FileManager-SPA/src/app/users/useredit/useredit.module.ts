@@ -1,7 +1,7 @@
 import { Input, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserAddEditComponent } from './useraddedit.component';
-import { UserAddEditRoutes } from './useraddedit.routing';
+import { UserEditComponent } from './useredit.component';
+import { UserEditRoutes } from './useredit.routing';
 import { RouterModule } from '@angular/router';
 import { User } from 'app/_models/user';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,13 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(UserAddEditRoutes),
+    RouterModule.forChild(UserEditRoutes),
     ReactiveFormsModule
 
 ],
-declarations: [UserAddEditComponent],
+declarations: [UserEditComponent],
 schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class UserAddEditModule {
+export class UserEditModule {
   @Input() user: User;
 }
