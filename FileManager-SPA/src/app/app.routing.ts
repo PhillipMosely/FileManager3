@@ -13,6 +13,9 @@ export const AppRoutes: Routes = [{
         children: [{
             path: '',
             loadChildren: './files/filemanager/filemanager.module#FilemanagerModule'
+        },{
+            path: '',
+            loadChildren: './users/useraddedit/useraddedit.module#UserAddEditModule'
         },
         {
             path: '',

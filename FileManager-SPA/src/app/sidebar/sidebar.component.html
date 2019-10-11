@@ -25,16 +25,10 @@
       <div class="clearfix"></div>
       <div class="collapse" id="collapseExample">
         <ul class="nav">
-          <li>
-            <a href="javascript:void(0)">
-              <span class="sidebar-mini-icon">MP</span>
-              <span class="sidebar-normal">My Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <span class="sidebar-mini-icon">EP</span>
-              <span class="sidebar-normal">Edit Profile</span>
+          <li routerLinkActive="active">          
+            <a [routerLink]="['/useraddedit']">
+                <span class="sidebar-mini-icon">MP</span>
+                <span class="sidebar-normal">My Profile</span>
             </a>
           </li>
         </ul>
