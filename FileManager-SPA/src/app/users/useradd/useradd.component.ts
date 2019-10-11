@@ -58,13 +58,22 @@ export class UserAddComponent implements OnInit{
         this.user.knownAs = this.editForm.value.knownas;
         this.user.city = this. editForm.value.city;
         this.user.country = this.editForm.value.country;
-
-        this.authService.register(this.user).subscribe(next => {
-            this.sweetAlertService.success('Successfully Added user');
-            this.router.navigate(['/filemanager']);
-          }, error => {
+        this.userService.getUserByUserName(this.user.userName.toLowerCase()).subscribe( next => {
+            debugger;
+            if (next === null) {
+                this.authService.register(this.user).subscribe(next => {
+                    this.sweetAlertService.success('Successfully Added user');
+                    this.router.navigate(['/filemanager']);
+                }, error => {
+                    this.sweetAlertService.error('Not able to Add user');
+                });
+            } else {
+                this.sweetAlertService.error('Username already exists');
+            }
+        }, error2 => {
             this.sweetAlertService.error('Not able to Add user');
-          });
+        })
+
 
     }
 

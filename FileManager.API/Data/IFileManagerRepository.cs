@@ -12,6 +12,7 @@ namespace FileManager.API.Data
          Task<bool> SaveAll();
          Task<PagedList<User>> GetUsers(UserParams userParams);
          Task<User> GetUser(int id);
+         Task<User> GetUserByUserName(string userName);
 
          Task<PagedList<Company>> GetCompanies(UserParams userParams);
          Task<Company> GetCompany(int id);

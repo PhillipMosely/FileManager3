@@ -14,7 +14,7 @@ export class UserService {
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
-  getUsers(page?, itemsPerPage?, userParams?, likesParams?): Observable<PaginatedResult<User[]>> {
+  getUsers(username?, page?, itemsPerPage?): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
 
     let params = new HttpParams();
@@ -41,6 +41,10 @@ export class UserService {
 
   updateUser(id: number, user: User) {
     return this.http.put(this.baseUrl + 'users/' + id, user);
+  }
+
+  getUserByUserName(userName): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/getbyusername/' + userName);
   }
 
 }

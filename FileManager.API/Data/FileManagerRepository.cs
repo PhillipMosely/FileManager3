@@ -43,6 +43,12 @@ namespace FileManager.API.Data
 
             return await PagedList<User>.CreateAsync(users,userParams.PageNumber,userParams.PageSize);
         }
+        public async Task<User> GetUserByUserName(string userName)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName.ToLower());
+
+            return user;
+        }
 
         public async Task<File> GetFile(int id)
         {

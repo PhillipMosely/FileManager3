@@ -51,6 +51,15 @@ namespace FileManager.API.Controllers
             return Ok(userToReturn);
         }
 
+        [HttpGet("getbyusername/{username}", Name="GetByUserName")]
+        public async Task<IActionResult> GetByUserName(string username)
+        {
+            var user = await _repo.GetUserByUserName(username);
+
+            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
+            return Ok(userToReturn);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {
