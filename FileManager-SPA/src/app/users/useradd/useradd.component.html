@@ -10,9 +10,11 @@
             <div class="row">
               <div class="col-md-5 pr-1">
                 <div class="form-group">
-                    <label for="company">Company</label>
-                    <input type="text" formControlName="company" class="form-control" 
-                    [ngClass]="{'is-invalid': editForm.get('company').errors && editForm.get('company').touched}">
+                  <label for="companyid">Company</label>
+                  <select type="text" formControlName="companyid" class="form-control" 
+                    [ngClass]="{'is-invalid': editForm.get('companyid').errors && editForm.get('companyid').touched}">
+                    <option *ngFor="let item of companys" [ngValue]="item.id">{{item.companyName}}</option>
+                  </select>
                     <div class="invalid-feedback">Please select a company</div>                    
                 </div>
               </div>

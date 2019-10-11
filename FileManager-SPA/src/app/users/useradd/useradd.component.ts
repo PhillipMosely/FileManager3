@@ -35,7 +35,7 @@ export class UserAddComponent implements OnInit{
 
     createEditForm() {
         this.editForm = this.fb.group({
-            company: ['', Validators.required],
+            companyid: ['', Validators.required],
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
             username: ['', Validators.required],
@@ -48,6 +48,7 @@ export class UserAddComponent implements OnInit{
     }
 
     updateUser() {
+        debugger;
         this.user = Object.assign('', this.editForm.value);
         this.authService.register(this.user).subscribe(next => {
             this.sweetAlertService.success('Successfully Added user');
