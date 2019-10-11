@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { UserAddEditComponent } from './useraddedit.component';
 
 export const UserAddEditRoutes: Routes = [{

@@ -2,12 +2,15 @@ import { Input, NgModule, CUSTOM_ELEMENTS_SCHEMA, Output, EventEmitter } from '@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserAddEditComponent } from './useraddedit.component';
+import { UserAddEditRoutes } from './useraddedit.routing';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule.forChild(UserAddEditRoutes),
     FormsModule
 
 ],
