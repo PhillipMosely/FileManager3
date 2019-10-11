@@ -16,6 +16,9 @@ export const AppRoutes: Routes = [{
         },{
             path: '',
             loadChildren: './users/useredit/useredit.module#UserEditModule'
+        },{
+            path: 'siteadmin',
+            loadChildren: './users/useradd/useradd.module#UserAddModule'
         },
         {
             path: '',

@@ -122,8 +122,8 @@ export const ROUTES: RouteInfo[] = [{
         collapse: 'siteadmin',
         icontype: 'fa fa-gear',
         children: [
-            {path: 'edituser', title: 'Edit User', ab:'EU'},
-            {path: 'adduser', title: 'Add User', ab:'AU'}
+            {path: 'useredit', title: 'Edit User', ab:'EU'},
+            {path: 'useradd', title: 'Add User', ab:'AU'}
         ]
     }    
 ];
