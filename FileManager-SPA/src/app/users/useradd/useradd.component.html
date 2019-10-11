@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <h5 class="title">Add User Profile</h5>
+            <h5 class="title">Add User</h5>
           </div>
           <div class="card-body">
             <div class="row">
@@ -84,31 +84,25 @@
                   </div>
                 </div>                
               </div>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="title">File Manager Settings</h5>
-          </div>
-          <div class="card-body">
-            <div class="col-md-5 pr-1">
-              <div class="form-group">
-                <label for="subfolder">Sub Folder</label>
-                <input type="text" formControlName="subfolder" class="form-control" 
-                  [ngClass]="{'is-invalid': editForm.get('subfolder').errors && editForm.get('subfolder').touched}">
-                  <div class="invalid-feedback">Please enter a sub folder</div>                    
+              <div class="row">                 
+              <div class="col-md-5 pr-1">
+                  <h5 class="title">File Manager Settings</h5>
+                  <div class="form-group">
+                    <label for="subfolder">Sub Folder</label>
+                    <input type="text" formControlName="subfolder" class="form-control" 
+                      [ngClass]="{'is-invalid': editForm.get('subfolder').errors && editForm.get('subfolder').touched}">
+                      <div class="invalid-feedback">Please enter a sub folder</div>                    
+                  </div>
+                </div>
               </div>
+              <button [disabled]="!editForm.valid" class="btn btn-primary" style="float:right;"
+                type="submit" title="Create New User" >Save</button>                 
+              <button class="btn btn-warning" style="float:right;" title="Cancel Adding User" 
+                (click)="cancelUpdate()">Cancel</button>      
             </div>
           </div>
-        </div>
       </div>
     </div>
-    <button [disabled]="!editForm.valid" class="btn btn-primary" style="float:right;"
-      type="submit" title="Create New User" >Save</button>                 
-    <button class="btn btn-warning" style="float:right;" title="Cancel Adding User" 
-      (click)="cancelUpdate()">Cancel</button>   </form>
+
+    </form>
 </div>
