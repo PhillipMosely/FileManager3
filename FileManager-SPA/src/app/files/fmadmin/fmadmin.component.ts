@@ -217,12 +217,13 @@ myFilterSelectonChange(): void {
 
 applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<FileManagerAdmin[]> {
   const myReturn: PaginatedResult<FileManagerAdmin[]> = res;
+
   if (this.tableFilterTextInput) {
     this.tableFilterQuery.forEach(filterItem => {
         switch ( filterItem.field ) {
           case 'Company': {
             myReturn.result = myReturn.result.filter(
-              x => x.user.company.companyName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              x => x.companyName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
             break;
           }
           case 'File Count': {
@@ -231,12 +232,12 @@ applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<File
           }
           case 'Username': {
             myReturn.result = myReturn.result.filter(
-              x => x.user.userName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              x => x.userName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
             break;
           }
           case 'Email': {
             myReturn.result = myReturn.result.filter(
-              x => x.user.email.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              x => x.email.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
             break;
           }
           case 'Sub Folder': {
