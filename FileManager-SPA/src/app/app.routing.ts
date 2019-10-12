@@ -21,6 +21,10 @@ export const AppRoutes: Routes = [{
             loadChildren: './users/useradd/useradd.module#UserAddModule'
         },
         {
+            path: 'siteadmin',
+            loadChildren: './files/fmadmin/fmadmin.module#FMAdminModule'
+        },
+        {
             path: '',
             loadChildren: './dashboard/dashboard.module#DashboardModule'
         },{
