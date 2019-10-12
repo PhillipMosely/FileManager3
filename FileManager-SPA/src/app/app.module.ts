@@ -57,7 +57,6 @@ export function tokenGetter() {
         ModalModule,
         FileUploadModule,
         ReactiveFormsModule,
-        UserAddModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,

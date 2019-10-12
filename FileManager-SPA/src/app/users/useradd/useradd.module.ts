@@ -14,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 ],
 declarations: [UserAddComponent],
-schemas: [CUSTOM_ELEMENTS_SCHEMA]
+schemas: [CUSTOM_ELEMENTS_SCHEMA],
+exports: [UserAddComponent]
 })
 export class UserAddModule {
   @Input() user: User;

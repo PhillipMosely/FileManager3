@@ -11,9 +11,8 @@ import { UserComponent } from 'app/userpage/user.component';
 
 
 @Component({
-    moduleId: module.id,
     selector: 'app-useradd',
-    templateUrl: 'useradd.component.html'
+    templateUrl: './useradd.component.html'
 })
 
 export class UserAddComponent implements OnInit{
