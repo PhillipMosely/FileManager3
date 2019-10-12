@@ -10,7 +10,7 @@
             <div>
                 <button class="btn btn-primary btn-link" (click)="myTreeAddOnClick()" title="Add New Folder"><i class="fa fa-plus"></i> Add</button>
                 <button class="btn btn-primary btn-link" (click)="myTreeUpdateOnClick()" title="Update Selected Folder"><i class="fa fa-edit"></i> Update </button>
-                <button class="btn btn-warning btn-link" (click)="myTreeRemoveOnClick()" title="Remove Selected Folder"><i class="fa fa-remove"></i> Remove </button>
+                <button class="btn btn-danger btn-link" (click)="myTreeRemoveOnClick()" title="Remove Selected Folder"><i class="fa fa-remove"></i> Remove </button>
             </div>
             <jqxTree #myTree
             (onSelect)="select($event)"
@@ -27,7 +27,7 @@
                   <span style="padding-left: 10px; padding-right: 10px;" class="myFilterCondition" >Contains</span> 
                   <input type="text" name="tableFilterTextInput" [(ngModel)]="tableFilterTextInput" style="width: 250px;" >
                   <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
-                  <button class="btn btn-warning btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
+                  <button class="btn btn-danger btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
                 </span>
 
             </div>
@@ -65,7 +65,7 @@
       <div class="card-body">
         <app-fieldupdate #myFieldUpdate></app-fieldupdate>
         <button style="float:right;" class="btn btn-primary btn-link" (click)="myFieldUpdateFinish(true);">Save</button>
-        <button style="float:right;" class="btn btn-primary btn-link" (click)="myFieldUpdateFinish(false);">Cancel</button>
+        <button style="float:right;" class="btn btn-warning btn-link" (click)="myFieldUpdateFinish(false);">Cancel</button>
       </div>
     </div>      
 </jw-modal>
