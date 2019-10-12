@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'app/_models/user';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { UserService } from 'app/_services/user.service';
 import { AuthService } from 'app/_services/auth.service';
 import { CompanyService } from 'app/_services/company.service';
 import { Company } from 'app/_models/company';
-import { UserComponent } from 'app/userpage/user.component';
+import { ModalService } from 'app/_services/modal.service';
 
 
 @Component({
@@ -16,6 +16,8 @@ import { UserComponent } from 'app/userpage/user.component';
 })
 
 export class UserAddComponent implements OnInit{
+    @Input() useCloseEvent: boolean;
+    @Output() closeEvent = new EventEmitter<string>();
     editForm: FormGroup;
     user = {} as User;
     companys: Company[];
@@ -24,7 +26,8 @@ export class UserAddComponent implements OnInit{
                 private userService: UserService,
                 private companyService: CompanyService,
                 private fb: FormBuilder, private router: Router,
-                private authService: AuthService) { }
+                private authService: AuthService,
+                private modalService: ModalService) { }
 
     ngOnInit() {
         this.companyService.getCompanys().subscribe( next => {
@@ -63,7 +66,7 @@ export class UserAddComponent implements OnInit{
             if (next === null) {
                 this.authService.register(this.user, this.editForm.value.subfolder).subscribe(next => {
                     this.sweetAlertService.success('Successfully Added user');
-                    this.router.navigate(['/filemanager']);
+                    this.navigateAfterSaveCancel();
                 }, error => {
                     this.sweetAlertService.error('Not able to Add user');
                 });
@@ -78,6 +81,15 @@ export class UserAddComponent implements OnInit{
     }
 
     cancelUpdate() {
-        this.router.navigate(['/filemanager']);
+        this.navigateAfterSaveCancel();
+    }
+
+    navigateAfterSaveCancel() {
+        debugger;
+        if ( this.useCloseEvent) {
+            this.closeEvent.emit('done');
+        } else {
+            this.router.navigate(['/filemanager']);
+        }
     }
  }

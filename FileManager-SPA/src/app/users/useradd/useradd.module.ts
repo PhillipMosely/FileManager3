@@ -18,5 +18,5 @@ schemas: [CUSTOM_ELEMENTS_SCHEMA],
 exports: [UserAddComponent]
 })
 export class UserAddModule {
-  @Input() user: User;
+  @Input() useCloseEvent: boolean;
 }
