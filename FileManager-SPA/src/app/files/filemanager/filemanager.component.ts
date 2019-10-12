@@ -48,7 +48,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
                         ' title="View File Information"><i id="view' + row + '" class="fa fa-info"></i></button>';
         const buttonedit = '<button (click)=""  class="btn-sm btn-primary btn-link rowedit"' +
                          ' title="Edit File"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
-        const buttondel = '<button (click)="" class="btn-sm btn-warning btn-link rowdelete"' +
+        const buttondel = '<button (click)="" class="btn-sm btn-danger btn-link rowdelete"' +
                          ' title="Delete File"><i id="del' + row + '" class="fa fa-times"></i></button>';
         const item = '<div>' + buttonview + buttonedit + buttondel + '</div>';
 

@@ -29,7 +29,7 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
                         ' title="View User Information"><i id="view' + row + '" class="fa fa-info"></i></button>';
         const buttonedit = '<button (click)=""  class="btn-sm btn-primary btn-link rowedit"' +
                          ' title="Edit User"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
-        const buttondel = '<button (click)="" class="btn-sm btn-warning btn-link rowdelete"' +
+        const buttondel = '<button (click)="" class="btn-sm btn-danger btn-link rowdelete"' +
                          ' title="Delete User"><i id="del' + row + '" class="fa fa-times"></i></button>';
         const item = '<div>' + buttonview + buttonedit + buttondel + '</div>';
 
