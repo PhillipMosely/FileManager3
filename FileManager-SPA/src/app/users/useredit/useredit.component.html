@@ -8,7 +8,7 @@
         <div class="card-body">
           <form [formGroup]="editForm" (ngSubmit)= "updateUser()">
             <div class="row">
-              <div class="col-md-2 border ml-3">
+              <div class="col-md-2 border ml-3 pt-3">
                   <img src="{{user.photoUrl || '../../assets/img/user.png'}}"  width="140px" />
                   <div class="text-center">
                       <button type="button" class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
