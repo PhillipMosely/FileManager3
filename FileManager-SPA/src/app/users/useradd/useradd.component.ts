@@ -28,7 +28,6 @@ export class UserAddComponent implements OnInit{
                 private authService: AuthService) { }
 
     ngOnInit() {
-        debugger;
         this.companyService.getCompanys().subscribe( next => {
             this.companys = next.result;
         });
