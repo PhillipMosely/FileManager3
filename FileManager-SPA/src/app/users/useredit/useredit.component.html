@@ -8,43 +8,40 @@
         <div class="card-body">
           <form [formGroup]="editForm" (ngSubmit)= "updateUser()">
             <div class="row">
-              <div class="col-md-2 border ml-3 pt-3">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="company">Company (disabled)</label>
+                  <input disabled="true" type="text" formControlName="company" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" formControlName="firstname" class="form-control" 
+                    [ngClass]="{'is-invalid': editForm.get('firstname').errors && editForm.get('firstname').touched}">
+                    <div class="invalid-feedback">Please enter a first name</div>
+                </div>
+                <div class="form-group">
+                  <label for="lastname">Last Name</label>
+                  <input type="text" formControlName="lastname" class="form-control"
+                  [ngClass]="{'is-invalid': editForm.get('lastname').errors && editForm.get('lastname').touched}">
+                  <div class="invalid-feedback">Please enter a last name</div>
+                </div>                  
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-4 border ml-3 pt-3">
                   <img src="{{user.photoUrl || '../../assets/img/user.png'}}"  width="140px" />
                   <div class="text-center">
                       <button type="button" class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
                         title="Update Profile Fhoto"><i class="fa fa-edit"></i></button>
                       <button type="button" class="btn btn-link btn-sm btn-danger" title="Remove Profile Photo"
                         (click)="deletePhoto()" ><i class="fa fa-trash-o"></i></button>
-                    </div>                  
+                  </div>                  
+                </div>                
               </div>
             </div>
-            <div class="row">  
-                <div class="col-md-6">                  
-                  <div class="form-group">
-                      <label for="company">Company (disabled)</label>
-                      <input disabled="true" type="text" formControlName="company" class="form-control" >
-                  </div>
-                </div>
+            <div class="row">
+
             </div>
-              <div class="row">                
-                <div class="col-md-6 pr-1">
-                  <div class="form-group">
-                      <label for="firstname">First Name</label>
-                      <input type="text" formControlName="firstname" class="form-control" 
-                      [ngClass]="{'is-invalid': editForm.get('firstname').errors && editForm.get('firstname').touched}">
-                      <div class="invalid-feedback">Please enter a first name</div>
-                  </div>
-                </div>
-                <div class="col-md-6 p4-1">                  
-                  <div class="form-group">
-                    <label for="lastname">Last Name</label>
-                    <input type="text" formControlName="lastname" class="form-control"
-                    [ngClass]="{'is-invalid': editForm.get('lastname').errors && editForm.get('lastname').touched}">
-                    <div class="invalid-feedback">Please enter a last name</div>
-                </div>                  
-              </div>
-              
-            </div>
+
             <div class="row">                
               <div class="col-md-4 pr-1">
                 <div class="form-group">
