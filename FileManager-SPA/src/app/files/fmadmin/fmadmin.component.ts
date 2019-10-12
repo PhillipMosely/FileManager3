@@ -33,12 +33,12 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'company', width: 200 },
-      { text: 'Username', cellsAlign: 'center', align: 'center', dataField: 'username', width: 120 },
-      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'email', width: 200 },
-      { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subfolder', width: 200 },
+      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'User.Company.companyName', width: 200 },
+      { text: 'Username', cellsAlign: 'center', align: 'center', dataField: 'User.username', width: 120 },
+      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'User.email', width: 200 },
+      { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subFolderName', width: 200 },
       // { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
-      { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'datemodified', width: 120, cellsFormat: 'd' }
+      { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -48,10 +48,11 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
 
   ngOnInit() {
-    this.refreshDataTable();
+
   }
 
   ngAfterViewInit() {
+    this.refreshDataTable();
     const myFilterSelect = document.getElementsByClassName('myFilterSelect');
     this.tableColumns.forEach(element => {
       if (element.text !== 'Actions') {
@@ -73,15 +74,14 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
  refreshDataTable() {
     this.fileManagerAdminService.getFMAdmins().subscribe(
         (res: PaginatedResult<FileManagerAdmin[]>) => {
-            debugger;
             res = this.applyTableFilter(res);
             this.tableSource = {
                 dataType: 'json',
                 dataFields: [
-                    { name: 'company', type: 'string' },
-                    { name: 'username', type: 'string' },
-                    { name: 'email', type: 'string' },
-                    { name: 'subfolder', type: 'string' },
+                    { name: 'User.Company.companyName', type: 'string' },
+                    { name: 'User.username', type: 'string' },
+                    { name: 'User.email', type: 'string' },
+                    { name: 'subFolderName', type: 'string' },
                     { name: 'dateCreated', type: 'date' },
                     { name: 'dateModified', type: 'date' },
                     { name: 'id', type: 'string'}

@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="col-lg-12 col-sm-6">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body" style="height: 732px;" >
         <div>
             <button class="btn btn-primary btn-link" (click)="myTableAddOnClick()" title="Add File Manager User"><i class="fa fa-plus"></i> Add User</button>
             <span style="padding-left: 40px;" class="myFilterSpan"> 
@@ -15,11 +15,11 @@
             </span>
 
         </div>
-          <jqxDataTable #myDataTable [autoRowHeight]="false"
-            [width]="getTableWidth()" [height]="'92%'" [source]="tableDataAdaptor" [columns]="tableColumns"
-            [pageable]="true" [altRows]="true" [rendered]="renderedRowButtons" [pageSize]="15"
-            [pagerButtonsCount]="8" [sortable]="true"  >
-          </jqxDataTable>
+        <jqxDataTable #myDataTable [autoRowHeight]="false"
+          [width]="getTableWidth()" [height]="'92%'" [source]="tableDataAdaptor" [columns]="tableColumns"
+          [pageable]="true" [altRows]="true" [rendered]="renderedRowButtons" [pageSize]="15"
+          [pagerButtonsCount]="8" [sortable]="true"  >
+        </jqxDataTable>
       </div>
     </div>
   </div>

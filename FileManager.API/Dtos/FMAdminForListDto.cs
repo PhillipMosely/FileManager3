@@ -1,4 +1,5 @@
 using System;
+using FileManager.API.Dtos;
 
 namespace FileManager.API.Models
 {
