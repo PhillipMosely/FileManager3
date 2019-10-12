@@ -73,6 +73,7 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
  refreshDataTable() {
     this.fileManagerAdminService.getFMAdmins().subscribe(
         (res: PaginatedResult<FileManagerAdmin[]>) => {
+            debugger;
             res = this.applyTableFilter(res);
             this.tableSource = {
                 dataType: 'json',

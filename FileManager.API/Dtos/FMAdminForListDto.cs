@@ -9,7 +9,8 @@ namespace FileManager.API.Models
         public string SubFolderName { get; set; }
         public string FolderData { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }       
+        public DateTime DateModified { get; set; }     
+        public UserForListDto User { get; set; }  
 
     }
 }
