@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [{
     icontype: 'nc-icon nc-single-copy-04'
     },{
         path: '/dashboard',
-        title: 'Dashboard',
+        title: 'Dashboard (Example)',
         type: 'link',
         icontype: 'nc-icon nc-bank'
     },
@@ -48,19 +48,19 @@ export const ROUTES: RouteInfo[] = [{
     //         {path: 'typography', title: 'Typography', ab:'T'}
     //     ]
     // },
-    {
-        path: '/forms',
-        title: 'Forms',
-        type: 'sub',
-        collapse: 'forms',
-        icontype: 'nc-icon nc-ruler-pencil',
-        children: [
-            {path: 'regular', title: 'Regular Forms', ab:'RF'},
-            {path: 'extended', title: 'Extended Forms', ab:'EF'},
-            {path: 'validation', title: 'Validation Forms', ab:'VF'},
-            {path: 'wizard', title: 'Wizard', ab:'W'}
-        ]
-    },
+    // {
+    //     path: '/forms',
+    //     title: 'Forms',
+    //     type: 'sub',
+    //     collapse: 'forms',
+    //     icontype: 'nc-icon nc-ruler-pencil',
+    //     children: [
+    //         {path: 'regular', title: 'Regular Forms', ab:'RF'},
+    //         {path: 'extended', title: 'Extended Forms', ab:'EF'},
+    //         {path: 'validation', title: 'Validation Forms', ab:'VF'},
+    //         {path: 'wizard', title: 'Wizard', ab:'W'}
+    //     ]
+    // },
     // {
     //     path: '/tables',
     //     title: 'Tables',
@@ -101,20 +101,20 @@ export const ROUTES: RouteInfo[] = [{
     //     type: 'link',
     //     icontype: 'nc-icon nc-calendar-60'
     // },
-    {
-        path: '/pages',
-        title: 'Pages',
-        collapse: 'pages',
-        type: 'sub',
-        icontype: 'nc-icon nc-book-bookmark',
-        children: [
-            {path: 'timeline', title: 'Timeline Page', ab:'T'},
-            {path: 'user', title: 'User Page', ab:'UP'},
-            {path: 'login', title: 'Login Page', ab:'LP'},
-            {path: 'register', title: 'Register Page', ab:'RP'},
-            {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
-        ]
-    },
+    // {
+    //     path: '/pages',
+    //     title: 'Pages',
+    //     collapse: 'pages',
+    //     type: 'sub',
+    //     icontype: 'nc-icon nc-book-bookmark',
+    //     children: [
+    //         {path: 'timeline', title: 'Timeline Page', ab:'T'},
+    //         {path: 'user', title: 'User Page', ab:'UP'},
+    //         {path: 'login', title: 'Login Page', ab:'LP'},
+    //         {path: 'register', title: 'Register Page', ab:'RP'},
+    //         {path: 'lock', title: 'Lock Screen Page', ab:'LSP'}
+    //     ]
+    // },
     {
         path: '/siteadmin',
         title: 'Site Admin',
