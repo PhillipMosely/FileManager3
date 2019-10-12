@@ -21,6 +21,7 @@ export class UserAddComponent implements OnInit{
     editForm: FormGroup;
     user = {} as User;
     companys: Company[];
+    donotsubmit = false;
 
     constructor(private sweetAlertService: SweetAlertService,
                 private userService: UserService,
@@ -52,6 +53,10 @@ export class UserAddComponent implements OnInit{
     }
 
     updateUser() {
+        if (this.donotsubmit) {
+            return;
+        }
+
         this.user.companyId = +this.editForm.value.companyid;
         this.user.userName = this.editForm.value.username;
         this.user.firstName = this.editForm.value.firstname;
@@ -81,15 +86,15 @@ export class UserAddComponent implements OnInit{
     }
 
     cancelUpdate() {
+        this.donotsubmit = true;
         this.navigateAfterSaveCancel();
     }
 
     navigateAfterSaveCancel() {
-        debugger;
         if ( this.useCloseEvent) {
             this.closeEvent.emit('done');
         } else {
-            this.router.navigate(['/filemanager']);
+            this.router.navigate(['/siteadmin/fmadmin']);
         }
     }
  }

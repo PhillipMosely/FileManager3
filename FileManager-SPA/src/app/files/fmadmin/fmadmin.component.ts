@@ -269,7 +269,6 @@ openModal(id: string) {
 }
 
 closeModal(id: string) {
-  debugger;
   this.modalService.close(id);
   if (id === 'fmadminaddmodal') {
     this.refreshDataTable();
