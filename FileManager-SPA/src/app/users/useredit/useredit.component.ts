@@ -72,4 +72,12 @@ export class UserEditComponent implements OnInit{
     cancelUpdate() {
         this.router.navigate(['/filemanager']);
     }
+
+    deletePhoto() {
+
+    }
+
+    updatePhoto() {
+        
+    }
  }
