@@ -27,9 +27,9 @@ import { FileManagerAdminService } from './_services/filemanageradmin.service';
 import { FileService } from './_services/file.service';
 import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
-import { FileAddModule } from './files/fileadd/fileadd.module';
 import { CompanyService } from './_services/company.service';
 import { UserAddModule } from './users/useradd/useradd.module';
+
 
 
 export function tokenGetter() {
@@ -56,8 +56,7 @@ export function tokenGetter() {
         jqxDataTableModule,
         ModalModule,
         FileUploadModule,
-        FileAddModule,
-        UserAddModule,
+        ReactiveFormsModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,
