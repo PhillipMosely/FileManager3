@@ -151,14 +151,13 @@ renderedRowButtons() {
   let myId: string = (<string>event['detail'])
   myId = myId.replace('del', '');
   const myDBId: number = this.myDataTable.getRows()[myId]['id'];
-  const myUserName: string = this.myDataTable.getRows()[myId]['Username'];
+  const myUserName: string = this.myDataTable.getRows()[myId]['userName'];
   this.sweetAlertService.confirm('Are you sure you want to delete \'' + myUserName + '\'', 'delete', () => {
-    // this.fileManagerAdminService.deleteFMAdmin(myDBId).subscribe(next => {
-    //   this.refreshDataTable();
-    //   this.sweetAlertService.success('Successfully deleted user');
-    // }, error => {
-    //   this.sweetAlertService.error('Not able to delete user');
-    // });
+    this.fileManagerAdminService.deleteFMAdmin(myDBId).subscribe(next => {
+      this.refreshDataTable();
+    }, error => {
+      this.sweetAlertService.error('Not able to delete user');
+    });
   });
 
 }

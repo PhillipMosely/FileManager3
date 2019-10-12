@@ -47,5 +47,7 @@ export class FileManagerAdminService {
     return this.http.put(this.baseUrl + 'fmadmins/' + id, fmAdmin);
   }
 
-
+  deleteFMAdmin(id) {
+    return this.http.delete(this.baseUrl + 'fmadmins/' + id);
+  }
 }

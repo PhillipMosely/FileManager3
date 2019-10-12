@@ -313,7 +313,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.sweetAlertService.confirm('Are you sure you want to delete \'' + myFileName + '\'', 'delete', () => {
       this.fileService.deleteFile(myDBId).subscribe(next => {
         this.refreshDataTable();
-        this.sweetAlertService.success('Successfully deleted file');
       }, error => {
         this.sweetAlertService.error('Not able to delete file');
       });
