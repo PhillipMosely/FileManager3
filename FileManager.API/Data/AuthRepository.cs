@@ -54,6 +54,7 @@ namespace FileManager.API.Data
             var myfmadmin = new FileManagerAdmin();
             myfmadmin.UserId = user.Id;
             myfmadmin.SubFolderName = subfolder;
+            myfmadmin.FolderData = "[]";
             myfmadmin.DateCreated = DateTime.Now;
             myfmadmin.DateModified = myfmadmin.DateCreated;
             await _context.FileManagerAdmin.AddAsync(myfmadmin);

@@ -33,10 +33,10 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'companyName', width: 200 },
+      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'companyName', width: 250 },
       { text: 'Username', cellsAlign: 'left', align: 'left', dataField: 'userName', width: 120 },
-      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'email', width: 200 },
-      { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subFolderName', width: 200 },
+      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'email', width: 250 },
+      { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subFolderName', width: 250 },
       // { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' }
   ];
