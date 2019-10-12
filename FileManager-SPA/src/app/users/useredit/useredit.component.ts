@@ -74,10 +74,12 @@ export class UserEditComponent implements OnInit{
     }
 
     deletePhoto() {
-
+        this.sweetAlertService.confirm('Are you sure you want to delete the profile photo', 'delete', () => {
+            this.user.photoUrl = '../../assets/img/user.png';
+        });
     }
 
     updatePhoto() {
-        
+
     }
  }
