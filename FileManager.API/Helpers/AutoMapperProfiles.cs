@@ -25,6 +25,7 @@ namespace FileManager.API.Helpers
             CreateMap<FMAdminForAddDto,FileManagerAdmin>();
             CreateMap<FMAdminForUpdateDto,FileManagerAdmin>();
             CreateMap<FileManagerAdmin,FMAdminForListDto>();
+            CreateMap<FileManagerAdmin,FMAdminForDetailDto>();
    
             CreateMap<FileForAddDto,File>();
             CreateMap<FileForUpdateDto,File>();
