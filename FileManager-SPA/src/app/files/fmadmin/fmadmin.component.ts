@@ -33,9 +33,9 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'User.Company.companyName', width: 200 },
-      { text: 'Username', cellsAlign: 'center', align: 'center', dataField: 'User.username', width: 120 },
-      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'User.email', width: 200 },
+      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'companyName', width: 200 },
+      { text: 'Username', cellsAlign: 'left', align: 'left', dataField: 'userName', width: 120 },
+      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'email', width: 200 },
       { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subFolderName', width: 200 },
       // { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
       { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' }
@@ -78,9 +78,9 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
             this.tableSource = {
                 dataType: 'json',
                 dataFields: [
-                    { name: 'User.Company.companyName', type: 'string' },
-                    { name: 'User.username', type: 'string' },
-                    { name: 'User.email', type: 'string' },
+                    { name: 'companyName', type: 'string' },
+                    { name: 'userName', type: 'string' },
+                    { name: 'email', type: 'string' },
                     { name: 'subFolderName', type: 'string' },
                     { name: 'dateCreated', type: 'date' },
                     { name: 'dateModified', type: 'date' },
@@ -88,6 +88,7 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
                 ],
                 localdata: res
             };
+
             this.tableDataAdaptor = new jqx.dataAdapter(this.tableSource);
 
         }, error => {

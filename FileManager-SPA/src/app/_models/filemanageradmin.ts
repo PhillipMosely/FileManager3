@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from './user';
 
 export interface FileManagerAdmin {
     id: number;
@@ -8,4 +8,7 @@ export interface FileManagerAdmin {
     dateCreated: Date;
     dateModified: Date;
     user: User;
+    companyName: string;
+    userName: string;
+    email: string;
 }

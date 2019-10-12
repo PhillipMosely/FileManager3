@@ -12,6 +12,15 @@ namespace FileManager.API.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }     
         public UserForListDto User { get; set; }  
+        public string CompanyName { get {
+            return User.Company.CompanyName;
+        }}
+        public string UserName { get {
+            return User.UserName;
+        }}
+        public string Email { get {
+            return User.Email;
+        }}
 
     }
 }
