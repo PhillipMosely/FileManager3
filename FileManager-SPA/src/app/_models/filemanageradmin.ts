@@ -1,3 +1,4 @@
+import { User } from "./user";
 
 export interface FileManagerAdmin {
     id: number;
@@ -6,4 +7,5 @@ export interface FileManagerAdmin {
     folderData: string;
     dateCreated: Date;
     dateModified: Date;
+    user: User;
 }
