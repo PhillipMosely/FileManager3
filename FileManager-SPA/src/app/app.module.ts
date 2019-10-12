@@ -29,6 +29,8 @@ import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { FileAddModule } from './files/fileadd/fileadd.module';
 import { CompanyService } from './_services/company.service';
+import { UserAddModule } from './users/useradd/useradd.module';
+
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -55,6 +57,7 @@ export function tokenGetter() {
         ModalModule,
         FileUploadModule,
         FileAddModule,
+        UserAddModule,
         JwtModule.forRoot({
             config: {
                tokenGetter,

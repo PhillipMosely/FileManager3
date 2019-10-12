@@ -5,6 +5,7 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { ModalService } from 'app/_services/modal.service';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { PaginatedResult } from 'app/_models/Pagination';
+import { UserAddModule } from 'app/users/useradd/useradd.module';
 
 @Component({
   selector: 'app-fmadmin',
@@ -13,6 +14,7 @@ import { PaginatedResult } from 'app/_models/Pagination';
 })
 export class FMAdminComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
+  @ViewChild('myUserAdd', {static: false}) myUserAdd: UserAddModule;
 
   tableFilterTextInput = '';
   tableFilterQuery = [];
@@ -163,7 +165,6 @@ renderedRowButtons() {
 
 myTableAddOnClick(): void {
   this.openModal('fmadminaddmodal');
- 
 }
 
 myTableFilterOnClick(clear: boolean): void {
