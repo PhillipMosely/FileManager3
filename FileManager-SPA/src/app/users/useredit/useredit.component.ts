@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit{
 
     }
 
-    editForm: FormGroup;
+    userEditForm: FormGroup;
     companys: Company[];
     donotsubmit = false;
     myFMAdmin: FileManagerAdmin;
@@ -59,7 +59,7 @@ export class UserEditComponent implements OnInit{
             this.fileManagerAdminService.getFMAdminForUserId(this.user.id).subscribe( next => {
                 this.myFMAdmin = next;
 
-                this.editForm = this.fb.group({
+                this.userEditForm = this.fb.group({
                     companyid: [this.user.company.id, Validators.required],
                     firstname: [this.user.firstName, Validators.required],
                     lastname: [this.user.lastName, Validators.required],
@@ -73,7 +73,7 @@ export class UserEditComponent implements OnInit{
                 });
             });
         } else {
-            this.editForm = this.fb.group({
+            this.userEditForm = this.fb.group({
                 companyid: ['', Validators.required],
                 firstname: ['', Validators.required],
                 lastname: ['', Validators.required],
@@ -93,24 +93,24 @@ export class UserEditComponent implements OnInit{
             return;
         }
 
-        if (!this.editForm.dirty) {
+        if (!this.userEditForm.dirty) {
             this.donotsubmit = true;
             this.navigateAfterSaveCancel();
             return;
         }
 
-        this.user.companyId = +this.editForm.value.companyid;
-        this.user.userName = this.editForm.value.username;
-        this.user.firstName = this.editForm.value.firstname;
-        this.user.lastName = this.editForm.value.lastname;
-        this.user.mobilePhone = this.editForm.value.mobilephone;
-        this.user.email = this.editForm.value.email;
-        this.user.knownAs = this.editForm.value.knownas;
-        this.user.city = this. editForm.value.city;
-        this.user.country = this.editForm.value.country;
+        this.user.companyId = +this.userEditForm.value.companyid;
+        this.user.userName = this.userEditForm.value.username;
+        this.user.firstName = this.userEditForm.value.firstname;
+        this.user.lastName = this.userEditForm.value.lastname;
+        this.user.mobilePhone = this.userEditForm.value.mobilephone;
+        this.user.email = this.userEditForm.value.email;
+        this.user.knownAs = this.userEditForm.value.knownas;
+        this.user.city = this.userEditForm.value.city;
+        this.user.country = this.userEditForm.value.country;
 
         this.userService.updateUser(this.user.id, this.user).subscribe( next => {
-            this.myFMAdmin.subFolderName = this.editForm.value.subfolder;
+            this.myFMAdmin.subFolderName = this.userEditForm.value.subfolder;
             this.fileManagerAdminService.updateFMAdmin(this.myFMAdmin.id, this.myFMAdmin).subscribe(next2 => {
                 this.sweetAlertService.success('Successfully updated user');
                 this.navigateAfterSaveCancel();

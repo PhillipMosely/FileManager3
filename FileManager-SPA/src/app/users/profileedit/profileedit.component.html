@@ -6,7 +6,7 @@
           <h5 class="title">Edit Profile</h5>
         </div>
         <div class="card-body">
-          <form [formGroup]="editForm" (ngSubmit)= "updateUser()">
+          <form [formGroup]="profileEditForm" (ngSubmit)= "updateUser()">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -16,13 +16,13 @@
                 <div class="form-group">
                     <label for="firstname">First Name</label>
                     <input type="text" formControlName="firstname" class="form-control" 
-                    [ngClass]="{'is-invalid': editForm.get('firstname').errors && editForm.get('firstname').touched}">
+                    [ngClass]="{'is-invalid': profileEditForm.get('firstname').errors && profileEditForm.get('firstname').touched}">
                     <div class="invalid-feedback">Please enter a first name</div>
                 </div>
                 <div class="form-group">
                   <label for="lastname">Last Name</label>
                   <input type="text" formControlName="lastname" class="form-control"
-                  [ngClass]="{'is-invalid': editForm.get('lastname').errors && editForm.get('lastname').touched}">
+                  [ngClass]="{'is-invalid': profileEditForm.get('lastname').errors && profileEditForm.get('lastname').touched}">
                   <div class="invalid-feedback">Please enter a last name</div>
                 </div>                  
               </div>
@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" formControlName="username" class="form-control"
-                      [ngClass]="{'is-invalid': editForm.get('username').errors && editForm.get('username').touched}">
+                      [ngClass]="{'is-invalid': profileEditForm.get('username').errors && profileEditForm.get('username').touched}">
                     <div class="invalid-feedback">Please enter a username</div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" formControlName="email" class="form-control" 
-                    [ngClass]="{'is-invalid': editForm.get('email').errors && editForm.get('email').touched}">
+                    [ngClass]="{'is-invalid': profileEditForm.get('email').errors && profileEditForm.get('email').touched}">
                     <div class="invalid-feedback">Please enter an email</div>                    
                   </div>                  
                 </div>
@@ -92,7 +92,7 @@
               <div class="text-right">
                 <button class="btn btn-warning mr-1"  title="Cancel Profile Update" 
                   (click)="cancelUpdate()">Cancel</button>
-                <button [disabled]="!editForm.valid" class="btn btn-primary mr-1" 
+                <button [disabled]="!profileEditForm.valid" class="btn btn-primary mr-1" 
                   type="submit" title="Update Profile" >Save</button>                 
               
               </div>

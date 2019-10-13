@@ -15,7 +15,7 @@ import { AuthService } from 'app/_services/auth.service';
 
 export class ProfileEditComponent implements OnInit {
     @Input() user: User;
-    editForm: FormGroup;
+    profileEditForm: FormGroup;
     // @HostListener('window:beforeunload', ['$event'])
     //   unloadNotification($event: any) {
     //     if (this.editForm.dirty) {
@@ -36,7 +36,7 @@ export class ProfileEditComponent implements OnInit {
     }
 
     createEditForm() {
-        this.editForm = this.fb.group({
+        this.profileEditForm = this.fb.group({
             company: [this.user.company.companyName],
             firstname: [this.user.firstName, Validators.required],
             lastname: [this.user.lastName, Validators.required],
@@ -50,15 +50,17 @@ export class ProfileEditComponent implements OnInit {
     }
 
     updateUser() {
-        this.user.userName = this.editForm.value.username;
-        this.user.firstName = this.editForm.value.firstname;
-        this.user.lastName = this.editForm.value.lastname;
-        this.user.mobilePhone = this.editForm.value.mobilephone;
-        this.user.email = this.editForm.value.email;
-        this.user.knownAs = this.editForm.value.knownas;
-        this.user.city = this. editForm.value.city;
-        this.user.country = this.editForm.value.country;
-
+        this.user.userName = this.profileEditForm.value.username;
+        this.user.firstName = this.profileEditForm.value.firstname;
+        this.user.lastName = this.profileEditForm.value.lastname;
+        this.user.mobilePhone = this.profileEditForm.value.mobilephone;
+        this.user.email = this.profileEditForm.value.email;
+        this.user.knownAs = this.profileEditForm.value.knownas;
+        this.user.city = this. profileEditForm.value.city;
+        this.user.country = this.profileEditForm.value.country;
+        
+        this.user.companyId = this.user.company.id;
+        
         this.userService.updateUser(this.user.id, this.user).subscribe(next => {
             this.authService.updateUserInfo(this.user);
             this.sweetAlertService.success('Successfully updated user');

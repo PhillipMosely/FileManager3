@@ -18,7 +18,7 @@ import { ModalService } from 'app/_services/modal.service';
 export class UserAddComponent implements OnInit{
     @Input() useCloseEvent: boolean;
     @Output() closeEvent = new EventEmitter<string>();
-    editForm: FormGroup;
+    userAddForm: FormGroup;
     user = {} as User;
     companys: Company[];
     donotsubmit = false;
@@ -38,7 +38,7 @@ export class UserAddComponent implements OnInit{
     }
 
     createEditForm() {
-        this.editForm = this.fb.group({
+        this.userAddForm = this.fb.group({
             companyid: ['', Validators.required],
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
@@ -57,19 +57,19 @@ export class UserAddComponent implements OnInit{
             return;
         }
 
-        this.user.companyId = +this.editForm.value.companyid;
-        this.user.userName = this.editForm.value.username;
-        this.user.firstName = this.editForm.value.firstname;
-        this.user.lastName = this.editForm.value.lastname;
-        this.user.mobilePhone = this.editForm.value.mobilephone;
-        this.user.email = this.editForm.value.email;
-        this.user.knownAs = this.editForm.value.knownas;
-        this.user.city = this. editForm.value.city;
-        this.user.country = this.editForm.value.country;
-
+        this.user.companyId = +this.userAddForm.value.companyid;
+        this.user.userName = this.userAddForm.value.username;
+        this.user.firstName = this.userAddForm.value.firstname;
+        this.user.lastName = this.userAddForm.value.lastname;
+        this.user.mobilePhone = this.userAddForm.value.mobilephone;
+        this.user.email = this.userAddForm.value.email;
+        this.user.knownAs = this.userAddForm.value.knownas;
+        this.user.city = this.userAddForm.value.city;
+        this.user.country = this.userAddForm.value.country;
+        
         this.userService.getUserByUserName(this.user.userName.toLowerCase()).subscribe( next => {
             if (next === null) {
-                this.authService.register(this.user, this.editForm.value.subfolder).subscribe( next2 => {
+                this.authService.register(this.user, this.userAddForm.value.subfolder).subscribe( next2 => {
                     this.sweetAlertService.success('Successfully Added user');
                     this.navigateAfterSaveCancel();
                 }, error => {

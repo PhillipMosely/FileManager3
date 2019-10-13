@@ -280,7 +280,7 @@ openModal(id: string) {
 
 closeModal(id: string) {
   this.modalService.close(id);
-  if (id === 'fmadminaddmodal') {
+  if (id === 'fmadminaddmodal' || id === 'fmadminupdatemodal') {
     this.refreshDataTable();
   }
 }
