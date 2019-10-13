@@ -1,6 +1,6 @@
-import { Component, ViewChild, HostListener, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'app/_models/user';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { UserService } from 'app/_services/user.service';
@@ -9,11 +9,11 @@ import { AuthService } from 'app/_services/auth.service';
 
 @Component({
     moduleId: module.id,
-    selector: 'app-useredit',
-    templateUrl: 'useredit.component.html'
+    selector: 'app-profileedit',
+    templateUrl: 'profileedit.component.html'
 })
 
-export class UserEditComponent implements OnInit{
+export class ProfileEditComponent implements OnInit {
     @Input() user: User;
     editForm: FormGroup;
     // @HostListener('window:beforeunload', ['$event'])

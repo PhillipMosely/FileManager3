@@ -15,7 +15,7 @@ export const AppRoutes: Routes = [{
             loadChildren: './files/filemanager/filemanager.module#FilemanagerModule'
         },{
             path: '',
-            loadChildren: './users/useredit/useredit.module#UserEditModule'
+            loadChildren: './users/profileedit/profileedit.module#ProfileEditModule'
         },{
             path: 'siteadmin',
             loadChildren: './users/useradd/useradd.module#UserAddModule'
