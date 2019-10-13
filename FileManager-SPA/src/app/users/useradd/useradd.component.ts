@@ -11,7 +11,6 @@ import { Role } from 'app/_models/role';
 import { RoleService } from 'app/_services/role.service';
 import { UserRole } from 'app/_models/userrole';
 
-
 @Component({
     selector: 'app-useradd',
     templateUrl: './useradd.component.html'
@@ -73,16 +72,16 @@ export class UserAddComponent implements OnInit{
         this.user.knownAs = this.userAddForm.value.knownas;
         this.user.city = this.userAddForm.value.city;
         this.user.country = this.userAddForm.value.country;
-        debugger;
+
+
         if (this.userAddForm.value.roles) {
+            const myUserRoles = {} as UserRole[];
             for (let i = 0; i < this.userAddForm.value.roles.length; i++) {
-                const myRole = {} as Role;
-                myRole.id = this.userAddForm.value.roles[i];
-                const myUserRole = {} as UserRole;
-                myUserRole.role = myRole;
-                this.user.roles = {} as UserRole[];
-                (<UserRole[]>this.user.roles).push(myUserRole);
+                const myRole: Role = {id: this.userAddForm.value.roles[i], roleName: '', description: '',
+                                      isSuperUser: false, isCompanyAdmin: false, dateCreated: null, dateModified: null};
+                myUserRoles[i] = {role: myRole};
             }
+            this.user.roles = myUserRoles;
         }
 
         this.userService.getUserByUserName(this.user.userName.toLowerCase()).subscribe( next => {
