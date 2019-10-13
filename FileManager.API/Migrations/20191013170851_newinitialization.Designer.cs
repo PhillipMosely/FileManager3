@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191008112844_InitializeWithFileUpdates")]
-    partial class InitializeWithFileUpdates
+    [Migration("20191013170851_newinitialization")]
+    partial class newinitialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -202,7 +202,7 @@ namespace FileManager.API.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("FileManager.API.Models.File", b =>
@@ -235,9 +235,9 @@ namespace FileManager.API.Migrations
             modelBuilder.Entity("FileManager.API.Models.UserRole", b =>
                 {
                     b.HasOne("FileManager.API.Models.Role", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FileManager.API.Models.User", "User")

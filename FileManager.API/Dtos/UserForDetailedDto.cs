@@ -19,6 +19,6 @@ namespace FileManager.API.Dtos
         public string Country { get; set; }      
         public string PhotoUrl {get; set;}  
         public Company Company { get; set; }
-        public ICollection<Role> Roles {get; set;}
+        public ICollection<UserRole> Roles {get; set;}
     }
 }

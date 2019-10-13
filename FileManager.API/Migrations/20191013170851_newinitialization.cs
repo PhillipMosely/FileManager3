@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class InitializeWithFileUpdates : Migration
+    public partial class newinitialization : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -95,7 +95,7 @@ namespace FileManager.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
+                name: "UserRoles",
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
@@ -103,15 +103,15 @@ namespace FileManager.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_UserRole_Roles_RoleId",
+                        name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRole_Users_UserId",
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -157,8 +157,8 @@ namespace FileManager.API.Migrations
                 column: "FileManagerAdminId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_RoleId",
-                table: "UserRole",
+                name: "IX_UserRoles_RoleId",
+                table: "UserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -173,7 +173,7 @@ namespace FileManager.API.Migrations
                 name: "Files");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
+                name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "FileManagerAdmin");

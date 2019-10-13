@@ -83,13 +83,13 @@ namespace FileManager.API.Data
                     User = user,
                     Role = role
                 };
-                context.UserRole.Add(userRole);
+                context.UserRoles.Add(userRole);
                 
                 var userRole2 = new UserRole {
                     User = user2,
                     Role = role2
                 };
-                context.UserRole.Add(userRole2);                
+                context.UserRoles.Add(userRole2);                
 
                 var fmAdmin = new FileManagerAdmin {
                     User = user,
