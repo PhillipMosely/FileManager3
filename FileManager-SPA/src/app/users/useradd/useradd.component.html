@@ -95,11 +95,11 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-header">
-            <h5 class="title">Roles For User</h5>
+            <h5 class="title">Role For User</h5>
           </div>
           <div class="card-body">
-            <label for="roles">Roles</label>
-            <select multiple formControlName="roles" class="form-control" 
+            <label for="roles">Role</label>
+            <select formControlName="roles" class="form-control" 
               [ngClass]="{'is-invalid': userAddForm.get('roles').errors && userAddForm.get('roles').touched}">
               <option *ngFor="let item of roles" [ngValue]="item.id" title="{{item.description}}">{{item.roleName}}</option>
             </select>
