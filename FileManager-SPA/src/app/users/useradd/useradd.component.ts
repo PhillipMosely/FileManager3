@@ -7,7 +7,9 @@ import { UserService } from 'app/_services/user.service';
 import { AuthService } from 'app/_services/auth.service';
 import { CompanyService } from 'app/_services/company.service';
 import { Company } from 'app/_models/company';
-import { ModalService } from 'app/_services/modal.service';
+import { Role } from 'app/_models/role';
+import { RoleService } from 'app/_services/role.service';
+import { UserRole } from 'app/_models/userrole';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class UserAddComponent implements OnInit{
     userAddForm: FormGroup;
     user = {} as User;
     companys: Company[];
+    roles: Role[];
     donotsubmit = false;
 
     constructor(private sweetAlertService: SweetAlertService,
@@ -28,11 +31,14 @@ export class UserAddComponent implements OnInit{
                 private companyService: CompanyService,
                 private fb: FormBuilder, private router: Router,
                 private authService: AuthService,
-                private modalService: ModalService) { }
+                private roleService: RoleService) { }
 
     ngOnInit() {
         this.companyService.getCompanys().subscribe( next => {
             this.companys = next.result;
+        });
+        this.roleService.getRoles().subscribe( next => {
+            this.roles = next.result;
         });
         this.createEditForm();
     }
@@ -48,7 +54,8 @@ export class UserAddComponent implements OnInit{
             knownas: [''],
             city: [''],
             country: [''],
-            subfolder: ['', Validators.required]
+            subfolder: ['', Validators.required],
+            roles: ['', Validators.required]
         });
     }
 
@@ -66,7 +73,18 @@ export class UserAddComponent implements OnInit{
         this.user.knownAs = this.userAddForm.value.knownas;
         this.user.city = this.userAddForm.value.city;
         this.user.country = this.userAddForm.value.country;
-        
+        debugger;
+        if (this.userAddForm.value.roles) {
+            for (let i = 0; i < this.userAddForm.value.roles.length; i++) {
+                const myRole = {} as Role;
+                myRole.id = this.userAddForm.value.roles[i];
+                const myUserRole = {} as UserRole;
+                myUserRole.role = myRole;
+                this.user.roles = {} as UserRole[];
+                (<UserRole[]>this.user.roles).push(myUserRole);
+            }
+        }
+
         this.userService.getUserByUserName(this.user.userName.toLowerCase()).subscribe( next => {
             if (next === null) {
                 this.authService.register(this.user, this.userAddForm.value.subfolder).subscribe( next2 => {
