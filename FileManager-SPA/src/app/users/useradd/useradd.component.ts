@@ -75,11 +75,12 @@ export class UserAddComponent implements OnInit{
 
 
         if (this.userAddForm.value.roles) {
-            const myUserRoles = {} as UserRole[];
+            let myUserRoles = {} as UserRole[];
+            let myUserRole = {} as UserRole;
             for (let i = 0; i < this.userAddForm.value.roles.length; i++) {
                 const myRole: Role = {id: this.userAddForm.value.roles[i], roleName: '', description: '',
                                       isSuperUser: false, isCompanyAdmin: false, dateCreated: null, dateModified: null};
-                myUserRoles[i] = {role: myRole};
+                myUserRoles = [{ roleId: myRole.id, role: myRole}];
             }
             this.user.roles = myUserRoles;
         }

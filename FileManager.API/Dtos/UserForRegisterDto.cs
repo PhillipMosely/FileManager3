@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using FileManager.API.Models;
 
 namespace FileManager.API.Dtos
 
@@ -26,7 +27,7 @@ namespace FileManager.API.Dtos
         public string Country { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public ICollection<UserRoleForDetailDto> Roles {get; set;}
+        public ICollection<UserRoleForRegisterDto> Roles {get; set;}
         public UserForRegisterDto()
         {
             DateCreated = DateTime.Now;
