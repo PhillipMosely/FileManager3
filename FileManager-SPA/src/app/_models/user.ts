@@ -17,5 +17,5 @@ export interface User {
     country: string;
     companyId: number;
     company: Company;
-    roles?: Role[];
+    roles: Role[];
 }
