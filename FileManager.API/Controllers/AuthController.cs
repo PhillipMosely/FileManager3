@@ -84,7 +84,7 @@ namespace FileManager.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var user = _mapper.Map<UserForListDto>(userFromRepo);
+            var user = _mapper.Map<UserForDetailedDto>(userFromRepo);
 
             return Ok(new
             {

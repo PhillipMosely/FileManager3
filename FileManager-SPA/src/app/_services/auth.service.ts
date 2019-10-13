@@ -28,7 +28,6 @@ export class AuthService {
       .pipe(
         map((response: any) => {
           const user = response;
-          debugger;
           if (user) {
             localStorage.setItem('token', user.token);
             localStorage.setItem('user', JSON.stringify(user.user));
