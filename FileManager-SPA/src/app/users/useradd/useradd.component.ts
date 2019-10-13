@@ -66,10 +66,10 @@ export class UserAddComponent implements OnInit{
         this.user.knownAs = this.editForm.value.knownas;
         this.user.city = this. editForm.value.city;
         this.user.country = this.editForm.value.country;
-        
+
         this.userService.getUserByUserName(this.user.userName.toLowerCase()).subscribe( next => {
             if (next === null) {
-                this.authService.register(this.user, this.editForm.value.subfolder).subscribe(next => {
+                this.authService.register(this.user, this.editForm.value.subfolder).subscribe( next2 => {
                     this.sweetAlertService.success('Successfully Added user');
                     this.navigateAfterSaveCancel();
                 }, error => {

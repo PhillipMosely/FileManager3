@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileManager.API.Controllers
 {
-    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

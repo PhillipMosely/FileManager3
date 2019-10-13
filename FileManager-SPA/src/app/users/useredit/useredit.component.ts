@@ -25,6 +25,7 @@ export class UserEditComponent implements OnInit{
 
        this._user = value;
        this.createEditForm();
+       this.donotsubmit = false;
 
     }
 
@@ -57,7 +58,7 @@ export class UserEditComponent implements OnInit{
         if (this.user) {
             this.fileManagerAdminService.getFMAdminForUserId(this.user.id).subscribe( next => {
                 this.myFMAdmin = next;
-                
+
                 this.editForm = this.fb.group({
                     companyid: [this.user.company.id, Validators.required],
                     firstname: [this.user.firstName, Validators.required],
@@ -92,6 +93,12 @@ export class UserEditComponent implements OnInit{
             return;
         }
 
+        if (!this.editForm.dirty) {
+            this.donotsubmit = true;
+            this.navigateAfterSaveCancel();
+            return;
+        }
+
         this.user.companyId = +this.editForm.value.companyid;
         this.user.userName = this.editForm.value.username;
         this.user.firstName = this.editForm.value.firstname;
@@ -103,10 +110,8 @@ export class UserEditComponent implements OnInit{
         this.user.country = this.editForm.value.country;
 
         this.userService.updateUser(this.user.id, this.user).subscribe( next => {
-            debugger
             this.myFMAdmin.subFolderName = this.editForm.value.subfolder;
             this.fileManagerAdminService.updateFMAdmin(this.myFMAdmin.id, this.myFMAdmin).subscribe(next2 => {
-                debugger
                 this.sweetAlertService.success('Successfully updated user');
                 this.navigateAfterSaveCancel();
             }, error => {
