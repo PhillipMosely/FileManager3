@@ -1,4 +1,5 @@
 import { Company } from './company';
+import { Role } from './role';
 
 export interface User {
     id: number;
@@ -16,4 +17,5 @@ export interface User {
     country: string;
     companyId: number;
     company: Company;
+    roles?: Role[];
 }

@@ -22,6 +22,6 @@ namespace FileManager.API.Models
         public string PhotoUrl { get; set; }
         public int CompanyId { get; set; }
         public virtual Company Company {get; set;}
-        public virtual ICollection<UserRole> Roles { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

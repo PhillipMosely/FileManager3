@@ -138,6 +138,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     public menuItems: any[];
     photoUrl: string;
     fullName: string;
+    user: User;
+    userIsAdmin: boolean;
 
     constructor(public  authService: AuthService) {}
 
@@ -152,7 +154,22 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
         this.photoUrl = this.authService.currentUser.photoUrl;
         this.fullName = this.authService.fullName;
+        this.user = JSON.parse(localStorage.getItem('user'));
+        this.userIsAdmin = this.setUserIsAdmin();
     }
     ngAfterViewInit() {
+    }
+
+    setUserIsAdmin(): boolean {
+        debugger;
+        let isAdmin = false;
+        if (this.user.roles) {
+            this.user.roles.forEach( item => {
+                if (item.roleName === 'Admin') {
+                    isAdmin = true;
+                }
+            })
+        }
+        return isAdmin;
     }
 }
