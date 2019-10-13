@@ -1,0 +1,108 @@
+<div class="main-content" style="min-width: 900px; max-width: 1100px;">
+    <form [formGroup]="editForm" (ngSubmit)= "updateUser()">
+    <div class="row">
+      <div class="col-md-11">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="title">Add User</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label for="companyid">Company</label>
+                  <select type="text" formControlName="companyid" class="form-control" 
+                    [ngClass]="{'is-invalid': editForm.get('companyid').errors && editForm.get('companyid').touched}">
+                    <option *ngFor="let item of companys" [ngValue]="item.id">{{item.companyName}}</option>
+                  </select>
+                    <div class="invalid-feedback">Please select a company</div>                    
+                </div>
+              </div>
+            </div>
+              <div class="row">                
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" formControlName="firstname" class="form-control" 
+                    [ngClass]="{'is-invalid': editForm.get('firstname').errors && editForm.get('firstname').touched}">
+                    <div class="invalid-feedback">Please enter a first name</div>
+                </div>
+              </div>
+              <div class="col-md-6 p4-1">                  
+                <div class="form-group">
+                  <label for="lastname">Last Name</label>
+                  <input type="text" formControlName="lastname" class="form-control"
+                  [ngClass]="{'is-invalid': editForm.get('lastname').errors && editForm.get('lastname').touched}">
+                  <div class="invalid-feedback">Please enter a last name</div>
+              </div>                  
+            </div>
+              
+            </div>
+            <div class="row">                
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" formControlName="username" class="form-control"
+                      [ngClass]="{'is-invalid': editForm.get('username').errors && editForm.get('username').touched}">
+                    <div class="invalid-feedback">Please enter a username</div>
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">                  
+                <div class="form-group">
+                  <label for="knownas">Known As</label>
+                  <input type="text" formControlName="knownas" class="form-control" >
+                </div>                  
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-md-4 pr-1">                  
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" formControlName="email" class="form-control" 
+                    [ngClass]="{'is-invalid': editForm.get('email').errors && editForm.get('email').touched}">
+                    <div class="invalid-feedback">Please enter an email</div>                    
+                  </div>                  
+                </div>
+                <div class="col-md-4 pr-1">                  
+                  <div class="form-group">
+                    <label for="mobilephone">Mobile Phone</label>
+                    <input type="text" formControlName="mobilephone" class="form-control" >
+                  </div>                  
+                </div>                                
+              </div>
+              <div class="row">                                
+                <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                      <label for="city">City</label>
+                      <input type="text" formControlName="city" class="form-control" >
+                  </div>
+                </div>
+                <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                      <label for="country">Country</label>
+                      <input type="text" formControlName="country" class="form-control" >
+                  </div>
+                </div>                
+              </div>
+              <div class="row">                 
+              <div class="col-md-5 pr-1">
+                  <h5 class="title">File Manager Settings</h5>
+                  <div class="form-group">
+                    <label for="subfolder">Sub Folder</label>
+                    <input type="text" formControlName="subfolder" class="form-control" 
+                      [ngClass]="{'is-invalid': editForm.get('subfolder').errors && editForm.get('subfolder').touched}">
+                      <div class="invalid-feedback">Please enter a sub folder</div>                    
+                  </div>
+                </div>
+              </div>
+              <button [disabled]="!editForm.valid" class="btn btn-primary" style="float:right;"
+                type="submit" title="Create New User" >Save</button>                 
+              <button class="btn btn-warning" style="float:right;" title="Cancel Adding User" 
+                (click)="cancelUpdate()">Cancel</button>      
+            </div>
+          </div>
+      </div>
+    </div>
+
+    </form>
+</div>
