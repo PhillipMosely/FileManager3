@@ -8,6 +8,7 @@ import { ModalModule } from 'app/components/modal/modal.module';
 import { FMAdminRoutes } from './fmadmin.routing.';
 import { FMAdminComponent } from './fmadmin.component';
 import { UserAddModule } from 'app/users/useradd/useradd.module';
+import { UserEditModule } from 'app/users/useredit/useredit.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { UserAddModule } from 'app/users/useradd/useradd.module';
     ReactiveFormsModule,
     jqxDataTableModule,
     ModalModule,
-    UserAddModule
+    UserAddModule,
+    UserEditModule
 ],
 declarations: [FMAdminComponent],
 schemas: [CUSTOM_ELEMENTS_SCHEMA]

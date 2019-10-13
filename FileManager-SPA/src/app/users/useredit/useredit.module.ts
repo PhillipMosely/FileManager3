@@ -4,6 +4,7 @@ import { UserEditComponent } from './useredit.component';
 import { UserEditRoutes } from './useredit.routing';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { User } from 'app/_models/user';
 
 @NgModule({
   imports: [
@@ -18,4 +19,5 @@ exports: [UserEditComponent]
 })
 export class UserEditModule {
   @Input() useCloseEvent: boolean;
+  @Input() user: User;
 }

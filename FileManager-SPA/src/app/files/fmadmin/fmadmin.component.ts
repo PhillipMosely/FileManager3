@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, HostListener, EventEmitter } from '@angular/core';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
@@ -6,6 +6,8 @@ import { ModalService } from 'app/_services/modal.service';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { UserAddModule } from 'app/users/useradd/useradd.module';
+import { UserEditModule } from 'app/users/useredit/useredit.module';
+import { UserService } from 'app/_services/user.service';
 
 @Component({
   selector: 'app-fmadmin',
@@ -15,6 +17,7 @@ import { UserAddModule } from 'app/users/useradd/useradd.module';
 export class FMAdminComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
   @ViewChild('myUserAdd', {static: false}) myUserAdd: UserAddModule;
+  @ViewChild('myUserEdit', {static: false}) myUserEdit: UserEditModule;
 
   tableFilterTextInput = '';
   tableFilterQuery = [];
@@ -45,7 +48,8 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
               private sweetAlertService: SweetAlertService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private userService: UserService) {
               }
 
 
@@ -133,7 +137,6 @@ renderedRowButtons() {
   myId = myId.replace('view', '');
   const myDBId: number = this.myDataTable.getRows()[myId]['id'];
   this.fileManagerAdminService.getFMAdmin(myDBId).subscribe(next => {
-    // this.myFileView.myFile = next;
     this.openModal('fmadminviewmodal');
   }, error => {
     this.sweetAlertService.error('Not able to view User');
@@ -144,7 +147,14 @@ renderedRowButtons() {
   let myId: string = (<string>event['detail'])
   myId = myId.replace('edit', '');
   const myDBId: number = this.myDataTable.getRows()[myId]['id'];
-  this.openModal('fmadminupdatemodal');
+  this.userService.getUser(myDBId).subscribe( next => {
+    this.myUserEdit.useCloseEvent = true;
+    this.myUserEdit.user = next;
+    this.openModal('fmadminupdatemodal');
+  }, error => {
+    this.sweetAlertService.error('Not able to Edit User');
+  })
+
 }
 
 @HostListener('window:custom-eventd', ['$event']) onClickd() {
