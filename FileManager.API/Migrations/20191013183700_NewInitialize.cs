@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class newinitialization : Migration
+    public partial class NewInitialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,8 @@ namespace FileManager.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     RoleName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
+                    IsSuperUser = table.Column<bool>(nullable: false),
+                    IsCompanyAdmin = table.Column<bool>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false)
                 },

@@ -35,7 +35,8 @@ namespace FileManager.API.Data
 
                 var role = new Role { 
                     RoleName="Admin",
-                    Description="Administrative Role",
+                    IsSuperUser = true,
+                    Description="HRTMS Master Administrative Role",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now};
                 context.Roles.Add(role);
@@ -47,6 +48,14 @@ namespace FileManager.API.Data
                     DateModified = DateTime.Now};
                 context.Roles.Add(role2);
 
+                var role3 = new Role {
+                    RoleName="Company Admin",
+                    Description="The admin role for a single company.  Can configure options for the company",
+                    IsCompanyAdmin = true,
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now};
+                context.Roles.Add(role3);
+                
                 var user = new User {
                     FirstName = "Admin",
                     LastName = "Admin",

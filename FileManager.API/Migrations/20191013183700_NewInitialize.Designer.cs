@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191013170851_newinitialization")]
-    partial class newinitialization
+    [Migration("20191013183700_NewInitialize")]
+    partial class NewInitialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,6 +123,12 @@ namespace FileManager.API.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCompanyAdmin")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSuperUser")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RoleName")
                         .HasColumnType("TEXT");

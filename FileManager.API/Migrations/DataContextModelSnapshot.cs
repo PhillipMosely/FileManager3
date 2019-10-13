@@ -122,6 +122,12 @@ namespace FileManager.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsCompanyAdmin")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsSuperUser")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("RoleName")
                         .HasColumnType("TEXT");
 

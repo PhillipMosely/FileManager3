@@ -165,7 +165,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
         if (this.user.roles) {
             for (let i = 0; i < this.user.roles.length; i++ ) {
-                if (this.user.roles[i].role.roleName === 'Admin') {
+                if (this.user.roles[i].role.isSuperUser) {
                     isAdmin = true;
                 }
             }
