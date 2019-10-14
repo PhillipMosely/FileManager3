@@ -8,6 +8,8 @@ import { PaginatedResult } from 'app/_models/Pagination';
 import { UserAddModule } from 'app/users/useradd/useradd.module';
 import { UserEditModule } from 'app/users/useredit/useredit.module';
 import { UserService } from 'app/_services/user.service';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+
 
 @Component({
   selector: 'app-fmadmin',
@@ -19,7 +21,11 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
   @ViewChild('myUserAdd', {static: false}) myUserAdd: UserAddModule;
   @ViewChild('myUserEdit', {static: false}) myUserEdit: UserEditModule;
 
+  bsFilterDateConfig: Partial<BsDatepickerConfig>;
+  bsFilterDateInlineValue = new Date();
+  filterTextInput = true;
   tableFilterTextInput = '';
+  tableFilterDateInput = '';
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -179,15 +185,27 @@ myTableAddOnClick(): void {
 
 myTableFilterOnClick(clear: boolean): void {
   if (clear) {
-      this.tableFilterTextInput = '';
-      this.tableFilterQuery = [];
-      this.refreshDataTable();
+    this.filterTextInput = true;
+    this.tableFilterTextInput = '';
+    this.bsFilterDateInlineValue = new Date();
+    this.tableFilterQuery = [];
+    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
+    if (!(myFilterSelect[0] === null)) {
+      const mySelect = <any>myFilterSelect[0];
+      this.myFilterSelectonChange();
+      mySelect.selectedIndex = 0;
+    }
+    this.refreshDataTable();
   } else {
     const myFilterSelect = document.getElementsByClassName('myFilterSelect');
     if (!(myFilterSelect[0] === null)) {
       const mySelect = <any>myFilterSelect[0];
       const myFilterField = mySelect[mySelect.selectedIndex].text;
-      this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
+      if (myFilterField.toLowerCase().indexOf('date') >= 0) {
+        this.tableFilterQuery.push({'field': myFilterField, 'filterDate': this.tableFilterDateInput});
+      } else {
+        this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
+      }
       this.refreshDataTable();
     }
   }
@@ -204,20 +222,24 @@ myFilterSelectonChange(): void {
       case 'Username':
       case 'Email':
       case 'Sub Folder': {
-        myFilterCondition[0].innerText = 'Contains'
+        myFilterCondition[0].innerText = 'Contains';
+        this.filterTextInput = true;
         break;
       }
       case 'File Count': {
         myFilterCondition[0].innerText = 'Larger Than';
+        this.filterTextInput = true;
         break;
       }
       case 'Date Modified':
       case 'Date Created': {
         myFilterCondition[0].innerText = 'Later Than';
+        this.filterTextInput = false;
         break;
       }
       default: {
-        myFilterCondition[0].innerText = 'Contains'
+        myFilterCondition[0].innerText = 'Contains';
+        this.filterTextInput = true;
         break;
       }
     }
@@ -226,50 +248,48 @@ myFilterSelectonChange(): void {
 
 applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<FileManagerAdmin[]> {
   const myReturn: PaginatedResult<FileManagerAdmin[]> = res;
-
-  if (this.tableFilterTextInput) {
-    this.tableFilterQuery.forEach(filterItem => {
-        switch ( filterItem.field ) {
-          case 'Company': {
-            myReturn.result = myReturn.result.filter(
-              x => x.companyName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-            break;
-          }
-          case 'File Count': {
-            // myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
-            break;
-          }
-          case 'Username': {
-            myReturn.result = myReturn.result.filter(
-              x => x.userName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-            break;
-          }
-          case 'Email': {
-            myReturn.result = myReturn.result.filter(
-              x => x.email.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-            break;
-          }
-          case 'Sub Folder': {
-            myReturn.result = myReturn.result.filter(
-              x => x.subFolderName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-            break;
-          }
-          case 'Date Modified': {
-            // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-            break;
-          }
-          case 'Date Created': {
-            // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-            break;
-          }
-          default: {
-            this.tableFilterTextInput = '';
-            this.tableFilterQuery = [];
-            break;
-          }
-      }
-    });
-  };
+  this.tableFilterQuery.forEach(filterItem => {
+      switch ( filterItem.field ) {
+        case 'Company': {
+          myReturn.result = myReturn.result.filter(
+            x => x.companyName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+          break;
+        }
+        case 'File Count': {
+          // myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
+          break;
+        }
+        case 'Username': {
+          myReturn.result = myReturn.result.filter(
+            x => x.userName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+          break;
+        }
+        case 'Email': {
+          myReturn.result = myReturn.result.filter(
+            x => x.email.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+          break;
+        }
+        case 'Sub Folder': {
+          myReturn.result = myReturn.result.filter(
+            x => x.subFolderName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+          break;
+        }
+        case 'Date Modified': {
+          myReturn.result = myReturn.result.filter(x => new Date(x.dateModified) > new Date(filterItem.filterDate));
+          break;
+        }
+        case 'Date Created': {
+          myReturn.result = myReturn.result.filter(x => new Date(x.dateCreated) > new Date(filterItem.filterDate));
+          break;
+        }
+        default: {
+          this.tableFilterTextInput = '';
+          this.bsFilterDateInlineValue = new Date();
+          this.tableFilterQuery = [];
+          break;
+        }
+    }
+  });
 
   return myReturn;
 }

@@ -9,6 +9,7 @@ import { FMAdminRoutes } from './fmadmin.routing.';
 import { FMAdminComponent } from './fmadmin.component';
 import { UserAddModule } from 'app/users/useradd/useradd.module';
 import { UserEditModule } from 'app/users/useredit/useredit.module';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { UserEditModule } from 'app/users/useredit/useredit.module';
     FormsModule,
     ReactiveFormsModule,
     jqxDataTableModule,
+    BsDatepickerModule.forRoot(),
     ModalModule,
     UserAddModule,
     UserEditModule

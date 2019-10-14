@@ -35,9 +35,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   source: any;
   dataAdapter: any;
   records: any;
+
   bsFilterDateConfig: Partial<BsDatepickerConfig>;
   bsFilterDateInlineValue = new Date();
-
   filterTextInput = true;
   tableFilterTextInput = '';
   tableFilterDateInput = '';
