@@ -12,6 +12,7 @@ import { FileViewComponent } from '../fileview/fileview.component';
 import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 
 @Component({
@@ -34,8 +35,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   source: any;
   dataAdapter: any;
   records: any;
+  bsConfig: Partial<BsDatepickerConfig>;
 
+  filterTextInput = true;
   tableFilterTextInput = '';
+  tableFilterDateInput = '';
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -75,6 +79,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+    this.bsConfig = {
+      containerClass: 'theme-red'
+    };
      const myUser: User = JSON.parse(localStorage.getItem('user'));
      this.fileManagerAdminService.getFMAdminForUserId(myUser.id)
         .subscribe(
@@ -333,7 +340,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   myTableFilterOnClick(clear: boolean): void {
     if (clear) {
-        this.tableFilterTextInput = '';
+        this.filterTextInput = true;
+      this.tableFilterTextInput = '';
+        this.tableFilterDateInput = '';
         this.tableFilterQuery = [];
         this.refreshDataTable();
     } else {
@@ -341,7 +350,11 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       if (!(myFilterSelect[0] === null)) {
         const mySelect = <any>myFilterSelect[0];
         const myFilterField = mySelect[mySelect.selectedIndex].text;
-        this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
+        if (myFilterField.Contains('Date')) {
+          this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterDateInput});
+        } else {
+          this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
+        }
         this.refreshDataTable();
       }
     }
@@ -357,20 +370,24 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         case 'File Name':
         case 'Ext':
         case 'URL': {
-          myFilterCondition[0].innerText = 'Contains'
+          myFilterCondition[0].innerText = 'Contains';
+          this.filterTextInput = true;
           break;
         }
         case 'Size (kb)': {
           myFilterCondition[0].innerText = 'Larger Than';
+          this.filterTextInput = true;
           break;
         }
         case 'Date Modified':
         case 'Date Created': {
           myFilterCondition[0].innerText = 'Later Than';
+          this.filterTextInput = false;
           break;
         }
         default: {
           myFilterCondition[0].innerText = 'Contains'
+          this.filterTextInput = true;
           break;
         }
       }
@@ -379,7 +396,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   applyTableFilter(res: PaginatedResult<APIFile[]>): PaginatedResult<APIFile[]> {
     const myReturn: PaginatedResult<APIFile[]> = res;
-    if (this.tableFilterTextInput) {
+    if (this.tableFilterTextInput || this.tableFilterDateInput) {
       this.tableFilterQuery.forEach(filterItem => {
           switch ( filterItem.field ) {
             case 'File Name': {
@@ -399,15 +416,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
               break;
             }
             case 'Date Modified': {
-              // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              myReturn.result = myReturn.result.filter(x => x.dateModified > <Date>filterItem.filterText);
               break;
             }
             case 'Date Created': {
-              // myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+              myReturn.result = myReturn.result.filter(x => x.dateCreated > <Date>filterItem.filterText);
               break;
             }
             default: {
               this.tableFilterTextInput = '';
+              this.tableFilterDateInput = '';
               this.tableFilterQuery = [];
               break;
             }

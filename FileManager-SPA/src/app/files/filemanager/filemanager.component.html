@@ -25,7 +25,10 @@
                   <select class="myFilterSelect" (change)="myFilterSelectonChange()">
                   </select>
                   <span style="padding-left: 10px; padding-right: 10px;" class="myFilterCondition" >Contains</span> 
-                  <input type="text" name="tableFilterTextInput" [(ngModel)]="tableFilterTextInput" style="width: 250px;" >
+                  <input type="text" name="tableFilterTextInput" *ngIf="filterTextInput == true" 
+                    [(ngModel)]="tableFilterTextInput" style="width: 250px;" >
+                  <input type="text" bsDatepicker [bsConfig]="bsConfig" name="tableFilterDateInput" *ngIf="filterTextInput == false"
+                   [(ngModel)]="tableFilterDateInput" style="width: 250px;" >
                   <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
                   <button class="btn btn-danger btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
                 </span>

@@ -16,6 +16,7 @@ import { ModalModule } from 'app/components/modal/modal.module';
 import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 
 
@@ -28,6 +29,7 @@ import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.com
     jqxSplitterModule,
     jqxDataTableModule,
     jqxButtonModule,
+    BsDatepickerModule.forRoot(),
     ModalModule,
     FileAddModule,
     AgmCoreModule.forRoot({

@@ -53,6 +53,7 @@ export function tokenGetter() {
         jqxTreeModule,
         jqxSplitterModule,
         jqxDataTableModule,
+        BsDatepickerModule.forRoot(),
         ModalModule,
         FileUploadModule,
         ReactiveFormsModule,
