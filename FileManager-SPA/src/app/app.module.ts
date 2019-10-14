@@ -29,6 +29,7 @@ import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { CompanyService } from './_services/company.service';
 import { RoleService } from './_services/role.service';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -61,7 +62,8 @@ export function tokenGetter() {
                whitelistedDomains: ['localhost:5000'],
                blacklistedRoutes: ['localhost:5000/api/auth']
             }
-         })
+         }),
+        BsDatepickerModule.forRoot()
     ],
     declarations: [
         AppComponent,
