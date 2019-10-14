@@ -1,7 +1,7 @@
-<div class="main-content" style="min-width: 900px; max-width: 1100px;">
+<div class="main-content" style="min-width: 1100px; max-width: 1300px;">
     <form [formGroup]="userEditForm" (ngSubmit)= "updateUser()">
     <div class="row">
-      <div class="col-md-11">
+      <div class="col-md-7">
         <div class="card">
           <div class="card-header">
             <h5 class="title">Edit User</h5>
@@ -84,17 +84,6 @@
                   </div>
                 </div>                
               </div>
-              <div class="row">                 
-              <div class="col-md-5 pr-1">
-                  <h5 class="title">File Manager Settings</h5>
-                  <div class="form-group">
-                    <label for="subfolder">Sub Folder</label>
-                    <input type="text" formControlName="subfolder" class="form-control" 
-                      [ngClass]="{'is-invalid': userEditForm.get('subfolder').errors && userEditForm.get('subfolder').touched}">
-                      <div class="invalid-feedback">Please enter a sub folder</div>                    
-                  </div>
-                </div>
-              </div>
               <button [disabled]="!userEditForm.valid" class="btn btn-primary" style="float:right;"
                 type="submit" title="Create New User" >Save</button>                 
               <button class="btn btn-warning" style="float:right;" title="Cancel Adding User" 
@@ -102,6 +91,35 @@
             </div>
           </div>
       </div>
+      <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="title">Role For User</h5>
+            </div>
+            <div class="card-body">
+              <label for="roles">Role</label>
+              <select multiple formControlName="roles" class="form-control" 
+                [ngClass]="{'is-invalid': userEditForm.get('roles').errors && userEditForm.get('roles').touched}">
+                <option *ngFor="let item of roles" [ngValue]="item.id" title="{{item.description}}">{{item.roleName}}</option>
+              </select>
+              <div class="invalid-feedback">Please select a role</div>                    
+       
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="title">File Manager Settings</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                  <label for="subfolder">Sub Folder</label>
+                  <input type="text" formControlName="subfolder" class="form-control" 
+                    [ngClass]="{'is-invalid': userEditForm.get('subfolder').errors && userEditForm.get('subfolder').touched}">
+                    <div class="invalid-feedback">Please enter a sub folder</div>                    
+                </div>
+            </div>
+          </div>          
+        </div>      
     </div>
 
     </form>

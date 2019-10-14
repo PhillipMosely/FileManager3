@@ -99,11 +99,11 @@
           </div>
           <div class="card-body">
             <label for="roles">Role</label>
-            <select formControlName="roles" class="form-control" 
+            <select multiple formControlName="roles" class="form-control" 
               [ngClass]="{'is-invalid': userAddForm.get('roles').errors && userAddForm.get('roles').touched}">
               <option *ngFor="let item of roles" [ngValue]="item.id" title="{{item.description}}">{{item.roleName}}</option>
             </select>
-            <div class="invalid-feedback">Please select at least one role</div>                    
+            <div class="invalid-feedback">Please select a role</div>                    
      
           </div>
         </div>

@@ -8,6 +8,9 @@ import { CompanyService } from 'app/_services/company.service';
 import { Company } from 'app/_models/company';
 import { FileManagerAdminService } from 'app/_services/filemanageradmin.service';
 import { FileManagerAdmin } from 'app/_models/filemanageradmin';
+import { Role } from 'app/_models/role';
+import { RoleService } from 'app/_services/role.service';
+import { UserRole } from 'app/_models/userrole';
 
 @Component({
     selector: 'app-useredit',
@@ -34,7 +37,7 @@ export class UserEditComponent implements OnInit{
         return this._user;
 
     }
-
+    roles: Role[];
     userEditForm: FormGroup;
     companys: Company[];
     donotsubmit = false;
@@ -44,21 +47,24 @@ export class UserEditComponent implements OnInit{
                 private userService: UserService,
                 private companyService: CompanyService,
                 private fb: FormBuilder, private router: Router,
-                private fileManagerAdminService: FileManagerAdminService) { }
+                private fileManagerAdminService: FileManagerAdminService,
+                private roleService: RoleService) { }
 
     ngOnInit() {
         this.companyService.getCompanys().subscribe( next => {
             this.companys = next.result;
         });
-
+        this.roleService.getRoles().subscribe( next => {
+            this.roles = next.result;
+        });
         this.createEditForm();
     }
 
     createEditForm() {
+
         if (this.user) {
             this.fileManagerAdminService.getFMAdminForUserId(this.user.id).subscribe( next => {
                 this.myFMAdmin = next;
-
                 this.userEditForm = this.fb.group({
                     companyid: [this.user.company.id, Validators.required],
                     firstname: [this.user.firstName, Validators.required],
@@ -69,8 +75,10 @@ export class UserEditComponent implements OnInit{
                     knownas: [this.user.knownAs],
                     city: [this.user.city],
                     country: [this.user.country],
-                    subfolder: [next.subFolderName, Validators.required]
+                    subfolder: [next.subFolderName, Validators.required],
+                    roles: [[this.user.roles[0].roleId], Validators.required]
                 });
+
             });
         } else {
             this.userEditForm = this.fb.group({
@@ -83,7 +91,8 @@ export class UserEditComponent implements OnInit{
                 knownas: [''],
                 city: [''],
                 country: [''],
-                subfolder: ['', Validators.required]
+                subfolder: ['', Validators.required],
+                roles: ['', Validators.required]
             });
         }
     }
@@ -108,6 +117,17 @@ export class UserEditComponent implements OnInit{
         this.user.knownAs = this.userEditForm.value.knownas;
         this.user.city = this.userEditForm.value.city;
         this.user.country = this.userEditForm.value.country;
+
+        if (this.userEditForm.value.roles) {
+            let myUserRoles = {} as UserRole[];
+            for (let i = 0; i < this.userEditForm.value.roles.length; i++) {
+                const myRole: Role = {id: this.userEditForm.value.roles[i], roleName: '', description: '',
+                                      isSuperUser: false, isCompanyAdmin: false,
+                                      dateCreated: this.user.dateCreated, dateModified: this.user.dateModified};
+                myUserRoles = [{ roleId: myRole.id, role: myRole}];
+            }
+            this.user.roles = myUserRoles;
+        }
 
         this.userService.updateUser(this.user.id, this.user).subscribe( next => {
             this.myFMAdmin.subFolderName = this.userEditForm.value.subfolder;
