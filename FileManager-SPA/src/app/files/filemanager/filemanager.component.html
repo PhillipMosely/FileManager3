@@ -28,8 +28,8 @@
                   <input type="text" name="tableFilterTextInput" *ngIf="filterTextInput == true" 
                     [(ngModel)]="tableFilterTextInput" style="width: 250px;" >
                     <input type="text" bsDatepicker [bsConfig]="bsFilterDateConfig"  [bsValue]="bsFilterDateInlineValue"
-                    name="tableFilterDateInput" *ngIf="filterTextInput == false" placeholder="Select Date ..."
-                    style="width: 150px;" [(ngModel)]="tableFilterDateInput">
+                    name="tableFilterDateInput" *ngIf="filterTextInput == false"
+                    style="width: 150px;" (bsValueChange)="onDateValueChange($event)" >
                   <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
                   <button class="btn btn-danger btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
                 </span>

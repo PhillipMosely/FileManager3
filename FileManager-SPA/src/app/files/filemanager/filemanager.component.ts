@@ -40,7 +40,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   bsFilterDateInlineValue = new Date();
   filterTextInput = true;
   tableFilterTextInput = '';
-  tableFilterDateInput = '';
+  tableFilterDateInput = new Date();
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -339,11 +339,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   }
 
+  onDateValueChange(value: Date): void {
+    this.tableFilterDateInput = value;
+  }
+
   myTableFilterOnClick(clear: boolean): void {
     if (clear) {
         this.filterTextInput = true;
         this.tableFilterTextInput = '';
         this.bsFilterDateInlineValue = new Date();
+        this.tableFilterDateInput = new Date();        
         this.tableFilterQuery = [];
         const myFilterSelect = document.getElementsByClassName('myFilterSelect');
         if (!(myFilterSelect[0] === null)) {
@@ -432,6 +437,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
           default: {
             this.tableFilterTextInput = '';
             this.bsFilterDateInlineValue = new Date();
+            this.tableFilterDateInput = new Date();
             this.tableFilterQuery = [];
             break;
           }

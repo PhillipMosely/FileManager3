@@ -25,7 +25,7 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
   bsFilterDateInlineValue = new Date();
   filterTextInput = true;
   tableFilterTextInput = '';
-  tableFilterDateInput = '';
+  tableFilterDateInput = new Date();
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -183,11 +183,16 @@ myTableAddOnClick(): void {
   this.openModal('fmadminaddmodal');
 }
 
+onDateValueChange(value: Date): void {
+  this.tableFilterDateInput = value;
+}
+
 myTableFilterOnClick(clear: boolean): void {
   if (clear) {
     this.filterTextInput = true;
     this.tableFilterTextInput = '';
     this.bsFilterDateInlineValue = new Date();
+    this.tableFilterDateInput = new Date();      
     this.tableFilterQuery = [];
     const myFilterSelect = document.getElementsByClassName('myFilterSelect');
     if (!(myFilterSelect[0] === null)) {
@@ -246,6 +251,7 @@ myFilterSelectonChange(): void {
   }
 }
 
+
 applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<FileManagerAdmin[]> {
   const myReturn: PaginatedResult<FileManagerAdmin[]> = res;
   this.tableFilterQuery.forEach(filterItem => {
@@ -285,6 +291,7 @@ applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<File
         default: {
           this.tableFilterTextInput = '';
           this.bsFilterDateInlineValue = new Date();
+          this.tableFilterDateInput = new Date();      
           this.tableFilterQuery = [];
           break;
         }
