@@ -80,7 +80,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.bsConfig = {
-      containerClass: 'theme-red'
+      containerClass: 'theme-default'
     };
      const myUser: User = JSON.parse(localStorage.getItem('user'));
      this.fileManagerAdminService.getFMAdminForUserId(myUser.id)
@@ -341,7 +341,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   myTableFilterOnClick(clear: boolean): void {
     if (clear) {
         this.filterTextInput = true;
-      this.tableFilterTextInput = '';
+        this.tableFilterTextInput = '';
         this.tableFilterDateInput = '';
         this.tableFilterQuery = [];
         this.refreshDataTable();
@@ -350,7 +350,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       if (!(myFilterSelect[0] === null)) {
         const mySelect = <any>myFilterSelect[0];
         const myFilterField = mySelect[mySelect.selectedIndex].text;
-        if (myFilterField.Contains('Date')) {
+        if (myFilterField.toLowerCase().indexOf('date') >= 0) {
           this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterDateInput});
         } else {
           this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
@@ -395,6 +395,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   applyTableFilter(res: PaginatedResult<APIFile[]>): PaginatedResult<APIFile[]> {
+    debugger;
     const myReturn: PaginatedResult<APIFile[]> = res;
     if (this.tableFilterTextInput || this.tableFilterDateInput) {
       this.tableFilterQuery.forEach(filterItem => {
