@@ -35,7 +35,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   source: any;
   dataAdapter: any;
   records: any;
-  bsConfig: Partial<BsDatepickerConfig>;
+  bsFilterDateConfig: Partial<BsDatepickerConfig>;
+  bsFilterDateInlineValue = new Date();
 
   filterTextInput = true;
   tableFilterTextInput = '';
@@ -79,7 +80,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.bsConfig = {
+    this.bsFilterDateConfig = {
       containerClass: 'theme-default'
     };
      const myUser: User = JSON.parse(localStorage.getItem('user'));
@@ -342,8 +343,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (clear) {
         this.filterTextInput = true;
         this.tableFilterTextInput = '';
-        this.tableFilterDateInput = '';
+        this.bsFilterDateInlineValue = new Date();
         this.tableFilterQuery = [];
+        const myFilterSelect = document.getElementsByClassName('myFilterSelect');
+        if (!(myFilterSelect[0] === null)) {
+          const mySelect = <any>myFilterSelect[0];
+          this.myFilterSelectonChange();
+          mySelect.selectedIndex = 0;
+        }
         this.refreshDataTable();
     } else {
       const myFilterSelect = document.getElementsByClassName('myFilterSelect');
@@ -351,7 +358,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         const mySelect = <any>myFilterSelect[0];
         const myFilterField = mySelect[mySelect.selectedIndex].text;
         if (myFilterField.toLowerCase().indexOf('date') >= 0) {
-          this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterDateInput});
+          this.tableFilterQuery.push({'field': myFilterField, 'filterDate': this.tableFilterDateInput});
         } else {
           this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
         }
@@ -395,44 +402,41 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   applyTableFilter(res: PaginatedResult<APIFile[]>): PaginatedResult<APIFile[]> {
-    debugger;
     const myReturn: PaginatedResult<APIFile[]> = res;
-    if (this.tableFilterTextInput || this.tableFilterDateInput) {
-      this.tableFilterQuery.forEach(filterItem => {
-          switch ( filterItem.field ) {
-            case 'File Name': {
-              myReturn.result = myReturn.result.filter(x => x.fileName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-              break;
-            }
-            case 'Size (kb)': {
-              myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
-              break;
-            }
-            case 'Ext': {
-              myReturn.result = myReturn.result.filter(x => x.ext.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-              break;
-            }
-            case 'URL': {
-              myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-              break;
-            }
-            case 'Date Modified': {
-              myReturn.result = myReturn.result.filter(x => x.dateModified > <Date>filterItem.filterText);
-              break;
-            }
-            case 'Date Created': {
-              myReturn.result = myReturn.result.filter(x => x.dateCreated > <Date>filterItem.filterText);
-              break;
-            }
-            default: {
-              this.tableFilterTextInput = '';
-              this.tableFilterDateInput = '';
-              this.tableFilterQuery = [];
-              break;
-            }
+    this.tableFilterQuery.forEach(filterItem => {
+        switch ( filterItem.field ) {
+          case 'File Name': {
+            myReturn.result = myReturn.result.filter(x => x.fileName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+            break;
+          }
+          case 'Size (kb)': {
+            myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
+            break;
+          }
+          case 'Ext': {
+            myReturn.result = myReturn.result.filter(x => x.ext.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+            break;
+          }
+          case 'URL': {
+            myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
+            break;
+          }
+          case 'Date Modified': {
+            myReturn.result = myReturn.result.filter(x => new Date(x.dateModified) > new Date(filterItem.filterDate));
+            break;
+          }
+          case 'Date Created': {
+            myReturn.result = myReturn.result.filter(x => new Date(x.dateCreated) > new Date(filterItem.filterDate));
+            break;
+          }
+          default: {
+            this.tableFilterTextInput = '';
+            this.bsFilterDateInlineValue = new Date();
+            this.tableFilterQuery = [];
+            break;
+          }
         }
-      });
-    };
+    });
 
     return myReturn;
   }

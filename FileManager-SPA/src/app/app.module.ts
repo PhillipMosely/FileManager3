@@ -11,6 +11,7 @@ import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppComponent } from './app.component';
 
@@ -29,7 +30,7 @@ import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { CompanyService } from './_services/company.service';
 import { RoleService } from './_services/role.service';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 export function tokenGetter() {
     return localStorage.getItem('token');

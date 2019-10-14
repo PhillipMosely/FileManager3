@@ -17,6 +17,7 @@ import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
