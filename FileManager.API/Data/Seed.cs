@@ -128,7 +128,7 @@ namespace FileManager.API.Data
                     SubFolderName = "Admin Folder",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    FolderData = "[{\"id\": \"2\",\"parentid\": \"1\",\"text\": \"Admin Hot Chocolate\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"1\",\"text\": \"Peppermint Hot Chocolate\",\"value\": \"$\"},{\"id\": \"4\",\"parentid\": \"1\",\"text\": \"Salted Caramel Hot Chocolate\",\"value\": \"\"},{\"id\": \"5\",\"parentid\": \"1\",\"text\": \"White Hot Chocolate\",\"value\": \"\"},{\"text\": \"Chocolate Beverage\",\"id\": \"1\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Espresso Beverage\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"7\",\"parentid\": \"6\",\"text\": \"Caffe Americano\",\"value\": \"\"}]"
+                    FolderData = "[{\"id\": \"1\",\"parentid\": \"0\",\"text\": \"Accounting\",\"value\": \"\"},{\"id\": \"2\",\"parentid\": \"0\",\"text\": \"Administrative\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"0\",\"text\": \"Engineering\",\"value\": \"\"},{\"id\": \"4\",\"parentid\": \"0\",\"text\": \"Marketing\",\"value\": \"\"},{\"text\": \"Sales\",\"id\": \"5\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Senior Management\",\"parentid\": \"0\",\"value\": \"\"}]"
                 };
                 context.FileManagerAdmin.Add(fmAdmin);
                 
@@ -137,7 +137,7 @@ namespace FileManager.API.Data
                     SubFolderName = "User Folder",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    FolderData = "[{\"id\": \"2\",\"parentid\": \"1\",\"text\": \"User Hot Chocolate\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"1\",\"text\": \"Peppermint Hot Chocolate\",\"value\": \"$\"},{\"id\": \"4\",\"parentid\": \"1\",\"text\": \"Salted Caramel Hot Chocolate\",\"value\": \"\"},{\"id\": \"5\",\"parentid\": \"1\",\"text\": \"White Hot Chocolate\",\"value\": \"\"},{\"text\": \"Chocolate Beverage\",\"id\": \"1\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Espresso Beverage\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"7\",\"parentid\": \"6\",\"text\": \"Caffe Americano\",\"value\": \"\"}]"
+                    FolderData = "[{\"id\": \"1\",\"parentid\": \"0\",\"text\": \"Accounting\",\"value\": \"\"},{\"id\": \"2\",\"parentid\": \"0\",\"text\": \"Administrative\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"0\",\"text\": \"Engineering\",\"value\": \"\"},{\"id\": \"4\",\"parentid\": \"0\",\"text\": \"Marketing\",\"value\": \"\"},{\"text\": \"Sales\",\"id\": \"5\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Senior Management\",\"parentid\": \"0\",\"value\": \"\"}]"
                 };
                 context.FileManagerAdmin.Add(fmAdmin2);
 
@@ -146,7 +146,7 @@ namespace FileManager.API.Data
                 SubFolderName = "Company Admin Folder",
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now,
-                FolderData = "[{\"id\": \"2\",\"parentid\": \"1\",\"text\": \"User Hot Chocolate\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"1\",\"text\": \"Peppermint Hot Chocolate\",\"value\": \"$\"},{\"id\": \"4\",\"parentid\": \"1\",\"text\": \"Salted Caramel Hot Chocolate\",\"value\": \"\"},{\"id\": \"5\",\"parentid\": \"1\",\"text\": \"White Hot Chocolate\",\"value\": \"\"},{\"text\": \"Chocolate Beverage\",\"id\": \"1\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Espresso Beverage\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"7\",\"parentid\": \"6\",\"text\": \"Caffe Americano\",\"value\": \"\"}]"
+                FolderData = "[{\"id\": \"1\",\"parentid\": \"0\",\"text\": \"Accounting\",\"value\": \"\"},{\"id\": \"2\",\"parentid\": \"0\",\"text\": \"Administrative\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"0\",\"text\": \"Engineering\",\"value\": \"\"},{\"id\": \"4\",\"parentid\": \"0\",\"text\": \"Marketing\",\"value\": \"\"},{\"text\": \"Sales\",\"id\": \"5\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Senior Management\",\"parentid\": \"0\",\"value\": \"\"}]"
                 };
                 context.FileManagerAdmin.Add(fmAdmin3);
 
