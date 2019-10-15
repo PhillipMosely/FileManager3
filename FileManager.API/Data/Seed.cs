@@ -13,14 +13,14 @@ namespace FileManager.API.Data
             if (!context.Users.Any())
             {
                 var company = new Company {
-                    CompanyName = "Google",
+                    CompanyName = "HRTMS Inc",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };
-                context.Companies.Add(company);
+                context.Companies.Add(company); 
                 
                 var company2 = new Company {
-                    CompanyName = "HRTMS Inc",
+                    CompanyName = "Google",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };
@@ -33,9 +33,12 @@ namespace FileManager.API.Data
                 };
                 context.Companies.Add(company3);
 
+                CompanySettings(ref context);
+
                 var role = new Role { 
-                    RoleName="Admin",
+                    RoleName="HRTMS Admin",
                     IsSuperUser = true,
+                    IsCompanyAdmin = true,
                     Description="HRTMS Master Administrative Role",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now};
@@ -121,6 +124,473 @@ namespace FileManager.API.Data
             }
 
             context.SaveChanges();
+            
+        }
+
+        private static void CompanySettings(ref DataContext context)
+        {
+            var label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.CompanyName",
+                LabelName = "Company Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.FileName",
+                LabelName = "File Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.Ext",
+                LabelName = "Ext"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.Url",
+                LabelName = "Url"
+            };
+            context.Labels.Add(label);           
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.Description",
+                LabelName = "Description"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.Size",
+                LabelName = "Size"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "File.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);            
+
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "FileManagerAdmin.SubFolderName",
+                LabelName = "SubFolderName"
+            };
+            context.Labels.Add(label);     
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "FileManagerAdmin.FolderData",
+                LabelName = "FolderData"
+            };
+            context.Labels.Add(label);                 
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "FileManagerAdmin.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "FileManagerAdmin.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label); 
+
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.UserName",
+                LabelName = "Username"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.FirstName",
+                LabelName = "First Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.LastName",
+                LabelName = "Last Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.Email",
+                LabelName = "Email"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.MobilePhone",
+                LabelName = "Mobile Phone"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.KnownAs",
+                LabelName = "Known As"
+            };
+           context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.City",
+                LabelName = "City"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.Country",
+                LabelName = "Country"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.PhotoUrl",
+                LabelName = "Photo Url"
+            };
+            context.Labels.Add(label);
+
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "User.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);
+
+
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "Company.CompanyName",
+                LabelName = "Company Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "Company.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "Company.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.FileName",
+                LabelName = "File Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.Ext",
+                LabelName = "Ext"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.Url",
+                LabelName = "Url"
+            };
+            context.Labels.Add(label);           
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.Description",
+                LabelName = "Description"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.Size",
+                LabelName = "Size"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "File.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);            
+
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "FileManagerAdmin.SubFolderName",
+                LabelName = "SubFolderName"
+            };
+            context.Labels.Add(label);     
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "FileManagerAdmin.FolderData",
+                LabelName = "FolderData"
+            };
+            context.Labels.Add(label);                 
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "FileManagerAdmin.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "FileManagerAdmin.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label); 
+
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.UserName",
+                LabelName = "Username"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.FirstName",
+                LabelName = "First Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.LastName",
+                LabelName = "Last Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.Email",
+                LabelName = "Email"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.MobilePhone",
+                LabelName = "Mobile Phone"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.KnownAs",
+                LabelName = "Known As"
+            };
+           context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.City",
+                LabelName = "City"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.Country",
+                LabelName = "Country"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.PhotoUrl",
+                LabelName = "Photo Url"
+            };
+            context.Labels.Add(label);
+
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "User.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);
+
+
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.CompanyName",
+                LabelName = "Company Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.FileName",
+                LabelName = "File Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.Ext",
+                LabelName = "Ext"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.Url",
+                LabelName = "Url"
+            };
+            context.Labels.Add(label);           
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.Description",
+                LabelName = "Description"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.Size",
+                LabelName = "Size"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "File.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "FileManagerAdmin.SubFolderName",
+                LabelName = "SubFolderName"
+            };
+            context.Labels.Add(label);     
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "FileManagerAdmin.FolderData",
+                LabelName = "FolderData"
+            };
+            context.Labels.Add(label);                 
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "FileManagerAdmin.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "FileManagerAdmin.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label); 
+
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.UserName",
+                LabelName = "Username"
+            };
+            context.Labels.Add(label); 
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.FirstName",
+                LabelName = "First Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.LastName",
+                LabelName = "Last Name"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.Email",
+                LabelName = "Email"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.MobilePhone",
+                LabelName = "Mobile Phone"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.KnownAs",
+                LabelName = "Known As"
+            };
+           context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.City",
+                LabelName = "City"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.Country",
+                LabelName = "Country"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.PhotoUrl",
+                LabelName = "Photo Url"
+            };
+            context.Labels.Add(label);
+
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.DateCreated",
+                LabelName = "Date Created"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "User.DateModified",
+                LabelName = "Date Modified"
+            };
+            context.Labels.Add(label);            
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
