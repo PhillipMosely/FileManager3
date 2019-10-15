@@ -141,6 +141,15 @@ namespace FileManager.API.Data
                 };
                 context.FileManagerAdmin.Add(fmAdmin2);
 
+                var fmAdmin3 = new FileManagerAdmin {
+                User = user3,
+                SubFolderName = "Company Admin Folder",
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now,
+                FolderData = "[{\"id\": \"2\",\"parentid\": \"1\",\"text\": \"User Hot Chocolate\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"1\",\"text\": \"Peppermint Hot Chocolate\",\"value\": \"$\"},{\"id\": \"4\",\"parentid\": \"1\",\"text\": \"Salted Caramel Hot Chocolate\",\"value\": \"\"},{\"id\": \"5\",\"parentid\": \"1\",\"text\": \"White Hot Chocolate\",\"value\": \"\"},{\"text\": \"Chocolate Beverage\",\"id\": \"1\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Espresso Beverage\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"7\",\"parentid\": \"6\",\"text\": \"Caffe Americano\",\"value\": \"\"}]"
+                };
+                context.FileManagerAdmin.Add(fmAdmin3);
+
             }
 
             context.SaveChanges();

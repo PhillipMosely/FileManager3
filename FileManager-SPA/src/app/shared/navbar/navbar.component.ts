@@ -159,5 +159,7 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['/pages/login']);
     }
 
-
+    search() {
+        this.sweetAlertService.message('Search coming soon!');
+    }
 }
