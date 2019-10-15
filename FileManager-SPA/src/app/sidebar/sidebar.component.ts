@@ -118,7 +118,7 @@ export const ROUTES: RouteInfo[] = [{
     {
         path: '/sitesettings',
         title: 'Site Settings',
-        type: 'sub',
+        type: 'sub1',
         collapse: 'sitesettings',
         icontype: 'fa fa-gear',
         children: [
@@ -129,7 +129,7 @@ export const ROUTES: RouteInfo[] = [{
     {
         path: '/companysettings',
         title: 'Company Settings',
-        type: 'sub',
+        type: 'sub2',
         collapse: 'companysettings',
         icontype: 'fa fa-gear',
         children: [
@@ -150,6 +150,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     fullName: string;
     user: User;
     userIsAdmin: boolean;
+    userIsCompanyAdmin: boolean;
 
     constructor(public  authService: AuthService) {}
 
@@ -166,6 +167,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.fullName = this.authService.fullName;
         this.user = JSON.parse(localStorage.getItem('user'));
         this.userIsAdmin = this.setUserIsAdmin();
+        this.userIsCompanyAdmin = this.setUserIsCompanyAdmin();
+        debugger;
     }
     ngAfterViewInit() {
     }
@@ -176,6 +179,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         if (this.user.roles) {
             for (let i = 0; i < this.user.roles.length; i++ ) {
                 if (this.user.roles[i].role.isSuperUser) {
+                    isAdmin = true;
+                }
+            }
+        }
+        return isAdmin;
+    }
+
+    setUserIsCompanyAdmin(): boolean {
+        let isAdmin = false;
+
+        if (this.user.roles) {
+            for (let i = 0; i < this.user.roles.length; i++ ) {
+                if (this.user.roles[i].role.isCompanyAdmin) {
                     isAdmin = true;
                 }
             }

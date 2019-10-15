@@ -90,6 +90,20 @@ namespace FileManager.API.Data
                 user2.PasswordSalt = passwordSalt;
 
                 context.Users.Add(user2);
+                var user3 = new User {
+                    FirstName = "Company",
+                    LastName = "Admin",
+                    UserName = "companyadmin",
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    Company = company3
+                };            
+                
+                CreatePasswordHash("password",out passwordHash, out passwordSalt);
+                user3.PasswordHash = passwordHash;
+                user3.PasswordSalt = passwordSalt;
+
+                context.Users.Add(user3);
 
                 var userRole = new UserRole {
                     User = user,
@@ -102,6 +116,12 @@ namespace FileManager.API.Data
                     Role = role2
                 };
                 context.UserRoles.Add(userRole2);                
+
+                var userRole3 = new UserRole {
+                    User = user3,
+                    Role = role3
+                };
+                context.UserRoles.Add(userRole3);    
 
                 var fmAdmin = new FileManagerAdmin {
                     User = user,
