@@ -16,7 +16,7 @@ import { FilemanagerComponent } from './filemanager.component';
 import { ModalModule } from 'app/components/modal/modal.module';
 import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
-import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
+import { FieldUpdateModule } from 'app/components/fieldupdate/fieldupdate.module';
 
 
 @NgModule({
@@ -31,13 +31,13 @@ import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.com
     BsDatepickerModule.forRoot(),
     ModalModule,
     FileAddModule,
+    FieldUpdateModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
 ],
 declarations: [FilemanagerComponent,
-  FileViewComponent,
-  FieldUpdateComponent],
+  FileViewComponent],
 schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class FilemanagerModule { }

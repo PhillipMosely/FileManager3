@@ -8,7 +8,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { ModalModule } from 'app/components/modal/modal.module';
-import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
+import { FieldUpdateModule } from 'app/components/fieldupdate/fieldupdate.module';
 
 @NgModule({
   imports: [
@@ -18,10 +18,10 @@ import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.com
     ReactiveFormsModule,
     jqxDataTableModule,
     BsDatepickerModule.forRoot(),
-    ModalModule
+    ModalModule,
+    FieldUpdateModule
   ],
-  declarations: [LabelAdminComponent,
-    FieldUpdateComponent],
+  declarations: [LabelAdminComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [LabelAdminComponent]
 
