@@ -45,7 +45,7 @@ export class LabelService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    return this.http.get<Label[]>(this.baseUrl + 'labels/forcompany' + companyId, { observe: 'response', params})
+    return this.http.get<Label[]>(this.baseUrl + 'labels/forcompany/' + companyId, { observe: 'response', params})
       .pipe(
         map(response => {
           paginatedResult.result = response.body;

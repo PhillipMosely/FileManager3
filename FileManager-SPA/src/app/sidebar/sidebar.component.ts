@@ -168,7 +168,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.userIsAdmin = this.setUserIsAdmin();
         this.userIsCompanyAdmin = this.setUserIsCompanyAdmin();
-        debugger;
     }
     ngAfterViewInit() {
     }

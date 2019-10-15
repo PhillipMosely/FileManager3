@@ -12,9 +12,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CommonModule,
     RouterModule.forChild(LabelAdminRoutes),
     FormsModule,
-    ReactiveFormsModule,,
+    ReactiveFormsModule,
     jqxDataTableModule,
-    BsDatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [LabelAdminComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

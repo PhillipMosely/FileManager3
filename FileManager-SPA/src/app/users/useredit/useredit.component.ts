@@ -17,7 +17,7 @@ import { UserRole } from 'app/_models/userrole';
     templateUrl: './useredit.component.html'
 })
 
-export class UserEditComponent implements OnInit{
+export class UserEditComponent implements OnInit {
     @Input() useCloseEvent: boolean;
     // @Input() user: User;
     @Output() closeEventEdit = new EventEmitter<string>();
@@ -157,3 +157,4 @@ export class UserEditComponent implements OnInit{
         }
     }
  }
+
