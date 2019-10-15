@@ -312,37 +312,5 @@ closeModal(id: string) {
   }
 }
 
-myFieldUpdateFinish(updated: boolean) {
-  if ( !updated ) {
-    this.closeModal('fmadminupdatemodal')
-    return;
-  }
-  // switch ( this.myFieldUpdate.myType ) {
-  //   case 'File Name Update': {
-  //     this.closeModal('fieldupdatemodal');
-  //     this.fileService.getFile(this.myFieldUpdate.myId).subscribe(next => {
-  //       next.fileName = this.myFieldUpdate.myFields[0].value + next.ext;
-  //       this.fileService.updateFile(this.myFieldUpdate.myId, next).subscribe(next2 => {
-  //         this.refreshDataTable();
-  //         this.sweetAlertService.message('File name updated successfully');
-  //       }, error => {
-  //         this.sweetAlertService.error('Not able to update file name');
-  //       })
-  //     }, error => {
-  //       this.sweetAlertService.error('Not able to update file name');
-  //     })
-  //     break;
-  //   }
-  //   case 'Update Folder Name':
-  //   case 'New Folder': {
-  //     this.myTreeAddUpdateFinish();
-  //     break;
-  //   }
-  //   default: {
-  //     break;
-  //   }
-  }
-
-
 
 }

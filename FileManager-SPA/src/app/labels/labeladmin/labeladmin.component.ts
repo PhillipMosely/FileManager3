@@ -226,6 +226,7 @@ myFieldUpdateFinish(updated: boolean) {
     myLabel.labelName = this.myFieldUpdate.myFields[0].value;
     this.labelService.updateLabel(this.myFieldUpdate.myId, myLabel).subscribe(next2 => {
       this.refreshDataTable();
+      this.closeModal('fieldupdatemodal')
       this.sweetAlertService.message('Label name updated successfully');
     }, error2 => {
       this.sweetAlertService.error('Not able to update label name');
@@ -241,9 +242,6 @@ openModal(id: string) {
 
 closeModal(id: string) {
   this.modalService.close(id);
-  if (id === 'labelupdatemodal') {
-    this.refreshDataTable();
-  }
 }
 
 }
