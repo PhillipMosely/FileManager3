@@ -17,15 +17,15 @@ export const AppRoutes: Routes = [{
             path: '',
             loadChildren: './users/profileedit/profileedit.module#ProfileEditModule'
         },{
-            path: 'siteadmin',
+            path: 'sitesettings',
             loadChildren: './users/useradd/useradd.module#UserAddModule'
         },
         {
-            path: 'siteadmin',
+            path: 'sitesettings',
             loadChildren: './files/fmadmin/fmadmin.module#FMAdminModule'
         },{
-            path: 'siteadmin',
-            loadChildren: './users/useredit/useredit.module#UserEditModule'
+            path: 'companysettings',
+            loadChildren: './labels/labeladmin/labeladmin.module#LabelAdminModule'
         },
         {
             path: '',

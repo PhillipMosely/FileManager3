@@ -111,7 +111,7 @@ export class UserAddComponent implements OnInit{
         if ( this.useCloseEvent) {
             this.closeEvent.emit('done');
         } else {
-            this.router.navigate(['/siteadmin/fmadmin']);
+            this.router.navigate(['/sitesettings/fmadmin']);
         }
     }
  }

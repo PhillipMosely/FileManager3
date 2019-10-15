@@ -30,6 +30,7 @@ import { ModalModule } from './components/modal/modal.module';
 import { ModalService } from './_services/modal.service';
 import { CompanyService } from './_services/company.service';
 import { RoleService } from './_services/role.service';
+import { LabelService } from './_services/label.service';
 
 
 export function tokenGetter() {
@@ -79,7 +80,8 @@ export function tokenGetter() {
         FileService,
         ModalService,
         CompanyService,
-        RoleService
+        RoleService,
+        LabelService
     ],
     bootstrap:    [ AppComponent ]
 })

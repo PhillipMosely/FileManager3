@@ -153,7 +153,7 @@ export class UserEditComponent implements OnInit{
         if ( this.useCloseEvent) {
             this.closeEventEdit.emit('done');
         } else {
-            this.router.navigate(['/siteadmin/fmadmin']);
+            this.router.navigate(['/sitesettings/fmadmin']);
         }
     }
  }

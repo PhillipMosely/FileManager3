@@ -116,16 +116,26 @@ export const ROUTES: RouteInfo[] = [{
     //     ]
     // },
     {
-        path: '/siteadmin',
-        title: 'Site Admin',
+        path: '/sitesettings',
+        title: 'Site Settings',
         type: 'sub',
-        collapse: 'siteadmin',
+        collapse: 'sitesettings',
         icontype: 'fa fa-gear',
         children: [
             {path: 'fmadmin', title: 'File Manager Admin', ab:'FMA'},
             {path: 'useradd', title: 'Add User', ab:'AU'}
         ]
-    }    
+    },
+    {
+        path: '/companysettings',
+        title: 'Company Settings',
+        type: 'sub',
+        collapse: 'companysettings',
+        icontype: 'fa fa-gear',
+        children: [
+            {path: 'labeladmin', title: 'Label Admin', ab:'LA'}
+        ]
+    }
 ];
 
 @Component({
