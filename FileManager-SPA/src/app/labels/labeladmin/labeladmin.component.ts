@@ -32,22 +32,15 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
-        const buttonview = '<button (click)=""  class="btn-sm btn-info btn-link rowview"' +
-                        ' title="View User Information"><i id="view' + row + '" class="fa fa-info"></i></button>';
         const buttonedit = '<button (click)=""  class="btn-sm btn-primary btn-link rowedit"' +
                          ' title="Edit User"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
-        const buttondel = '<button (click)="" class="btn-sm btn-danger btn-link rowdelete"' +
-                         ' title="Delete User"><i id="del' + row + '" class="fa fa-times"></i></button>';
-        const item = '<div>' + buttonview + buttonedit + buttondel + '</div>';
+        const item = '<div>' + buttonedit + '</div>';
 
         return item;
       }},
-      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'companyName', width: 250 },
-      { text: 'Username', cellsAlign: 'left', align: 'left', dataField: 'userName', width: 120 },
-      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'email', width: 250 },
-      { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subFolderName', width: 250 },
-      // { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
-      { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' }
+      { text: 'Model Name', cellsAlign: 'left', align: 'left', dataField: 'modelName', width: 250 },
+      { text: 'Label Name', cellsAlign: 'left', align: 'left', dataField: 'labelName', width: 120 }
+
   ];
 
 
