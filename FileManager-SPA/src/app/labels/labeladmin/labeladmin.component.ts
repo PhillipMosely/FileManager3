@@ -8,6 +8,7 @@ import { Company } from 'app/_models/company';
 import { LabelService } from 'app/_services/label.service';
 import { Label } from 'app/_models/label';
 import { ModalService } from 'app/_services/modal.service';
+import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 
 @Component({
   selector: 'app-labeladmin',
@@ -16,6 +17,7 @@ import { ModalService } from 'app/_services/modal.service';
 })
 export class LabelAdminComponent implements AfterViewInit, OnInit {
   @ViewChild('myDataTable', {static: false}) myDataTable: jqxDataTableComponent;
+  @ViewChild('myFieldUpdate', {static: false}) myFieldUpdate: FieldUpdateComponent;
 
   myCompany: Company;
 
@@ -30,16 +32,16 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
   tableDataAdaptor: any;
   tableColumns: any[] =
   [
-      { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
+      { text: 'Actions', cellsAlign: 'center', align: 'center', width: 80,
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
         const buttonedit = '<button (click)=""  class="btn-sm btn-primary btn-link rowedit"' +
-                         ' title="Edit User"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
+                         ' title="Edit Label"><i id="edit' + row + '" class="fa fa-edit"></i></button>';
         const item = '<div>' + buttonedit + '</div>';
 
         return item;
       }},
-      { text: 'Model Name', cellsAlign: 'left', align: 'left', dataField: 'modelName', width: 250 },
-      { text: 'Label Name', cellsAlign: 'left', align: 'left', dataField: 'labelName', width: 120 }
+      { text: 'Model Name', cellsAlign: 'left', align: 'left', dataField: 'modelName', width: 300 },
+      { text: 'Label Name', cellsAlign: 'left', align: 'left', dataField: 'labelName', width: 300 }
 
   ];
 
@@ -113,9 +115,11 @@ renderedRowButtons() {
   myId = myId.replace('edit', '');
   const myDBId: number = this.myDataTable.getRows()[myId]['id'];
   this.labelService.getLabel(myDBId).subscribe( next => {
-    // this.myUserEdit.useCloseEvent = true;
-    // this.myUserEdit.user = next;
-    this.openModal('labelupdatemodal');
+    this.myFieldUpdate.myId = myDBId;
+    this.myFieldUpdate.myTitle = 'Label for ' + next.modelName;
+    this.myFieldUpdate.myType = 'Label Name';
+    this.myFieldUpdate.myFields = [{field: 'Label Name', value: next.labelName, size: 50, type: 'Text'}];
+    this.openModal('fieldupdatemodal');
   }, error => {
     this.sweetAlertService.error('Not able to Edit Label');
   })
@@ -190,7 +194,6 @@ myFilterSelectonChange(): void {
   }
 }
 
-
 applyTableFilter(res: PaginatedResult<Label[]>): PaginatedResult<Label[]> {
   const myReturn: PaginatedResult<Label[]> = res;
   this.tableFilterQuery.forEach(filterItem => {
@@ -218,13 +221,32 @@ applyTableFilter(res: PaginatedResult<Label[]>): PaginatedResult<Label[]> {
   return myReturn;
 }
 
+myFieldUpdateFinish(updated: boolean) {
+  if ( !updated ) {
+    this.closeModal('fieldupdatemodal')
+    return;
+  }
+  this.labelService.getLabel(this.myFieldUpdate.myId).subscribe(next => {
+    const myLabel = next;
+    myLabel.labelName = this.myFieldUpdate.myFields[0].value;
+    this.labelService.updateLabel(this.myFieldUpdate.myId, myLabel).subscribe(next2 => {
+      this.refreshDataTable();
+      this.sweetAlertService.message('Label name updated successfully');
+    }, error2 => {
+      this.sweetAlertService.error('Not able to update label name');
+    });
+  }, error => {
+    this.sweetAlertService.error('Not able to update label name');
+  })
+}
+
 openModal(id: string) {
   this.modalService.open(id);
 }
 
 closeModal(id: string) {
   this.modalService.close(id);
-  if (id === 'fmadminaddmodal' || id === 'fmadminupdatemodal') {
+  if (id === 'labelupdatemodal') {
     this.refreshDataTable();
   }
 }

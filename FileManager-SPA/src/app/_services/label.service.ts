@@ -4,7 +4,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/Pagination';
 import { map } from 'rxjs/operators';
-import { Role } from 'app/_models/role';
 import { Label } from 'app/_models/label';
 
 
@@ -57,8 +56,8 @@ export class LabelService {
       );
   }
 
-  getLabel(id): Observable<Role> {
-    return this.http.get<Role>(this.baseUrl + 'labels/' + id);
+  getLabel(id): Observable<Label> {
+    return this.http.get<Label>(this.baseUrl + 'labels/' + id);
   }
 
   updateLabel(id: number, label: Label) {
