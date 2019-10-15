@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
+import { LabelAdminComponent } from 'app/labels/labeladmin/labeladmin.component';
+import { Label } from '../_models/label';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,7 @@ export class AuthService {
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
             this.currentUser = user.user;
             this.changeMemberFullName(this.currentUser);
+            this.updateCompanyLabels(this.currentUser);
 
           }
       })
@@ -53,5 +56,16 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser = user;
     this.changeMemberFullName(this.currentUser);
+  }
+
+  updateCompanyLabels(user: User) {
+    this.http.get(this.baseurl + 'labels/forcompany/' + user.companyId).pipe(
+      map((response: any) => {
+        if ( response ) {
+          localStorage.setItem('labels', JSON.stringify(response));
+        } else {
+          localStorage.setItem('labels', null);
+        }
+      }));
   }
 }

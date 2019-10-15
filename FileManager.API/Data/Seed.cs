@@ -244,12 +244,12 @@ namespace FileManager.API.Data
             };
             context.Labels.Add(label); 
 
-            label = new Label {
-                CompanyId = 1,
-                ModelName = "User.UserName",
-                LabelName = "Username"
-            };
-            context.Labels.Add(label); 
+            // label = new Label {
+            //     CompanyId = 1,
+            //     ModelName = "User.UserName",
+            //     LabelName = "Username"
+            // };
+            // context.Labels.Add(label); 
             label = new Label {
                 CompanyId = 1,
                 ModelName = "User.FirstName",
@@ -298,6 +298,12 @@ namespace FileManager.API.Data
                 LabelName = "Photo Url"
             };
             context.Labels.Add(label);
+            // label = new Label {
+            //     CompanyId = 1,
+            //     ModelName = "User.Password",
+            //     LabelName = "Password"
+            // };
+            // context.Labels.Add(label);            
 
             label = new Label {
                 CompanyId = 1,
@@ -399,12 +405,12 @@ namespace FileManager.API.Data
             };
             context.Labels.Add(label); 
 
-            label = new Label {
-                CompanyId = 2,
-                ModelName = "User.UserName",
-                LabelName = "Username"
-            };
-            context.Labels.Add(label); 
+            // label = new Label {
+            //     CompanyId = 2,
+            //     ModelName = "User.UserName",
+            //     LabelName = "Username"
+            // };
+            // context.Labels.Add(label); 
             label = new Label {
                 CompanyId = 2,
                 ModelName = "User.FirstName",
@@ -453,6 +459,12 @@ namespace FileManager.API.Data
                 LabelName = "Photo Url"
             };
             context.Labels.Add(label);
+            // label = new Label {
+            //     CompanyId = 2,
+            //     ModelName = "User.Password",
+            //     LabelName = "Password"
+            // };
+            // context.Labels.Add(label);             
 
             label = new Label {
                 CompanyId = 2,
@@ -553,12 +565,12 @@ namespace FileManager.API.Data
             };
             context.Labels.Add(label); 
 
-            label = new Label {
-                CompanyId = 3,
-                ModelName = "User.UserName",
-                LabelName = "Username"
-            };
-            context.Labels.Add(label); 
+            // label = new Label {
+            //     CompanyId = 3,
+            //     ModelName = "User.UserName",
+            //     LabelName = "Username"
+            // };
+            // context.Labels.Add(label); 
             label = new Label {
                 CompanyId = 3,
                 ModelName = "User.FirstName",
@@ -607,7 +619,12 @@ namespace FileManager.API.Data
                 LabelName = "Photo Url"
             };
             context.Labels.Add(label);
-
+            // label = new Label {
+            //     CompanyId = 3,
+            //     ModelName = "User.Password",
+            //     LabelName = "Password"
+            // };
+            // context.Labels.Add(label); 
             label = new Label {
                 CompanyId = 3,
                 ModelName = "User.DateCreated",
