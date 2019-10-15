@@ -211,7 +211,7 @@ namespace FileManager.API.Data
 
         public async Task<PagedList<Label>> GetLabels(UserParams userParams)
         {
-            var labels = _context.Labels.OrderBy(l => l.Company.CompanyName).AsQueryable();
+            var labels = _context.Labels.OrderBy(l => l.Company.CompanyName).ThenBy(l => l.ModelName).AsQueryable();
 
             return await PagedList<Label>.CreateAsync(labels,userParams.PageNumber,userParams.PageSize);
         }

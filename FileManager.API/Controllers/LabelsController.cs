@@ -47,7 +47,7 @@ namespace FileManager.API.Controllers
             userParams.UserId = currentUserId;
  
             var labels = await _repo.GetLabels(userParams);
-            var labelsToReturn = _mapper.Map<IEnumerable<RoleForListDto>>(labels);
+            var labelsToReturn = _mapper.Map<IEnumerable<LabelForListDto>>(labels);
             Response.AddPagination(labels.CurrentPage,labels.PageSize,labels.TotalCount,labels.TotalPages);
             return Ok(labelsToReturn);
         }
@@ -60,16 +60,16 @@ namespace FileManager.API.Controllers
             userParams.UserId = currentUserId;
  
             var labels = await _repo.GetLabelsforCompany(companyId, userParams);
-            var labelsToReturn = _mapper.Map<IEnumerable<RoleForListDto>>(labels);
+            var labelsToReturn = _mapper.Map<IEnumerable<LabelForListDto>>(labels);
             Response.AddPagination(labels.CurrentPage,labels.PageSize,labels.TotalCount,labels.TotalPages);
             return Ok(labelsToReturn);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRole(int id, LabelForListDto labelForListDto)
+        public async Task<IActionResult> UpdateLabel(int id, LabelForListDto labelForListDto)
         {
             
-            var labelFromRepo = await _repo.GetRole(id);
+            var labelFromRepo = await _repo.GetLabel(id);
             if (labelFromRepo == null)
                 return NotFound();
 

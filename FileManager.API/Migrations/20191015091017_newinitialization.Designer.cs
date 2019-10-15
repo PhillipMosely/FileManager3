@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191013183700_NewInitialize")]
-    partial class NewInitialize
+    [Migration("20191015091017_newinitialization")]
+    partial class newinitialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,6 +107,28 @@ namespace FileManager.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FileManagerAdmin");
+                });
+
+            modelBuilder.Entity("FileManager.API.Models.Label", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LabelName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModelName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Labels");
                 });
 
             modelBuilder.Entity("FileManager.API.Models.Role", b =>
@@ -225,6 +247,15 @@ namespace FileManager.API.Migrations
                     b.HasOne("FileManager.API.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FileManager.API.Models.Label", b =>
+                {
+                    b.HasOne("FileManager.API.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -109,19 +109,22 @@ namespace FileManager.API.Migrations
 
             modelBuilder.Entity("FileManager.API.Models.Label", b =>
                 {
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ModelName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Id")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LabelName")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CompanyId", "ModelName");
+                    b.Property<string>("ModelName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Labels");
                 });

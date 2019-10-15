@@ -2,9 +2,9 @@ namespace FileManager.API.Helpers
 {
     public class UserParams
     {
-        private const int MaxPageSize = 50;
+        private const int MaxPageSize = 1000;
         public int PageNumber { get; set; } = 1;
-        private int pageSize = 10;
+        private int pageSize = 1000;
         public int PageSize
         {
             get { return pageSize; }
