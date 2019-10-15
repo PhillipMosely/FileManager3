@@ -197,8 +197,8 @@ myTableFilterOnClick(clear: boolean): void {
     const myFilterSelect = document.getElementsByClassName('myFilterSelect');
     if (!(myFilterSelect[0] === null)) {
       const mySelect = <any>myFilterSelect[0];
-      this.myFilterSelectonChange();
       mySelect.selectedIndex = 0;
+      this.myFilterSelectonChange();
     }
     this.refreshDataTable();
   } else {

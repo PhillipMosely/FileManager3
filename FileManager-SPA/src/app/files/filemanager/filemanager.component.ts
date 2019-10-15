@@ -353,8 +353,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         const myFilterSelect = document.getElementsByClassName('myFilterSelect');
         if (!(myFilterSelect[0] === null)) {
           const mySelect = <any>myFilterSelect[0];
+          mySelect.selectedIndex = 0;          
           this.myFilterSelectonChange();
-          mySelect.selectedIndex = 0;
+
         }
         this.refreshDataTable();
     } else {
