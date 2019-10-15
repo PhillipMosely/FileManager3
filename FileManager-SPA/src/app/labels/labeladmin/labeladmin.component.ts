@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { jqxDataTableComponent } from 'jqwidgets-ng/jqxdatatable';
 import { PaginatedResult } from 'app/_models/Pagination';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
@@ -21,8 +20,6 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
 
   myCompany: Company;
 
-  bsFilterDateConfig: Partial<BsDatepickerConfig>;
-  bsFilterDateInlineValue = new Date();
   filterTextInput = true;
   tableFilterTextInput = '';
   tableFilterDateInput = new Date();
@@ -134,7 +131,6 @@ myTableFilterOnClick(clear: boolean): void {
   if (clear) {
     this.filterTextInput = true;
     this.tableFilterTextInput = '';
-    this.bsFilterDateInlineValue = new Date();
     this.tableFilterDateInput = new Date();      
     this.tableFilterQuery = [];
     const myFilterSelect = document.getElementsByClassName('myFilterSelect');
@@ -210,7 +206,6 @@ applyTableFilter(res: PaginatedResult<Label[]>): PaginatedResult<Label[]> {
         }
         default: {
           this.tableFilterTextInput = '';
-          this.bsFilterDateInlineValue = new Date();
           this.tableFilterDateInput = new Date();      
           this.tableFilterQuery = [];
           break;

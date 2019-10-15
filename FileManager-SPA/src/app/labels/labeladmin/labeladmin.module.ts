@@ -6,7 +6,9 @@ import { LabelAdminRoutes } from './labeladmin.routing';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { ModalModule } from 'app/components/modal/modal.module';
+import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 
 @NgModule({
   imports: [
@@ -18,9 +20,10 @@ import { ModalModule } from 'app/components/modal/modal.module';
     BsDatepickerModule.forRoot(),
     ModalModule
   ],
-  declarations: [LabelAdminComponent],
+  declarations: [LabelAdminComponent,
+    FieldUpdateComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [LabelAdminComponent]
-  
+
 })
 export class LabelAdminModule { }

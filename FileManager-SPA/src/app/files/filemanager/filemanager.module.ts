@@ -9,6 +9,7 @@ import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
 import {
   AgmCoreModule
 } from '@agm/core';
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { FilemanagerRoutes } from './filemanager.routing';
 import { FilemanagerComponent } from './filemanager.component';
@@ -16,9 +17,6 @@ import { ModalModule } from 'app/components/modal/modal.module';
 import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 
 
 @NgModule({
