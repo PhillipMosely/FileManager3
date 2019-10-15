@@ -15,6 +15,8 @@ namespace FileManager.API.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<FileManagerAdmin> FileManagerAdmin { get; set; }
 
+        public DbSet<Label> Labels { get; set;}
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -35,6 +37,12 @@ namespace FileManager.API.Data
             
             builder.Entity<File>()
                 .HasOne(u => u.FMAdmin);
+            
+            builder.Entity<Label>()
+                .HasKey(k => new {k.CompanyId,k.ModelName});
+                
+            builder.Entity<Label>()
+                .HasOne(u => u.Company);
 
         }
     }

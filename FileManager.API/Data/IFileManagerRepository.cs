@@ -37,5 +37,8 @@ namespace FileManager.API.Data
          Task<Role> AddRole(Role role);
          Task<bool> RoleExists(string rolename);
 
+         Task<PagedList<Label>>  GetLabelsforCompany(int companyId, UserParams userParams);
+         Task<Label> GetLabel(int id);
+         Task<PagedList<Label>> GetLabels(UserParams userParams);
     }
 }

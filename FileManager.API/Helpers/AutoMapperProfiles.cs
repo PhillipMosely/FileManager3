@@ -34,6 +34,9 @@ namespace FileManager.API.Helpers
             CreateMap<FileForAddDto,File>();
             CreateMap<FileForUpdateDto,File>();
             CreateMap<File,FileForListDto>();
+
+            CreateMap<Label,LabelForListDto>();
+            CreateMap<LabelForListDto,Label>();
         }
     }
 }

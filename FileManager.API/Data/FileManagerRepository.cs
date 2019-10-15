@@ -191,12 +191,35 @@ namespace FileManager.API.Data
             return false;
         }
 
+
+
+        public  async  Task<PagedList<Label>>  GetLabelsforCompany(int companyId, UserParams userParams)
+        {
+            var labels = _context.Labels.Where(l => l.CompanyId == companyId)
+                                .OrderBy(l => l.ModelName);
+
+ 
+            return await PagedList<Label>.CreateAsync(labels,userParams.PageNumber,userParams.PageSize);
+        }
+
+        public async Task<Label> GetLabel(int id)
+        {
+            var label = await _context.Labels.FirstOrDefaultAsync(u => u.Id == id);
+
+            return label;
+        }
+
+        public async Task<PagedList<Label>> GetLabels(UserParams userParams)
+        {
+            var labels = _context.Labels.OrderBy(l => l.Company.CompanyName).AsQueryable();
+
+            return await PagedList<Label>.CreateAsync(labels,userParams.PageNumber,userParams.PageSize);
+        }
+
         public async Task<bool> SaveAll()
         {
             await _context.SaveChangesAsync();
             return true;
         }
-
-
     }
 }
