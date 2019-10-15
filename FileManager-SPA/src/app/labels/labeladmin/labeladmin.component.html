@@ -1,5 +1,28 @@
 <div class="main-content">
-  <p>
-  labeladmin works!
-</p>
-</div>
+    <div class="col-lg-10 col-sm-10">
+      <div class="card">
+        <div class="card-body" style="height: 732px;" >
+          <div>
+               <span style="padding-left: 40px;" class="myFilterSpan"> 
+                Filter:
+                <select class="myFilterSelect" (change)="myFilterSelectonChange()">
+                </select>
+                <span style="padding-left: 10px; padding-right: 10px;" class="myFilterCondition" >Contains</span> 
+                <input type="text" name="tableFilterTextInput" [(ngModel)]="tableFilterTextInput" style="width: 250px;" *ngIf="filterTextInput == true">
+                <input type="text" bsDatepicker [bsConfig]="bsFilterDateConfig"  [bsValue]="bsFilterDateInlineValue"
+                name="tableFilterDateInput" *ngIf="filterTextInput == false" placeholder="Select Date ..."
+                style="width: 150px;"  (bsValueChange)="onDateValueChange($event)">              
+                <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
+                <button class="btn btn-danger btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
+              </span>
+  
+          </div>
+          <jqxDataTable #myDataTable [autoRowHeight]="false"
+            [width]="getTableWidth()" [height]="'92%'" [source]="tableDataAdaptor" [columns]="tableColumns"
+            [pageable]="true" [altRows]="true" [rendered]="renderedRowButtons" [pageSize]="15"
+            [pagerButtonsCount]="8" [sortable]="true"  >
+          </jqxDataTable>
+        </div>
+      </div>
+    </div>
+  </div>
