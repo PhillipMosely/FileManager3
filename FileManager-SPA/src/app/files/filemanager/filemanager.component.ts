@@ -72,7 +72,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   ];
 
   componentConfigSetup: any[] = [
-    { id: '1', parentid: '0', label: 'Data Table', type: 'table' },
+    { id: '1', parentid: '0', label: 'Files Data Table', type: 'table', tablecolumns: this.tableColumns },
     { id: '2', parentid: '0', label: 'Add Files Button', type: 'button'},
     { id: '3', parentid: '0', label: 'Filter', type: 'filter' }
   ];

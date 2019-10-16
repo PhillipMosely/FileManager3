@@ -24,8 +24,14 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.source = this.componentConfigSetup;
+
+    this.source = [];
     this.source.push({ id: '0', parentid: '-1', label: this.componentName });
+    let myId = 0;
+    this.componentConfigSetup.forEach(element => {
+      myId++;
+      this.source.push({id: myId.toString(), parentid: '0', label: element.label});
+    });
     this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
     this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid');
   }
@@ -37,15 +43,29 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   }
  
   componentSelected(event: any): void {
-    this.dataTableRecords = {} as any[];
+    this.dataTableRecords = [];
     this.dataTableConfigVisible = false;
     this.selectedNodeId = +event.args.element.id;
-    if (this.selectedNodeId === 1) {
-      this.dataTableRecords = [{ id: '1', parentid: '0', label: 'Column 1' }];
-      this.dataTableRecords.push({ id: '1', parentid: '0', label: 'Column 3' });
-      this.dataTableConfigVisible = true;
-      this.myDTTree.refresh();
+    switch (this.componentConfigSetup[this.selectedNodeId - 1].type) {
+      case 'table': {
+        this.dataTableConfigVisible = true;
+        const myColumns = this.componentConfigSetup[this.selectedNodeId - 1].tablecolumns;
+        for (let i = 0; i < myColumns.length; i++) {
+          this.dataTableRecords.push({id: i.toString(), parentid: '0', label: myColumns[i].text});
+        };
+        // this.myDTTree.refresh();
+        break;
+      }
+      case 'filter': {
 
+      }
+      case 'button': {
+
+      }
+      default: {
+        break;
+      }
     }
+
   }
 }
