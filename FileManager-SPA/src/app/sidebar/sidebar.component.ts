@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { User } from 'app/_models/user';
 import { AuthService } from 'app/_services/auth.service';
+import { Utilities } from 'app/_helpers/utilities';
 
 //Metadata
 export interface RouteInfo {
@@ -149,7 +150,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     photoUrl: string;
     fullName: string;
     user: User;
-    userIsAdmin: boolean;
+    userIsSuperAdmin: boolean;
     userIsCompanyAdmin: boolean;
 
     constructor(public  authService: AuthService) {}
@@ -166,35 +167,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.photoUrl = this.authService.currentUser.photoUrl;
         this.fullName = this.authService.fullName;
         this.user = JSON.parse(localStorage.getItem('user'));
-        this.userIsAdmin = this.setUserIsAdmin();
-        this.userIsCompanyAdmin = this.setUserIsCompanyAdmin();
+        this.userIsSuperAdmin = Utilities.userIsSuperAdmin();
+        this.userIsCompanyAdmin = Utilities.userIsCompanyAdmin();
     }
     ngAfterViewInit() {
-    }
-
-    setUserIsAdmin(): boolean {
-        let isAdmin = false;
-
-        if (this.user.roles) {
-            for (let i = 0; i < this.user.roles.length; i++ ) {
-                if (this.user.roles[i].role.isSuperUser) {
-                    isAdmin = true;
-                }
-            }
-        }
-        return isAdmin;
-    }
-
-    setUserIsCompanyAdmin(): boolean {
-        let isAdmin = false;
-
-        if (this.user.roles) {
-            for (let i = 0; i < this.user.roles.length; i++ ) {
-                if (this.user.roles[i].role.isCompanyAdmin) {
-                    isAdmin = true;
-                }
-            }
-        }
-        return isAdmin;
     }
 }

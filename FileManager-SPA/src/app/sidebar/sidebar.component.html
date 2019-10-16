@@ -84,13 +84,13 @@
                     <p>{{menuitem.title}}</p>
                 </a>
                 <!--If it have a submenu-->
-                <a data-toggle="collapse" href="#{{menuitem.collapse}}" *ngIf="menuitem.type === 'sub1' && this.userIsAdmin">
+                <a data-toggle="collapse" href="#{{menuitem.collapse}}" *ngIf="menuitem.type === 'sub1' && this.userIsSuperAdmin">
                     <i class="{{menuitem.icontype}}"></i>
                     <p>{{menuitem.title}}<b class="caret"></b></p>
                 </a>
 
                 <!--Display the submenu items-->
-                <div id="{{menuitem.collapse}}" class="collapse" *ngIf="menuitem.type === 'sub1' && this.userIsAdmin">
+                <div id="{{menuitem.collapse}}" class="collapse" *ngIf="menuitem.type === 'sub1' && this.userIsSuperAdmin">
                     <ul class="nav">
                         <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
                             <a [routerLink]="[menuitem.path, childitem.path]">

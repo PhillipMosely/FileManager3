@@ -31,6 +31,7 @@ import { ModalService } from './_services/modal.service';
 import { CompanyService } from './_services/company.service';
 import { RoleService } from './_services/role.service';
 import { LabelService } from './_services/label.service';
+import { ComponentConfigComponent } from './components/componentconfig/componentconfig.component';
 
 
 export function tokenGetter() {
@@ -71,7 +72,8 @@ export function tokenGetter() {
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent
+        AuthLayoutComponent,
+        ComponentConfigComponent
     ],
     providers: [
         AuthService,

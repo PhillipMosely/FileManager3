@@ -1,4 +1,5 @@
 import { Label } from 'app/_models/label';
+import { User } from 'app/_models/user';
 
 export class Utilities {
 
@@ -25,4 +26,30 @@ export class Utilities {
         });
       }
 
+
+      static userIsSuperAdmin(): boolean {
+        let isAdmin = false;
+        const user = <User>JSON.parse(localStorage.getItem('user'));
+        if (user.roles) {
+            for (let i = 0; i < user.roles.length; i++ ) {
+                if (user.roles[i].role.isSuperUser) {
+                    isAdmin = true;
+                }
+            }
+        }
+        return isAdmin;
+    }
+
+    static userIsCompanyAdmin(): boolean {
+        let isAdmin = false;
+        const user = <User>JSON.parse(localStorage.getItem('user'));
+        if (user.roles) {
+            for (let i = 0; i < user.roles.length; i++ ) {
+                if (user.roles[i].role.isCompanyAdmin) {
+                    isAdmin = true;
+                }
+            }
+        }
+        return isAdmin;
+    }
 }
