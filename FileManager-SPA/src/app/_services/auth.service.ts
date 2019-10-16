@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
 import { LabelAdminComponent } from 'app/labels/labeladmin/labeladmin.component';
 import { Label } from '../_models/label';
+import { LabelService } from './label.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
   currentUser: User;
   fullName = 'user';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private labelService: LabelService) {}
 
   changeMemberFullName(user: User) {
     this.fullName = (user.firstName + ' ' + user.lastName);
@@ -36,7 +37,7 @@ export class AuthService {
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
             this.currentUser = user.user;
             this.changeMemberFullName(this.currentUser);
-            this.updateCompanyLabels(this.currentUser);
+            this.updateCompanyLabels(this.currentUser.companyId);
 
           }
       })
@@ -58,14 +59,13 @@ export class AuthService {
     this.changeMemberFullName(this.currentUser);
   }
 
-  updateCompanyLabels(user: User) {
-    this.http.get(this.baseurl + 'labels/forcompany/' + user.companyId).pipe(
-      map((response: any) => {
-        if ( response ) {
-          localStorage.setItem('labels', JSON.stringify(response));
+  updateCompanyLabels(companyId: number) {
+    this.labelService.getLabelsforCompany(companyId).subscribe( next => {
+        if ( next ) {
+          localStorage.setItem('labels', JSON.stringify(next.result));
         } else {
           localStorage.setItem('labels', null);
         }
-      }));
+      });
   }
 }

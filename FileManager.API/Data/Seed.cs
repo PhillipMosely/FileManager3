@@ -222,13 +222,13 @@ namespace FileManager.API.Data
             label = new Label {
                 CompanyId = 1,
                 ModelName = "FileManagerAdmin.SubFolderName",
-                LabelName = "SubFolderName"
+                LabelName = "Subfolder Name"
             };
             context.Labels.Add(label);     
             label = new Label {
                 CompanyId = 1,
                 ModelName = "FileManagerAdmin.FolderData",
-                LabelName = "FolderData"
+                LabelName = "Folder Data"
             };
             context.Labels.Add(label);                 
             label = new Label {
@@ -383,13 +383,13 @@ namespace FileManager.API.Data
             label = new Label {
                 CompanyId = 2,
                 ModelName = "FileManagerAdmin.SubFolderName",
-                LabelName = "SubFolderName"
+                LabelName = "Subfolder Name"
             };
             context.Labels.Add(label);     
             label = new Label {
                 CompanyId = 2,
                 ModelName = "FileManagerAdmin.FolderData",
-                LabelName = "FolderData"
+                LabelName = "Folder Data"
             };
             context.Labels.Add(label);                 
             label = new Label {
@@ -543,13 +543,13 @@ namespace FileManager.API.Data
             label = new Label {
                 CompanyId = 3,
                 ModelName = "FileManagerAdmin.SubFolderName",
-                LabelName = "SubFolderName"
+                LabelName = "Subfolder Name"
             };
             context.Labels.Add(label);     
             label = new Label {
                 CompanyId = 3,
                 ModelName = "FileManagerAdmin.FolderData",
-                LabelName = "FolderData"
+                LabelName = "Folder Data"
             };
             context.Labels.Add(label);                 
             label = new Label {

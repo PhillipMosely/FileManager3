@@ -11,30 +11,30 @@
             <div class="row">
               <div class="col-md-5 pr-1">
                 <div class="form-group">
-                  <label for="companyid">Company</label>
+                  <label for="companyid">{{getLabel('Company.CompanyName')}}</label>
                   <select type="text" formControlName="companyid" class="form-control" 
                     [ngClass]="{'is-invalid': userAddForm.get('companyid').errors && userAddForm.get('companyid').touched}">
                     <option *ngFor="let item of companys" [ngValue]="item.id">{{item.companyName}}</option>
                   </select>
-                    <div class="invalid-feedback">Please select a company</div>                    
+                    <div class="invalid-feedback">Please select a {{getLabel('Company.CompanyName')}}</div>                    
                 </div>
               </div>
             </div>
               <div class="row">                
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                    <label for="firstname">First Name</label>
+                    <label for="firstname">{{getLabel('User.FirstName')}}</label>
                     <input type="text" formControlName="firstname" class="form-control" 
                     [ngClass]="{'is-invalid': userAddForm.get('firstname').errors && userAddForm.get('firstname').touched}">
-                    <div class="invalid-feedback">Please enter a first name</div>
+                    <div class="invalid-feedback">Please enter a {{getLabel('User.FirstName')}}</div>
                 </div>
               </div>
               <div class="col-md-6 p4-1">                  
                 <div class="form-group">
-                  <label for="lastname">Last Name</label>
+                  <label for="lastname">{{getLabel('User.LastName')}}</label>
                   <input type="text" formControlName="lastname" class="form-control"
                   [ngClass]="{'is-invalid': userAddForm.get('lastname').errors && userAddForm.get('lastname').touched}">
-                  <div class="invalid-feedback">Please enter a last name</div>
+                  <div class="invalid-feedback">Please enter a {{getLabel('User.FirstName')}}</div>
               </div>                  
             </div>
               
@@ -50,7 +50,7 @@
               </div>
               <div class="col-md-4 pr-1">                  
                 <div class="form-group">
-                  <label for="knownas">Known As</label>
+                  <label for="knownas">{{getLabel('User.KnownAs')}}</label>
                   <input type="text" formControlName="knownas" class="form-control" >
                 </div>                  
               </div>
@@ -58,15 +58,15 @@
               <div class="row">
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">{{getLabel('User.Email')}}</label>
                     <input type="text" formControlName="email" class="form-control" 
                     [ngClass]="{'is-invalid': userAddForm.get('email').errors && userAddForm.get('email').touched}">
-                    <div class="invalid-feedback">Please enter an email</div>                    
+                    <div class="invalid-feedback">Please enter an {{getLabel('User.Email')}}</div>                    
                   </div>                  
                 </div>
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
-                    <label for="mobilephone">Mobile Phone</label>
+                    <label for="mobilephone">{{getLabel('User.MobilePhone')}}</label>
                     <input type="text" formControlName="mobilephone" class="form-control" >
                   </div>                  
                 </div>                                
@@ -74,13 +74,13 @@
               <div class="row">                                
                 <div class="col-md-4 pr-1">
                   <div class="form-group">
-                      <label for="city">City</label>
+                      <label for="city">{{getLabel('User.City')}}</label>
                       <input type="text" formControlName="city" class="form-control" >
                   </div>
                 </div>
                 <div class="col-md-4 pr-1">
                   <div class="form-group">
-                      <label for="country">Country</label>
+                      <label for="country">{{getLabel('User.Country')}}</label>
                       <input type="text" formControlName="country" class="form-control" >
                   </div>
                 </div>                
@@ -113,10 +113,10 @@
           </div>
           <div class="card-body">
             <div class="form-group">
-                <label for="subfolder">Sub Folder</label>
+                <label for="subfolder">{{getLabel('FileManagerAdmin.SubFolderName')}}</label>
                 <input type="text" formControlName="subfolder" class="form-control" 
                   [ngClass]="{'is-invalid': userAddForm.get('subfolder').errors && userAddForm.get('subfolder').touched}">
-                  <div class="invalid-feedback">Please enter a sub folder</div>                    
+                  <div class="invalid-feedback">Please enter a {{getLabel('FileManagerAdmin.SubFolderName')}}</div>                    
               </div>
           </div>
         </div>          

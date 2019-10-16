@@ -11,6 +11,7 @@ import { FileManagerAdmin } from 'app/_models/filemanageradmin';
 import { Role } from 'app/_models/role';
 import { RoleService } from 'app/_services/role.service';
 import { UserRole } from 'app/_models/userrole';
+import { Utilities } from 'app/_helpers/utilities';
 
 @Component({
     selector: 'app-useredit',
@@ -60,6 +61,10 @@ export class UserEditComponent implements OnInit {
         this.createEditForm();
     }
 
+    getLabel(modelName: string) {
+        return Utilities.labelforModelName(modelName);
+    }
+    
     createEditForm() {
 
         if (this.user) {

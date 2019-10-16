@@ -8,6 +8,7 @@ import { LabelService } from 'app/_services/label.service';
 import { Label } from 'app/_models/label';
 import { ModalService } from 'app/_services/modal.service';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
+import { AuthService } from 'app/_services/auth.service';
 
 @Component({
   selector: 'app-labeladmin',
@@ -45,7 +46,8 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
 
   constructor(private sweetAlertService: SweetAlertService,
               private labelService: LabelService,
-              private modalService: ModalService) { }
+              private modalService: ModalService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     const user: User = JSON.parse(localStorage.getItem('user'));
@@ -206,7 +208,7 @@ applyTableFilter(res: PaginatedResult<Label[]>): PaginatedResult<Label[]> {
         }
         default: {
           this.tableFilterTextInput = '';
-          this.tableFilterDateInput = new Date();      
+          this.tableFilterDateInput = new Date();
           this.tableFilterQuery = [];
           break;
         }
@@ -225,6 +227,7 @@ myFieldUpdateFinish(updated: boolean) {
     const myLabel = next;
     myLabel.labelName = this.myFieldUpdate.myFields[0].value;
     this.labelService.updateLabel(this.myFieldUpdate.myId, myLabel).subscribe(next2 => {
+      this.authService.updateCompanyLabels(this.myCompany.id);
       this.refreshDataTable();
       this.closeModal('fieldupdatemodal')
       this.sweetAlertService.message('Label name updated successfully');

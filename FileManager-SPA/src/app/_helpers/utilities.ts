@@ -1,6 +1,6 @@
 import { Label } from 'app/_models/label';
 
-class CompanyLabels {
+export class Utilities {
 
     static labelforModelName (modelName: string) {
         let label = modelName.replace('.', ' ');
@@ -14,4 +14,6 @@ class CompanyLabels {
 
         return label;
     }
+
+    constructor() {}
 }

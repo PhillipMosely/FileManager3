@@ -10,6 +10,7 @@ import { Company } from 'app/_models/company';
 import { Role } from 'app/_models/role';
 import { RoleService } from 'app/_services/role.service';
 import { UserRole } from 'app/_models/userrole';
+import { Utilities } from 'app/_helpers/utilities';
 
 @Component({
     selector: 'app-useradd',
@@ -24,7 +25,7 @@ export class UserAddComponent implements OnInit{
     companys: Company[];
     roles: Role[];
     donotsubmit = false;
-
+ 
     constructor(private sweetAlertService: SweetAlertService,
                 private userService: UserService,
                 private companyService: CompanyService,
@@ -56,6 +57,10 @@ export class UserAddComponent implements OnInit{
             subfolder: ['', Validators.required],
             roles: [[2], Validators.required]
         });
+    }
+
+    getLabel(modelName: string) {
+        return Utilities.labelforModelName(modelName);
     }
 
     updateUser() {
