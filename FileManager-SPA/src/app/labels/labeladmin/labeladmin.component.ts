@@ -21,9 +21,6 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
 
   myCompany: Company;
 
-  filterTextInput = true;
-  tableFilterTextInput = '';
-  tableFilterDateInput = new Date();
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -38,8 +35,10 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'Model Name', cellsAlign: 'left', align: 'left', dataField: 'modelName', width: 300 },
-      { text: 'Label Name', cellsAlign: 'left', align: 'left', dataField: 'labelName', width: 300 }
+      { text: 'Model Name', cellsAlign: 'left', align: 'left', dataField: 'modelName', width: 300,
+        model: 'ModelName', dataType: 'text' },
+      { text: 'Label Name', cellsAlign: 'left', align: 'left', dataField: 'labelName', width: 300,
+        model: 'LabelName', dataType: 'text' }
 
   ];
 
@@ -56,15 +55,6 @@ export class LabelAdminComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.refreshDataTable();
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    this.tableColumns.forEach(element => {
-      if (element.text !== 'Actions') {
-        const item = document.createElement('option');
-        item.value = element.text;
-        item.text = element.text;
-        myFilterSelect[0].appendChild(item);
-      }
-    });
   }
 
   getTableWidth(): Number {
@@ -125,91 +115,27 @@ renderedRowButtons() {
 
 }
 
-onDateValueChange(value: Date): void {
-  this.tableFilterDateInput = value;
-}
 
-myTableFilterOnClick(clear: boolean): void {
-  if (clear) {
-    this.filterTextInput = true;
-    this.tableFilterTextInput = '';
-    this.tableFilterDateInput = new Date();      
-    this.tableFilterQuery = [];
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    if (!(myFilterSelect[0] === null)) {
-      const mySelect = <any>myFilterSelect[0];
-      mySelect.selectedIndex = 0;
-      this.myFilterSelectonChange();
-    }
-    this.refreshDataTable();
-  } else {
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    if (!(myFilterSelect[0] === null)) {
-      const mySelect = <any>myFilterSelect[0];
-      const myFilterField = mySelect[mySelect.selectedIndex].text;
-      if (myFilterField.toLowerCase().indexOf('date') >= 0) {
-        this.tableFilterQuery.push({'field': myFilterField, 'filterDate': this.tableFilterDateInput});
-      } else {
-        this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
-      }
-      this.refreshDataTable();
-    }
-  }
-}
-
-myFilterSelectonChange(): void {
-  const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-  const myFilterCondition = <any>document.getElementsByClassName('myFilterCondition');
-  if (!(myFilterSelect[0] === null)) {
-    const mySelect = <any>myFilterSelect[0];
-    const myFilterField = mySelect[mySelect.selectedIndex].text;
-    switch ( myFilterField ) {
-      case 'Company':
-      case 'Username':
-      case 'Email':
-      case 'Sub Folder': {
-        myFilterCondition[0].innerText = 'Contains';
-        this.filterTextInput = true;
-        break;
-      }
-      case 'File Count': {
-        myFilterCondition[0].innerText = 'Larger Than';
-        this.filterTextInput = true;
-        break;
-      }
-      case 'Date Modified':
-      case 'Date Created': {
-        myFilterCondition[0].innerText = 'Later Than';
-        this.filterTextInput = false;
-        break;
-      }
-      default: {
-        myFilterCondition[0].innerText = 'Contains';
-        this.filterTextInput = true;
-        break;
-      }
-    }
-  }
+setTableFilter(query: any[]) {
+  this.tableFilterQuery = query;
+  this.refreshDataTable();
 }
 
 applyTableFilter(res: PaginatedResult<Label[]>): PaginatedResult<Label[]> {
   const myReturn: PaginatedResult<Label[]> = res;
   this.tableFilterQuery.forEach(filterItem => {
       switch ( filterItem.field ) {
-        case 'Model Name': {
+        case 'ModelName': {
           myReturn.result = myReturn.result.filter(
             x => x.modelName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
           break;
         }
-        case 'Label Name': {
+        case 'LabelName': {
           myReturn.result = myReturn.result.filter(
             x => x.labelName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
           break;
         }
         default: {
-          this.tableFilterTextInput = '';
-          this.tableFilterDateInput = new Date();
-          this.tableFilterQuery = [];
           break;
         }
     }

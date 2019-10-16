@@ -9,7 +9,8 @@ import { FMAdminRoutes } from './fmadmin.routing.';
 import { FMAdminComponent } from './fmadmin.component';
 import { UserAddModule } from 'app/users/useradd/useradd.module';
 import { UserEditModule } from 'app/users/useredit/useredit.module';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+
+import { FieldFilterModule } from 'app/components/fieldfilter/fieldfilter.module';
 
 @NgModule({
   imports: [
@@ -18,10 +19,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     jqxDataTableModule,
-    BsDatepickerModule.forRoot(),
     ModalModule,
     UserAddModule,
-    UserEditModule
+    UserEditModule,
+    FieldFilterModule
 ],
 declarations: [FMAdminComponent],
 schemas: [CUSTOM_ELEMENTS_SCHEMA]

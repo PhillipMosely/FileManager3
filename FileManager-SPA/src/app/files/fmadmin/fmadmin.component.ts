@@ -8,7 +8,6 @@ import { PaginatedResult } from 'app/_models/Pagination';
 import { UserAddModule } from 'app/users/useradd/useradd.module';
 import { UserEditModule } from 'app/users/useredit/useredit.module';
 import { UserService } from 'app/_services/user.service';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { Utilities } from 'app/_helpers/utilities';
 
 
@@ -22,11 +21,6 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
   @ViewChild('myUserAdd', {static: false}) myUserAdd: UserAddModule;
   @ViewChild('myUserEdit', {static: false}) myUserEdit: UserEditModule;
 
-  bsFilterDateConfig: Partial<BsDatepickerConfig>;
-  bsFilterDateInlineValue = new Date();
-  filterTextInput = true;
-  tableFilterTextInput = '';
-  tableFilterDateInput = new Date();
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -45,12 +39,16 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'Company', cellsAlign: 'left', align: 'left', dataField: 'companyName', width: 250 },
-      { text: 'Username', cellsAlign: 'left', align: 'left', dataField: 'userName', width: 120 },
-      { text: 'Email', cellsAlign: 'left', align: 'left', dataField: 'email', width: 250 },
-      { text: 'Sub Folder', cellsAlign: 'left', align: 'left', dataField: 'subFolderName', width: 250 },
-      // { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
-      { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' }
+      { text: this.getLabel('Company.CompanyName'), cellsAlign: 'left', align: 'left', dataField: 'companyName', width: 250,
+          model: 'Company.CompanyName', dataType: 'text'  },
+      { text: 'Username', cellsAlign: 'left', align: 'left', dataField: 'userName', width: 120,
+          model: 'Username', dataType: 'text'  },
+      { text: this.getLabel('User.Email'), cellsAlign: 'left', align: 'left',
+          dataField: 'email', width: 250, model: 'User.Email', dataType: 'text'  },
+      { text: this.getLabel('FileManagerAdmin.SubFolderName'), cellsAlign: 'left', align: 'left',
+          dataField: 'subFolderName', width: 250, model: 'FileManagerAdmin.SubFolderName', dataType: 'text'  },
+      { text: this.getLabel('FileManagerAdmin.DateModified'), cellsAlign: 'center', align: 'center',
+          datafield: 'dateModified', width: 120, cellsFormat: 'd', model: 'FileManagerAdmin.DateModified', dataType: 'date'  }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -66,17 +64,8 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.refreshDataTable();
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    this.tableColumns.forEach(element => {
-      if (element.text !== 'Actions') {
-        const item = document.createElement('option');
-        item.value = element.text;
-        item.text = element.text;
-        myFilterSelect[0].appendChild(item);
-      }
-    });
   }
-  
+
   getLabel(modelName: string) {
     return Utilities.labelforModelName(modelName);
   }
@@ -86,6 +75,11 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
         this.tableWidth += element.width;
     });
     return this.tableWidth;
+ }
+
+ setTableFilter(query: any[]) {
+  this.tableFilterQuery = query;
+  this.refreshDataTable();
  }
 
  refreshDataTable() {
@@ -188,86 +182,13 @@ myTableAddOnClick(): void {
   this.openModal('fmadminaddmodal');
 }
 
-onDateValueChange(value: Date): void {
-  this.tableFilterDateInput = value;
-}
-
-myTableFilterOnClick(clear: boolean): void {
-  if (clear) {
-    this.filterTextInput = true;
-    this.tableFilterTextInput = '';
-    this.bsFilterDateInlineValue = new Date();
-    this.tableFilterDateInput = new Date();      
-    this.tableFilterQuery = [];
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    if (!(myFilterSelect[0] === null)) {
-      const mySelect = <any>myFilterSelect[0];
-      mySelect.selectedIndex = 0;
-      this.myFilterSelectonChange();
-    }
-    this.refreshDataTable();
-  } else {
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    if (!(myFilterSelect[0] === null)) {
-      const mySelect = <any>myFilterSelect[0];
-      const myFilterField = mySelect[mySelect.selectedIndex].text;
-      if (myFilterField.toLowerCase().indexOf('date') >= 0) {
-        this.tableFilterQuery.push({'field': myFilterField, 'filterDate': this.tableFilterDateInput});
-      } else {
-        this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
-      }
-      this.refreshDataTable();
-    }
-  }
-}
-
-myFilterSelectonChange(): void {
-  const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-  const myFilterCondition = <any>document.getElementsByClassName('myFilterCondition');
-  if (!(myFilterSelect[0] === null)) {
-    const mySelect = <any>myFilterSelect[0];
-    const myFilterField = mySelect[mySelect.selectedIndex].text;
-    switch ( myFilterField ) {
-      case 'Company':
-      case 'Username':
-      case 'Email':
-      case 'Sub Folder': {
-        myFilterCondition[0].innerText = 'Contains';
-        this.filterTextInput = true;
-        break;
-      }
-      case 'File Count': {
-        myFilterCondition[0].innerText = 'Larger Than';
-        this.filterTextInput = true;
-        break;
-      }
-      case 'Date Modified':
-      case 'Date Created': {
-        myFilterCondition[0].innerText = 'Later Than';
-        this.filterTextInput = false;
-        break;
-      }
-      default: {
-        myFilterCondition[0].innerText = 'Contains';
-        this.filterTextInput = true;
-        break;
-      }
-    }
-  }
-}
-
-
 applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<FileManagerAdmin[]> {
   const myReturn: PaginatedResult<FileManagerAdmin[]> = res;
   this.tableFilterQuery.forEach(filterItem => {
       switch ( filterItem.field ) {
-        case 'Company': {
+        case 'Company.CompanyName': {
           myReturn.result = myReturn.result.filter(
             x => x.companyName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
-          break;
-        }
-        case 'File Count': {
-          // myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
           break;
         }
         case 'Username': {
@@ -275,29 +196,25 @@ applyTableFilter(res: PaginatedResult<FileManagerAdmin[]>): PaginatedResult<File
             x => x.userName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
           break;
         }
-        case 'Email': {
+        case 'User.Email': {
           myReturn.result = myReturn.result.filter(
             x => x.email.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
           break;
         }
-        case 'Sub Folder': {
+        case 'FileManagerAdmin.SubFolderName': {
           myReturn.result = myReturn.result.filter(
             x => x.subFolderName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
           break;
         }
-        case 'Date Modified': {
+        case 'FileManagerAdmin.DateModified': {
           myReturn.result = myReturn.result.filter(x => new Date(x.dateModified) > new Date(filterItem.filterDate));
           break;
         }
-        case 'Date Created': {
+        case 'FileManagerAdmin.DateCreated': {
           myReturn.result = myReturn.result.filter(x => new Date(x.dateCreated) > new Date(filterItem.filterDate));
           break;
         }
         default: {
-          this.tableFilterTextInput = '';
-          this.bsFilterDateInlineValue = new Date();
-          this.tableFilterDateInput = new Date();      
-          this.tableFilterQuery = [];
           break;
         }
     }

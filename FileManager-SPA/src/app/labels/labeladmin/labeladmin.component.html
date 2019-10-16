@@ -3,16 +3,7 @@
       <div class="card">
         <div class="card-body" style="height: 738px;" >
           <div>
-               <span style="padding-left: 40px;" class="myFilterSpan"> 
-                Filter:
-                <select class="myFilterSelect" (change)="myFilterSelectonChange()">
-                </select>
-                <span style="padding-left: 10px; padding-right: 10px;" class="myFilterCondition" >Contains</span> 
-                <input type="text" name="tableFilterTextInput" [(ngModel)]="tableFilterTextInput" style="width: 250px;" *ngIf="filterTextInput == true">
-                <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
-                <button class="btn btn-danger btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
-              </span>
-  
+            <app-fieldfilter [tableColumns]="tableColumns" (refreshDataTable)="setTableFilter($event)"  ></app-fieldfilter>
           </div>
           <jqxDataTable #myDataTable [autoRowHeight]="false"
             [width]="getTableWidth()" [height]="'92%'" [source]="tableDataAdaptor" [columns]="tableColumns"

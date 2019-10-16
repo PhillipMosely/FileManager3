@@ -4,11 +4,11 @@ import { LabelAdminComponent } from './labeladmin.component';
 import { RouterModule } from '@angular/router';
 import { LabelAdminRoutes } from './labeladmin.routing';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
-import { BsDatepickerModule } from 'ngx-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { ModalModule } from 'app/components/modal/modal.module';
 import { FieldUpdateModule } from 'app/components/fieldupdate/fieldupdate.module';
+import { FieldFilterModule } from 'app/components/fieldfilter/fieldfilter.module';
 
 @NgModule({
   imports: [
@@ -17,9 +17,9 @@ import { FieldUpdateModule } from 'app/components/fieldupdate/fieldupdate.module
     FormsModule,
     ReactiveFormsModule,
     jqxDataTableModule,
-    BsDatepickerModule.forRoot(),
     ModalModule,
-    FieldUpdateModule
+    FieldUpdateModule,
+    FieldFilterModule
   ],
   declarations: [LabelAdminComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
