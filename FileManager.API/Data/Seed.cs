@@ -35,9 +35,9 @@ namespace FileManager.API.Data
                 context.Companys.Add(company2);
 
                 var company3 = new Company {
-                    CompanyName = "Lexis Nexis",
-                    WebsiteUrl = "https://www.lexisnexis.com/",
-                    LogoUrl = "https://www.lexisnexis.com/images/gateway/ln-logo.png",
+                    CompanyName = "Duke University",
+                    WebsiteUrl = "https://www.duke.edu",
+                    LogoUrl = "https://www.duke.edu/assets/img/dukelogo_white.svg",
                     OverallStyleConfig = "[]",
                     ComponentConfig = "[]",                      
                     DateCreated = DateTime.Now,
