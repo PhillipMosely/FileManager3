@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { APIFile } from '../../_models/file';
+import { Utilities } from 'app/_helpers/utilities';
 
 @Component({
   selector: 'app-fileview',
@@ -14,4 +15,7 @@ export class FileViewComponent implements OnInit {
   ngOnInit() {
   }
 
+  getLabel(modelName: string) {
+    return Utilities.labelforModelName(modelName);
+  }
 }
