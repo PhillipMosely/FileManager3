@@ -6,6 +6,7 @@ import { ComponentConfigRoutes } from './componentconfig.routing';
 import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
+import { jqxSplitterModule} from 'jqwidgets-ng/jqxsplitter';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
     RouterModule.forChild(ComponentConfigRoutes),
     FormsModule,
     jqxTreeModule,
+    jqxSplitterModule,
     BsDatepickerModule.forRoot()
   ],
   declarations: [ComponentConfigComponent],
