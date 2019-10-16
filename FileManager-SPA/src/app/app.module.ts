@@ -31,6 +31,7 @@ import { ModalService } from './_services/modal.service';
 import { CompanyService } from './_services/company.service';
 import { RoleService } from './_services/role.service';
 import { LabelService } from './_services/label.service';
+import { ComponentConfigModule } from './components/componentconfig/componentconfig.module';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -57,6 +58,7 @@ export function tokenGetter() {
         BsDatepickerModule.forRoot(),
         ModalModule,
         FileUploadModule,
+        ComponentConfigModule,
         ReactiveFormsModule,
         JwtModule.forRoot({
             config: {

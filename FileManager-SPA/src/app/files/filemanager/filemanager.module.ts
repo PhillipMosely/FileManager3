@@ -18,6 +18,7 @@ import { FileAddModule } from '../fileadd/fileadd.module';
 import { FileViewComponent } from '../fileview/fileview.component';
 import { FieldUpdateModule } from 'app/components/fieldupdate/fieldupdate.module';
 import { FieldFilterModule } from 'app/components/fieldfilter/fieldfilter.module';
+import { ComponentConfigModule } from 'app/components/componentconfig/componentconfig.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { FieldFilterModule } from 'app/components/fieldfilter/fieldfilter.module
     FileAddModule,
     FieldUpdateModule,
     FieldFilterModule,
+    ComponentConfigModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })
