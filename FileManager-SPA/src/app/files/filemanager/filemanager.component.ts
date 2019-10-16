@@ -60,11 +60,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
         return item;
       }},
-      { text: 'File Name', cellsAlign: 'left', align: 'left', dataField: 'fileName', width: 250 },
-      { text: 'Size (kb)', dataField: 'sizeKb', cellsFormat: 'd1', cellsAlign: 'center', align: 'center', width: 120 },
-      { text: 'Date Modified', cellsAlign: 'center', align: 'center', datafield: 'dateModified', width: 120, cellsFormat: 'd' },
-      { text: 'Ext', cellsAlign: 'center', align: 'center', dataField: 'ext', width: 120 },
-      { text: 'URL', cellsAlign: 'left', align: 'left', dataField: 'url', width: 700 }
+      { text: this.getLabel('File.FileName'), cellsAlign: 'left', align: 'left', dataField: 'fileName',
+        width: 250, model: 'File.FileName' },
+      { text: this.getLabel('File.Size') + ' (kb)', dataField: 'sizeKb', cellsFormat: 'd1',
+        cellsAlign: 'center', align: 'center', width: 120, model:'File.Size' },
+      { text: this.getLabel('File.DateModified'), cellsAlign: 'center', align: 'center',
+        datafield: 'dateModified', width: 120, cellsFormat: 'd', model: 'File.DateModified' },
+      { text: this.getLabel('File.Ext'), cellsAlign: 'center', align: 'center',
+        dataField: 'ext', width: 120, model: 'File.Ext' },
+      { text: this.getLabel('File.Url'), cellsAlign: 'left', align: 'left',
+        dataField: 'url', width: 700, model: 'File.Url' }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -118,7 +123,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.tableColumns.forEach(element => {
       if (element.text !== 'Actions') {
         const item = document.createElement('option');
-        item.value = element.text;
+        item.value = element.model;
         item.text = element.text;
         myFilterSelect[0].appendChild(item);
       }
@@ -145,7 +150,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     if (selectedItem != null) {
         this.myFieldUpdate.myId = +selectedItem.id;
         this.myFieldUpdate.myTitle = 'Update Folder Name';
-        this.myFieldUpdate.myType = 'Update Folder Name';
+        this.myFieldUpdate.myType = 'Update FolderName';
         this.myFieldUpdate.myFields = [{field: 'Folder Name', value: selectedItem.label, size: 50, type: 'Text'}];
         this.openModal('fieldupdatemodal');
     }
@@ -312,9 +317,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     myFileName = myFileName.replace(myExt, '');
     const myDBId: number = this.myDataTable.getRows()[myId]['id'];
     this.myFieldUpdate.myId = myDBId;
-    this.myFieldUpdate.myTitle = 'File Name Update';
-    this.myFieldUpdate.myType = 'File Name Update';
-    this.myFieldUpdate.myFields = [{field: 'File Name', value: myFileName, size: 50, type: 'Text'}];
+    this.myFieldUpdate.myTitle = this.getLabel('File.FileName') + ' Update';
+    this.myFieldUpdate.myType = 'FileName Update';
+    this.myFieldUpdate.myFields = [{field: 'File.FileName', value: myFileName, size: 50, type: 'Text'}];
     this.openModal('fieldupdatemodal');
   }
 
@@ -367,7 +372,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       const myFilterSelect = document.getElementsByClassName('myFilterSelect');
       if (!(myFilterSelect[0] === null)) {
         const mySelect = <any>myFilterSelect[0];
-        const myFilterField = mySelect[mySelect.selectedIndex].text;
+        const myFilterField = mySelect[mySelect.selectedIndex].value;
         if (myFilterField.toLowerCase().indexOf('date') >= 0) {
           this.tableFilterQuery.push({'field': myFilterField, 'filterDate': this.tableFilterDateInput});
         } else {
@@ -383,22 +388,22 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const myFilterCondition = <any>document.getElementsByClassName('myFilterCondition');
     if (!(myFilterSelect[0] === null)) {
       const mySelect = <any>myFilterSelect[0];
-      const myFilterField = mySelect[mySelect.selectedIndex].text;
+      const myFilterField = mySelect[mySelect.selectedIndex].value;
       switch ( myFilterField ) {
-        case 'File Name':
-        case 'Ext':
-        case 'URL': {
+        case 'File.FileName':
+        case 'File.Ext':
+        case 'File.Url': {
           myFilterCondition[0].innerText = 'Contains';
           this.filterTextInput = true;
           break;
         }
-        case 'Size (kb)': {
+        case 'File.Size': {
           myFilterCondition[0].innerText = 'Larger Than';
           this.filterTextInput = true;
           break;
         }
-        case 'Date Modified':
-        case 'Date Created': {
+        case 'File.DateModified':
+        case 'File.DateCreated': {
           myFilterCondition[0].innerText = 'Later Than';
           this.filterTextInput = false;
           break;
@@ -416,27 +421,27 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     const myReturn: PaginatedResult<APIFile[]> = res;
     this.tableFilterQuery.forEach(filterItem => {
         switch ( filterItem.field ) {
-          case 'File Name': {
+          case 'File.FileName': {
             myReturn.result = myReturn.result.filter(x => x.fileName.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
             break;
           }
-          case 'Size (kb)': {
+          case 'File.Size': {
             myReturn.result = myReturn.result.filter(x => x.size / 1000 > +(filterItem.filterText));
             break;
           }
-          case 'Ext': {
+          case 'File.Ext': {
             myReturn.result = myReturn.result.filter(x => x.ext.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
             break;
           }
-          case 'URL': {
+          case 'File.Url': {
             myReturn.result = myReturn.result.filter(x => x.url.toLowerCase().indexOf(filterItem.filterText.toLowerCase()) >= 0);
             break;
           }
-          case 'Date Modified': {
+          case 'File.DateModified': {
             myReturn.result = myReturn.result.filter(x => new Date(x.dateModified) > new Date(filterItem.filterDate));
             break;
           }
-          case 'Date Created': {
+          case 'File.DateCreated': {
             myReturn.result = myReturn.result.filter(x => new Date(x.dateCreated) > new Date(filterItem.filterDate));
             break;
           }
@@ -470,7 +475,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       return;
     }
     switch ( this.myFieldUpdate.myType ) {
-      case 'File Name Update': {
+      case 'FileName Update': {
         this.closeModal('fieldupdatemodal');
         this.fileService.getFile(this.myFieldUpdate.myId).subscribe(next => {
           next.fileName = this.myFieldUpdate.myFields[0].value + next.ext;
@@ -485,7 +490,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         })
         break;
       }
-      case 'Update Folder Name':
+      case 'Update FolderName':
       case 'New Folder': {
         this.myTreeAddUpdateFinish();
         break;

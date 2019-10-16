@@ -33,6 +33,7 @@
                   <button class="btn btn-primary btn-link" (click)="myTableFilterOnClick(false)" title="Filter by selected column"><i class="fa fa-filter"></i></button>
                   <button class="btn btn-danger btn-link" (click)="myTableFilterOnClick(true)" title="Clear filter"><i class="fa fa-remove"></i></button>
                 </span>
+                <app-fieldfilter></app-fieldfilter>
 
             </div>
               <jqxDataTable #myDataTable [autoRowHeight]="false"
