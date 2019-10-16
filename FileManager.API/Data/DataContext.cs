@@ -11,7 +11,7 @@ namespace FileManager.API.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles {get; set;}
         public DbSet<File> Files { get; set; }
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<Company> Companys { get; set; }
         public DbSet<FileManagerAdmin> FileManagerAdmin { get; set; }
         public DbSet<Label> Labels { get; set;}
 

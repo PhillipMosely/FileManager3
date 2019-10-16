@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191015091017_newinitialization")]
+    [Migration("20191016131057_newinitialization")]
     partial class newinitialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,15 +27,28 @@ namespace FileManager.API.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ComponentConfig")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(5000);
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OverallStyleConfig")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companys");
                 });
 
             modelBuilder.Entity("FileManager.API.Models.File", b =>

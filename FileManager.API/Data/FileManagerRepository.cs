@@ -131,27 +131,27 @@ namespace FileManager.API.Data
         }
         public async Task<PagedList<Company>> GetCompanies(UserParams userParams)
         {
-            var companies = _context.Companies.OrderBy(u => u.CompanyName).AsQueryable();
+            var companies = _context.Companys.OrderBy(u => u.CompanyName).AsQueryable();
 
             return await PagedList<Company>.CreateAsync(companies,userParams.PageNumber,userParams.PageSize);
         }
 
         public async Task<Company> GetCompany(int id)
         {
-            var company = await _context.Companies.FirstOrDefaultAsync(u => u.Id == id);
+            var company = await _context.Companys.FirstOrDefaultAsync(u => u.Id == id);
 
             return company;
         }
         public async Task<Company> AddCompany(Company company) 
         {
-            await _context.Companies.AddAsync(company);
+            await _context.Companys.AddAsync(company);
             await _context.SaveChangesAsync();
             return company; 
         }
 
         public async Task<bool> CompanyExists(string companyname)
         {
-            if (await _context.Companies.AnyAsync(x => x.CompanyName == companyname))
+            if (await _context.Companys.AnyAsync(x => x.CompanyName == companyname))
                 return true;
             return false;
         }

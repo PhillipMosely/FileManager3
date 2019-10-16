@@ -8,18 +8,22 @@ namespace FileManager.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Companies",
+                name: "Companys",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CompanyName = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    WebsiteUrl = table.Column<string>(nullable: true),
+                    LogoUrl = table.Column<string>(nullable: true),
+                    OverallStyleConfig = table.Column<string>(nullable: true),
+                    ComponentConfig = table.Column<string>(maxLength: 5000, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
+                    table.PrimaryKey("PK_Companys", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,9 +58,9 @@ namespace FileManager.API.Migrations
                 {
                     table.PrimaryKey("PK_Labels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Labels_Companies_CompanyId",
+                        name: "FK_Labels_Companys_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        principalTable: "Companys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -87,9 +91,9 @@ namespace FileManager.API.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Companies_CompanyId",
+                        name: "FK_Users_Companys_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        principalTable: "Companys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -216,7 +220,7 @@ namespace FileManager.API.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Companys");
         }
     }
 }

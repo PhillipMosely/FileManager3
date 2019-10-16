@@ -14,24 +14,36 @@ namespace FileManager.API.Data
             {
                 var company = new Company {
                     CompanyName = "HRTMS Inc",
+                    WebsiteUrl = "https://www.hrtms.com",
+                    LogoUrl = "https://www.hrtms.com/uploads/1/1/2/2/11229274/hrtms-black.png",
+                    OverallStyleConfig = "[]",
+                    ComponentConfig = "[]",
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };
-                context.Companies.Add(company); 
+                context.Companys.Add(company); 
                 
                 var company2 = new Company {
                     CompanyName = "Google",
+                    WebsiteUrl = "https://www.google.com/",
+                    LogoUrl = "https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png",
+                    OverallStyleConfig = "[]",
+                    ComponentConfig = "[]",                    
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };
-                context.Companies.Add(company2);
+                context.Companys.Add(company2);
 
                 var company3 = new Company {
-                    CompanyName = "Lexus Nexus",
+                    CompanyName = "Lexis Nexis",
+                    WebsiteUrl = "https://www.lexisnexis.com/",
+                    LogoUrl = "https://www.lexisnexis.com/images/gateway/ln-logo.png",
+                    OverallStyleConfig = "[]",
+                    ComponentConfig = "[]",                      
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };
-                context.Companies.Add(company3);
+                context.Companys.Add(company3);
 
                 CompanySettings(ref context);
 
@@ -164,6 +176,30 @@ namespace FileManager.API.Data
                 LabelName = "Company Name"
             };
             context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.WebsiteUrl",
+                LabelName = "Website Url"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.LogoUrl",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.OverallStyleConfig",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 1,
+                ModelName = "Company.ComponentConfig",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);                        
             label = new Label {
                 CompanyId = 1,
                 ModelName = "Company.DateCreated",
@@ -327,6 +363,30 @@ namespace FileManager.API.Data
             context.Labels.Add(label);
             label = new Label {
                 CompanyId = 2,
+                ModelName = "Company.WebsiteUrl",
+                LabelName = "Website Url"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "Company.LogoUrl",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "Company.OverallStyleConfig",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 2,
+                ModelName = "Company.ComponentConfig",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);              
+            label = new Label {
+                CompanyId = 2,
                 ModelName = "Company.DateCreated",
                 LabelName = "Date Created"
             };
@@ -486,6 +546,30 @@ namespace FileManager.API.Data
                 LabelName = "Company Name"
             };
             context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.WebsiteUrl",
+                LabelName = "Website Url"
+            };
+            context.Labels.Add(label);            
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.LogoUrl",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.OverallStyleConfig",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);
+            label = new Label {
+                CompanyId = 3,
+                ModelName = "Company.ComponentConfig",
+                LabelName = "Logo Url"
+            };
+            context.Labels.Add(label);              
             label = new Label {
                 CompanyId = 3,
                 ModelName = "Company.DateCreated",
