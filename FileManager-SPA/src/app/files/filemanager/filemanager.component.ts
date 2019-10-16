@@ -429,6 +429,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   myConfigOnClick() {
-    this.sweetAlertService.message('config coming soon');
+    this.openModal('configurecomponentmodal');
   }
 }
