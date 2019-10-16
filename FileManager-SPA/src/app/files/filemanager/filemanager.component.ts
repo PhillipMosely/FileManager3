@@ -12,7 +12,6 @@ import { FileViewComponent } from '../fileview/fileview.component';
 import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { Utilities } from 'app/_helpers/utilities';
 
 
@@ -37,11 +36,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   dataAdapter: any;
   records: any;
 
-  bsFilterDateConfig: Partial<BsDatepickerConfig>;
-  bsFilterDateInlineValue = new Date();
-  filterTextInput = true;
-  tableFilterTextInput = '';
-  tableFilterDateInput = new Date();
   tableFilterQuery = [];
   tableWidth: number;
   tableSource: any;
@@ -61,15 +55,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         return item;
       }},
       { text: this.getLabel('File.FileName'), cellsAlign: 'left', align: 'left', dataField: 'fileName',
-        width: 250, model: 'File.FileName' },
+        width: 250, model: 'File.FileName', dataType: 'text' },
       { text: this.getLabel('File.Size') + ' (kb)', dataField: 'sizeKb', cellsFormat: 'd1',
-        cellsAlign: 'center', align: 'center', width: 120, model:'File.Size' },
+        cellsAlign: 'center', align: 'center', width: 120, model: 'File.Size', dataType: 'number' },
       { text: this.getLabel('File.DateModified'), cellsAlign: 'center', align: 'center',
-        datafield: 'dateModified', width: 120, cellsFormat: 'd', model: 'File.DateModified' },
+        datafield: 'dateModified', width: 120, cellsFormat: 'd', model: 'File.DateModified', dataType: 'date' },
       { text: this.getLabel('File.Ext'), cellsAlign: 'center', align: 'center',
-        dataField: 'ext', width: 120, model: 'File.Ext' },
+        dataField: 'ext', width: 120, model: 'File.Ext', dataType: 'text' },
       { text: this.getLabel('File.Url'), cellsAlign: 'left', align: 'left',
-        dataField: 'url', width: 700, model: 'File.Url' }
+        dataField: 'url', width: 700, model: 'File.Url', dataType: 'text' }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -86,9 +80,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.bsFilterDateConfig = {
-      containerClass: 'theme-default'
-    };
+
      const myUser: User = JSON.parse(localStorage.getItem('user'));
      this.fileManagerAdminService.getFMAdminForUserId(myUser.id)
         .subscribe(
@@ -119,21 +111,12 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    this.tableColumns.forEach(element => {
-      if (element.text !== 'Actions') {
-        const item = document.createElement('option');
-        item.value = element.model;
-        item.text = element.text;
-        myFilterSelect[0].appendChild(item);
-      }
-    });
   }
 
   getLabel(modelName: string) {
     return Utilities.labelforModelName(modelName);
   }
-  
+
   myTreeAddOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();
     if (selectedItem != null) {
@@ -349,72 +332,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }
   }
 
-  onDateValueChange(value: Date): void {
-    this.tableFilterDateInput = value;
-  }
-
-  myTableFilterOnClick(clear: boolean): void {
-    if (clear) {
-        this.filterTextInput = true;
-        this.tableFilterTextInput = '';
-        this.bsFilterDateInlineValue = new Date();
-        this.tableFilterDateInput = new Date();        
-        this.tableFilterQuery = [];
-        const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-        if (!(myFilterSelect[0] === null)) {
-          const mySelect = <any>myFilterSelect[0];
-          mySelect.selectedIndex = 0;          
-          this.myFilterSelectonChange();
-
-        }
-        this.refreshDataTable();
-    } else {
-      const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-      if (!(myFilterSelect[0] === null)) {
-        const mySelect = <any>myFilterSelect[0];
-        const myFilterField = mySelect[mySelect.selectedIndex].value;
-        if (myFilterField.toLowerCase().indexOf('date') >= 0) {
-          this.tableFilterQuery.push({'field': myFilterField, 'filterDate': this.tableFilterDateInput});
-        } else {
-          this.tableFilterQuery.push({'field': myFilterField, 'filterText': this.tableFilterTextInput});
-        }
-        this.refreshDataTable();
-      }
-    }
-  }
-
-  myFilterSelectonChange(): void {
-    const myFilterSelect = document.getElementsByClassName('myFilterSelect');
-    const myFilterCondition = <any>document.getElementsByClassName('myFilterCondition');
-    if (!(myFilterSelect[0] === null)) {
-      const mySelect = <any>myFilterSelect[0];
-      const myFilterField = mySelect[mySelect.selectedIndex].value;
-      switch ( myFilterField ) {
-        case 'File.FileName':
-        case 'File.Ext':
-        case 'File.Url': {
-          myFilterCondition[0].innerText = 'Contains';
-          this.filterTextInput = true;
-          break;
-        }
-        case 'File.Size': {
-          myFilterCondition[0].innerText = 'Larger Than';
-          this.filterTextInput = true;
-          break;
-        }
-        case 'File.DateModified':
-        case 'File.DateCreated': {
-          myFilterCondition[0].innerText = 'Later Than';
-          this.filterTextInput = false;
-          break;
-        }
-        default: {
-          myFilterCondition[0].innerText = 'Contains'
-          this.filterTextInput = true;
-          break;
-        }
-      }
-    }
+  setTableFilter(query: any[]) {
+    this.tableFilterQuery = query;
+    this.refreshDataTable();
   }
 
   applyTableFilter(res: PaginatedResult<APIFile[]>): PaginatedResult<APIFile[]> {
@@ -446,10 +366,6 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
             break;
           }
           default: {
-            this.tableFilterTextInput = '';
-            this.bsFilterDateInlineValue = new Date();
-            this.tableFilterDateInput = new Date();
-            this.tableFilterQuery = [];
             break;
           }
         }
