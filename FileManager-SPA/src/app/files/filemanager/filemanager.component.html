@@ -18,11 +18,15 @@
             </jqxTree>
           </div>
           <div #ContentPanel  >
-            <div>
+            <div style="width: getTableWidth();">
                 <button #myTableAdd class="btn btn-primary btn-link" (click)="myTableAddOnClick()" 
                   title="Add Files for selected folder"><i class="fa fa-plus"></i> Add Files</button>
                 <app-fieldfilter #myFieldFilter [tableColumns]="tableColumns" 
-                  (refreshDataTable)="setTableFilter($event)"  ></app-fieldfilter>
+                  (refreshDataTable)="setTableFilter($event)" ></app-fieldfilter>
+                <button #myComponentConfig class="btn btn-warning btn-link float-right" (click)="myConfigOnClick()" 
+                  title="Configure File Manager screen for {{myUser.company.companyName}}"
+                  *ngIf="userIsCompanyAdmin" >
+                  <i class="fa fa-gear"></i> Configure</button>
 
             </div>
               <jqxDataTable #myDataTable [autoRowHeight]="false"

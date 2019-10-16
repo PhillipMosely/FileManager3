@@ -35,6 +35,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   source: any;
   dataAdapter: any;
   records: any;
+  myUser: User;
+  userIsSuperAdmin = false;
+  userIsCompanyAdmin = false;
 
   tableFilterQuery = [];
   tableWidth: number;
@@ -86,9 +89,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-
-     const myUser: User = JSON.parse(localStorage.getItem('user'));
-     this.fileManagerAdminService.getFMAdminForUserId(myUser.id)
+     this.userIsCompanyAdmin = Utilities.userIsCompanyAdmin();
+     this.userIsSuperAdmin = Utilities.userIsSuperAdmin();
+     this.myUser = JSON.parse(localStorage.getItem('user'));
+     this.fileManagerAdminService.getFMAdminForUserId(this.myUser.id)
         .subscribe(
             (res: FileManagerAdmin) => {
                 this.fmAdmin = res;
@@ -422,5 +426,9 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       }
   }
 
+  }
+
+  myConfigOnClick() {
+    this.sweetAlertService.message('config coming soon');
   }
 }
