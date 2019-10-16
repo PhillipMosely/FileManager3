@@ -13,8 +13,8 @@
                 <button class="btn btn-danger btn-link" (click)="myTreeRemoveOnClick()" title="Remove Selected Folder"><i class="fa fa-remove"></i> Remove </button>
             </div>
             <jqxTree #myTree
-            (onSelect)="select($event)"
-            [width]="'100%'" [height]="'100%'" [source]="records" style="border: none;" >
+            (onSelect)="select($event)" [allowDrag]="false" [allowDrop]="false"
+            [width]="'100%'" [height]="'100%'" style="border: none;" >
             </jqxTree>
           </div>
           <div #ContentPanel  >
@@ -70,7 +70,7 @@
 <jw-modal id="configurecomponentmodal" class="col-lg-8 col-sm-4">
   <div class="card">
     <div class="card-body">
-      <app-componentconfig [componentConfigSetup]="componentConfigSetup" [componentName]="'File Manager'" ></app-componentconfig>
+      <app-componentconfig #myCCSetup [componentConfigSetup]="componentConfigSetup" [componentName]="'File Manager'" ></app-componentconfig>
       <button style="float:right;" class="btn btn-primary btn-link" (click)="closeModal('configurecomponentmodal');">Close</button>      
     </div>
   </div>      

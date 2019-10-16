@@ -13,6 +13,7 @@ import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 import { Utilities } from 'app/_helpers/utilities';
+import { ComponentConfigComponent } from 'app/components/componentconfig/componentconfig.component';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myFileAdd', {static: false}) myFileAdd: FileAddModule;
   @ViewChild('myFileView', {static: false}) myFileView: FileViewComponent;
   @ViewChild('myFieldUpdate', {static: false}) myFieldUpdate: FieldUpdateComponent;
+  @ViewChild('myCCSetup', {static: false}) myCCSetup: ComponentConfigComponent;
 
   selectedNodeId = -1;
   data: any[];
@@ -69,15 +71,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         dataField: 'url', width: 700, model: 'File.Url', dataType: 'text' }
   ];
 
-  // componentConfigSetup: any[] = [
-  //   { id: '1', parentId: '0', 'text': 'Data Table', elementName: 'myDataTable',  type: 'jqxDataTable', columns: this.tableColumns },
-  //   { id: '2', parentId: '0', 'text': 'Add Files Button', elementName: 'myTableAdd', type: 'button' },
-  //   { id: '3', parentId: '0', 'text': 'Filter', elementName: 'myFieldFilter', type: 'app-fieldfilter' }
-  // ];
   componentConfigSetup: any[] = [
-    { id: '1', parentid: '0', text: 'Data Table', type: 'table' },
-    { id: '2', parentid: '0', text: 'Add Files Button', type: 'button'},
-    { id: '3', parentid: '0', text: 'Filter', type: 'filter' }
+    { id: '1', parentid: '0', label: 'Data Table', type: 'table' },
+    { id: '2', parentid: '0', label: 'Add Files Button', type: 'button'},
+    { id: '3', parentid: '0', label: 'Filter', type: 'filter' }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
