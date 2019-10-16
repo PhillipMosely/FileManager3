@@ -69,10 +69,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         dataField: 'url', width: 700, model: 'File.Url', dataType: 'text' }
   ];
 
+  // componentConfigSetup: any[] = [
+  //   { id: '1', parentId: '0', 'text': 'Data Table', elementName: 'myDataTable',  type: 'jqxDataTable', columns: this.tableColumns },
+  //   { id: '2', parentId: '0', 'text': 'Add Files Button', elementName: 'myTableAdd', type: 'button' },
+  //   { id: '3', parentId: '0', 'text': 'Filter', elementName: 'myFieldFilter', type: 'app-fieldfilter' }
+  // ];
   componentConfigSetup: any[] = [
-    { elementName: 'myDataTable',  type: 'jqxDataTable', columns: this.tableColumns },
-    { elementName: 'myTableAdd', type: 'button' },
-    { elementName: 'myFieldFilter', type: 'app-fieldfilter' }
+    { id: '1', parentid: '0', text: 'Data Table', type: 'table' },
+    { id: '2', parentid: '0', text: 'Add Files Button', type: 'button'},
+    { id: '3', parentid: '0', text: 'Filter', type: 'filter' }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,

@@ -70,7 +70,7 @@
 <jw-modal id="configurecomponentmodal" class="col-lg-8 col-sm-4">
   <div class="card">
     <div class="card-body">
-      <app-componentconfig></app-componentconfig>
+      <app-componentconfig [componentConfigSetup]="componentConfigSetup" [componentName]="'File Manager'" ></app-componentconfig>
       <button style="float:right;" class="btn btn-primary btn-link" (click)="closeModal('configurecomponentmodal');">Close</button>      
     </div>
   </div>      
