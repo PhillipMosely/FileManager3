@@ -10,20 +10,20 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="company">Company (disabled)</label>
+                  <label for="company">{{getLabel('Company.CompanyName')}} (disabled)</label>
                   <input disabled="true" type="text" formControlName="company" class="form-control" >
                 </div>
                 <div class="form-group">
-                    <label for="firstname">First Name</label>
+                    <label for="firstname">{{getLabel('User.FirstName')}}</label>
                     <input type="text" formControlName="firstname" class="form-control" 
                     [ngClass]="{'is-invalid': profileEditForm.get('firstname').errors && profileEditForm.get('firstname').touched}">
-                    <div class="invalid-feedback">Please enter a first name</div>
+                    <div class="invalid-feedback">Please enter a {{getLabel('User.FirstName')}}</div>
                 </div>
                 <div class="form-group">
-                  <label for="lastname">Last Name</label>
+                  <label for="lastname">{{getLabel('User.LastName')}}</label>
                   <input type="text" formControlName="lastname" class="form-control"
                   [ngClass]="{'is-invalid': profileEditForm.get('lastname').errors && profileEditForm.get('lastname').touched}">
-                  <div class="invalid-feedback">Please enter a last name</div>
+                  <div class="invalid-feedback">Please enter a {{getLabel('User.LastName')}}</div>
                 </div>                  
               </div>
               <div class="col-md-3">
@@ -31,8 +31,8 @@
                   <img src="{{user.photoUrl || '../../assets/img/user.png'}}"  width="140px" />
                   <div class="text-center">
                       <button type="button" class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
-                        title="Update Profile Fhoto"><i class="fa fa-edit"></i></button>
-                      <button type="button" class="btn btn-link btn-sm btn-danger" title="Remove Profile Photo"
+                        title="Update Profile {{getLabel('User.PhotoUrl')}}"><i class="fa fa-edit"></i></button>
+                      <button type="button" class="btn btn-link btn-sm btn-danger" title="Remove Profile {{getLabel('User.PhotoUrl')}}"
                         (click)="deletePhoto()" ><i class="fa fa-trash-o"></i></button>
                   </div>                  
                 </div>                
@@ -54,7 +54,7 @@
 
               <div class="col-md-4 pr-1">                  
                 <div class="form-group">
-                  <label for="knownas">Known As</label>
+                  <label for="knownas">{{getLabel('User.KnownAs')}}</label>
                   <input type="text" formControlName="knownas" class="form-control" >
                 </div>                  
               </div>
@@ -62,15 +62,15 @@
               <div class="row">
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">{{getLabel('User.Email')}}</label>
                     <input type="text" formControlName="email" class="form-control" 
                     [ngClass]="{'is-invalid': profileEditForm.get('email').errors && profileEditForm.get('email').touched}">
-                    <div class="invalid-feedback">Please enter an email</div>                    
+                    <div class="invalid-feedback">Please enter an {{getLabel('User.Email')}}</div>                    
                   </div>                  
                 </div>
                 <div class="col-md-4 pr-1">                  
                   <div class="form-group">
-                    <label for="mobilephone">Mobile Phone</label>
+                    <label for="mobilephone">{{getLabel('User.MobilePhone')}}</label>
                     <input type="text" formControlName="mobilephone" class="form-control" >
                   </div>                  
                 </div>                                
@@ -78,13 +78,13 @@
               <div class="row">                                
                 <div class="col-md-4 pr-1">
                   <div class="form-group">
-                      <label for="city">City</label>
+                      <label for="city">{{getLabel('User.City')}}</label>
                       <input type="text" formControlName="city" class="form-control" >
                   </div>
                 </div>
                 <div class="col-md-4 pr-1">
                   <div class="form-group">
-                      <label for="country">Country</label>
+                      <label for="country">{{getLabel('User.Country')}}</label>
                       <input type="text" formControlName="country" class="form-control" >
                   </div>
                 </div>                

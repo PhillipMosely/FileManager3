@@ -9,6 +9,7 @@ import { UserAddModule } from 'app/users/useradd/useradd.module';
 import { UserEditModule } from 'app/users/useredit/useredit.module';
 import { UserService } from 'app/_services/user.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { Utilities } from 'app/_helpers/utilities';
 
 
 @Component({
@@ -74,6 +75,10 @@ export class FMAdminComponent implements AfterViewInit, OnInit {
         myFilterSelect[0].appendChild(item);
       }
     });
+  }
+  
+  getLabel(modelName: string) {
+    return Utilities.labelforModelName(modelName);
   }
 
   getTableWidth(): Number {

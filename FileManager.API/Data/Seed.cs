@@ -295,7 +295,7 @@ namespace FileManager.API.Data
             label = new Label {
                 CompanyId = 1,
                 ModelName = "User.PhotoUrl",
-                LabelName = "Photo Url"
+                LabelName = "Photo"
             };
             context.Labels.Add(label);
             // label = new Label {
@@ -456,7 +456,7 @@ namespace FileManager.API.Data
             label = new Label {
                 CompanyId = 2,
                 ModelName = "User.PhotoUrl",
-                LabelName = "Photo Url"
+                LabelName = "Photo"
             };
             context.Labels.Add(label);
             // label = new Label {
@@ -616,7 +616,7 @@ namespace FileManager.API.Data
             label = new Label {
                 CompanyId = 3,
                 ModelName = "User.PhotoUrl",
-                LabelName = "Photo Url"
+                LabelName = "Photo"
             };
             context.Labels.Add(label);
             // label = new Label {

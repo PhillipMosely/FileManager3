@@ -13,6 +13,7 @@ import { APIFile } from '../../_models/file';
 import { User } from '../../_models/user';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { Utilities } from 'app/_helpers/utilities';
 
 
 @Component({
@@ -124,6 +125,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     });
   }
 
+  getLabel(modelName: string) {
+    return Utilities.labelforModelName(modelName);
+  }
+  
   myTreeAddOnClick(): void {
     const selectedItem = this.myTree.getSelectedItem();
     if (selectedItem != null) {

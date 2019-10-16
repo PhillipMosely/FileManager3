@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { UserService } from 'app/_services/user.service';
 import { AuthService } from 'app/_services/auth.service';
+import { Utilities } from 'app/_helpers/utilities';
 
 
 @Component({
@@ -33,6 +34,10 @@ export class ProfileEditComponent implements OnInit {
             this.user = JSON.parse(localStorage.getItem('user'));
         }
         this.createEditForm();
+    }
+
+    getLabel(modelName: string) {
+        return Utilities.labelforModelName(modelName);
     }
 
     createEditForm() {
