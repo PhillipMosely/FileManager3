@@ -71,7 +71,7 @@
   <div class="card">
     <div class="card-body">
       <app-componentconfig #myCCSetup [componentConfigSetup]="componentConfigSetup" [componentName]="'File Manager'"
-      [componentModel]="'FileManager'" [companyId]="myUser.companyId"
+      [componentModel]="this.componentModel" [companyId]="myUser.companyId"
       (closeEventConfig)="closeModal('configurecomponentmodal')" ></app-componentconfig>
     </div>
   </div>      

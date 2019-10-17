@@ -31,6 +31,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   @ViewChild('myFieldUpdate', {static: false}) myFieldUpdate: FieldUpdateComponent;
   @ViewChild('myCCSetup', {static: false}) myCCSetup: ComponentConfigComponent;
 
+  componentModel = 'FileManager';
   selectedNodeId = -1;
   data: any[];
   fmAdmin: FileManagerAdmin;
@@ -72,10 +73,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   ];
 
   componentConfigSetup: any[] = [
-    { id: '1', parentid: '0', label: 'Files Data Table', model: 'DataTable', type: 'table', 
+    { id: '1', parentid: '0', label: 'Files Data Table', model: 'datatable', type: 'table', 
       tablecolumns: this.tableColumns },
-    { id: '2', parentid: '0', label: 'Add Files Button', model: 'AddButton', type: 'button'},
-    { id: '3', parentid: '0', label: 'Filter', model: 'Filter', type: 'filter' }
+    { id: '2', parentid: '0', label: 'Add Files Button', model: 'addbutton', type: 'button'},
+    { id: '3', parentid: '0', label: 'Filter', model: 'filter', type: 'filter' }
   ];
 
   constructor(private fileManagerAdminService: FileManagerAdminService,
@@ -92,9 +93,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
+     this.myUser = JSON.parse(localStorage.getItem('user'));
      this.userIsCompanyAdmin = Utilities.userIsCompanyAdmin();
      this.userIsSuperAdmin = Utilities.userIsSuperAdmin();
-     this.myUser = JSON.parse(localStorage.getItem('user'));
+     this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.tableColumns,
+                                                    this.myUser.company.componentConfig);
+
+
      this.fileManagerAdminService.getFMAdminForUserId(this.myUser.id)
         .subscribe(
             (res: FileManagerAdmin) => {

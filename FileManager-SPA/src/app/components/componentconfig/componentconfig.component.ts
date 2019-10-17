@@ -63,7 +63,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
         this.dataTableConfigVisible = true;
         const myColumns = this.componentConfigSetup[this.selectedNodeId - 1].tablecolumns;
         for (let i = 0; i < myColumns.length; i++) {
-          this.dataTableRecords.push({id: i, name: myColumns[i].text});
+          this.dataTableRecords.push({id: i, model: myColumns[i].model, name: myColumns[i].text});
         };
         break;
       }
@@ -90,7 +90,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   onSortChange(event: any): void {
     this.dataTableColumnsAfterSort = [];
     event.forEach(element => {
-      this.dataTableColumnsAfterSort.push({id: element.id});
+      this.dataTableColumnsAfterSort.push({model: element.model});
     });
   }
 
@@ -118,7 +118,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
       }
     });
 
-    const componentconfig: any[] = [{datatable: datatable, addbutton: addbutton, filter: filter}];
+    const componentconfig = {datatable: datatable, addbutton: addbutton, filter: filter};
     const myComponent: any[] = [{componentmodel: this.componentModel, componentconfig}]
     this.companyService.getCompany(this.companyId).subscribe( next => {
       next.componentConfig = JSON.stringify(myComponent);

@@ -53,9 +53,24 @@ export class Utilities {
         return isAdmin;
     }
 
-    static columnsFromConfig(componentModel: string, tableColumns: any[]): any[] {
+    static columnsFromConfig(componentModel: string, tableColumns: any[], companyConfig: string): any[] {
         let newTableColumns = tableColumns;
+        debugger; 
+        const myCompanyConfig = <any[]>JSON.parse(companyConfig);
+        if (myCompanyConfig) {
+            const myComponentConfig = <any[]>myCompanyConfig.find(x => x.componentmodel === componentModel);
+            if (myComponentConfig) {
+                const myComponentConfigInner = myComponentConfig['componentconfig'];
+                const myDataTable = myComponentConfigInner[0]['datatable'];
+                const myColumns = myDataTable[0]['columns'];
+                newTableColumns = [];
+                myColumns.forEach(element => {
+                    const oldColumn = tableColumns.find(x => x.model === element.model);
+                    newTableColumns.push(oldColumn);
+                });
 
+            }
+        }
         return newTableColumns;
     }
 }
