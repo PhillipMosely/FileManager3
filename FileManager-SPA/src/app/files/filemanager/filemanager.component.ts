@@ -392,7 +392,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
-    if (id === 'fileaddmodal') {
+    if (id === 'fileaddmodal' || 'configurecomponentmodal') {
       this.refreshDataTable();
     }
   }

@@ -25,7 +25,19 @@
 
           </div>
           <div class="ConfigurationPanel" >
-              <div class="border-bottom text-center" *ngIf="dataTableConfigVisible">Column Configuration</div>
+             <div class="border-bottom text-center" *ngIf="filterConfigVisible">Filter Configuration</div>
+             <div *ngIf="filterConfigVisible" class="mt-3 ml-2"><input type="checkbox" name="filter" checked="true" class="ml-2">
+              Filter Visible</div>
+              <div class="mt-3 ml-2" *ngIf="filterConfigVisible">
+                  <p>More Filter configuration options coming soon</p>
+              </div>              
+            <div class="border-bottom text-center" *ngIf="buttonConfigVisible">Add Button Configuration</div>
+            <div *ngIf="buttonConfigVisible" class="mt-3 ml-2"><input type="checkbox" name="filter" checked="true" class="ml-2">
+              Button Visible</div>   
+              <div class="mt-3 ml-2" *ngIf="buttonConfigVisible">
+                  <p>More Add Button configuration options coming soon</p>
+              </div>                           
+            <div class="border-bottom text-center" *ngIf="dataTableConfigVisible">Column Configuration</div>
               <div class="col-xs-6 col-6 col-md-5 col-lg-5">
                   <bs-sortable
                     fieldName="name"
@@ -35,14 +47,18 @@
                     itemActiveClass="sortable-item-active"
                     wrapperClass="sortable-wrapper"
                   ></bs-sortable>
-              </div>            
-            <!-- <div class="border-bottom text-center" *ngIf="dataTableConfigVisible">Column Configuration</div>
-            <jqxTree #myDTTree [source]="dataTableRecords" 
-            [width]="'200'" [height]="'200'" style="border: none;" *ngIf="dataTableConfigVisible" >
-            </jqxTree>               -->
+              </div>          
+              <div class="mt-3 ml-2" *ngIf="dataTableConfigVisible">
+                <p>Select column and drag up or down to reorder</p><p>Check the checkbox to make the column visible</p>
+              </div>
           </div>
         </jqxSplitter>              
       </div>
     </div>
+          <button class="btn btn-primary" style="float:right;" title="Save Configuration"
+        (click)="saveConfig()" >Save</button>                 
+      <button class="btn btn-warning" style="float:right;" title="Cancel Configuration Changes" 
+        (click)="cancelConfig()">Cancel</button>     
+
   </div>
 </div>

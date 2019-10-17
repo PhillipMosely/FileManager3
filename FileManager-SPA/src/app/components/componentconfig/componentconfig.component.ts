@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterComponent} from 'jqwidgets-ng/jqxsplitter';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
@@ -11,8 +11,8 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 export class ComponentConfigComponent implements AfterViewInit, OnInit {
   @Input() componentConfigSetup: any;
   @Input() componentName: string;
+  @Output() closeEventConfig = new EventEmitter<string>(); 
   @ViewChild('myCCTree', {static: false}) myCCTree: jqxTreeComponent;
-  // @ViewChild('myDTTree', {static: false}) myDTTree: jqxTreeComponent;
   @ViewChild('myCCSplitter ', {static: false}) myCCSplitter: jqxSplitterComponent;
 
   selectedNodeId = -1;
@@ -21,6 +21,8 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   records: any[];
   dataTableRecords: any[];
   dataTableConfigVisible = false;
+  buttonConfigVisible = false;
+  filterConfigVisible = false;
   
   constructor(private sweetAlertService: SweetAlertService) { }
 
@@ -40,12 +42,13 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.myCCTree.expandItem(document.getElementById('0'));
     this.myCCTree.refresh();
-    // this.myDTTree.refresh();
-  }
+   }
  
   componentSelected(event: any): void {
     this.dataTableRecords = [];
     this.dataTableConfigVisible = false;
+    this.buttonConfigVisible = false;
+    this.filterConfigVisible = false;
     this.selectedNodeId = +event.args.element.id;
     switch (this.componentConfigSetup[this.selectedNodeId - 1].type) {
       case 'table': {
@@ -54,13 +57,16 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
         for (let i = 0; i < myColumns.length; i++) {
           this.dataTableRecords.push({id: i, name: myColumns[i].text});
         };
-        // this.myDTTree.refresh();
         break;
       }
       case 'filter': {
+        this.filterConfigVisible = true;
+        break;
 
       }
       case 'button': {
+        this.buttonConfigVisible = true;
+        break;
 
       }
       default: {
@@ -71,5 +77,13 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   }
   myColumnConfigOnClick(event: any): void {
     this.sweetAlertService.message('Column Configuration coming soon!')
+  }
+
+  saveConfig() {
+
+  }
+
+  cancelConfig() {
+    this.closeEventConfig.emit('done');
   }
 }
