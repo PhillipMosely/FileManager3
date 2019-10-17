@@ -70,8 +70,19 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
         for (let i = 0; i < myColumns.length; i++) {
           this.dataTableRecords.push({id: i, model: myColumns[i].model, name: myColumns[i].text, visible: true});
         };
-        this.dataTableRecords = Utilities.columnsForConfig(this.componentModel, this.dataTableRecords,
-                                                           this.componentConfigSetup);
+        this.companyService.getCompany(this.companyId).subscribe( next => {
+          this.dataTableRecords = Utilities.columnsForConfig(this.componentModel, this.dataTableRecords,
+                                                           next.componentConfig);
+          // const myDiv = document.getElementsByClassName('sortable-item');
+          // if (myDiv && myDiv.length > 0) {
+          //   for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
+          //     const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
+          //     const myItem = this.dataTableRecords.find(x => x.model === this.dataTableColumnsAfterSort[i].model);
+          //     myCheckbox[0].checked = myItem.visible;
+          //   }
+          // }
+        })
+
 
         break;
       }
@@ -98,12 +109,32 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   onSortChange(event: any): void {
     this.dataTableColumnsAfterSort = [];
     event.forEach(element => {
-
         this.dataTableColumnsAfterSort.push({id: element.id, model: element.model,
                                             name: element.text, visible: element.visible});
     });
+
+    // const myDiv = document.getElementsByClassName('sortable-item');
+    // if (myDiv && myDiv.length > 0) {
+    //   for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
+    //     const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
+    //     const myItem = this.dataTableRecords.find(x => x.model === this.dataTableColumnsAfterSort[i].model);
+    //     myCheckbox[0].checked = myItem.visible;
+    //   }
+    // }
   }
 
+  itemChecked(index: number): boolean {
+
+    // const myDiv = document.getElementsByClassName('sortable-item');
+    // if (myDiv && myDiv.length > 0) {
+    //   for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
+    //     const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
+    //     const myItem = this.dataTableRecords.find(x => x.model === this.dataTableColumnsAfterSort[i].model);
+    //     myCheckbox[0].checked = myItem.visible;
+    //   }
+    // }    
+    return this.dataTableRecords[index].visible;
+  }
   saveConfig() {
     let datatable: any;
     let addbutton: any;
@@ -111,10 +142,9 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.componentConfigSetup.forEach(element => {
       switch (element.type) {
         case 'table': {
-          debugger;
           const myDiv = document.getElementsByClassName('sortable-item');
           for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
-            const myCheckbox = <any>myDiv[i].getElementsByClassName('checkbox');
+            const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
             this.dataTableColumnsAfterSort[i].visible = myCheckbox[0].checked;
           }
           datatable = {columns: JSON.stringify(this.dataTableColumnsAfterSort)};

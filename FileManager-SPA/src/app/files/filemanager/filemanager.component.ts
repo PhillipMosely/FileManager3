@@ -48,8 +48,22 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableSource: any;
   tableDataAdaptor: any;
   tableColumns: any[];
-  defaultTableColumns: any[] =
-  [
+  componentConfigSetup: any[] = [
+    { id: '1', parentid: '0', label: 'Files Data Table', model: 'datatable', type: 'table',
+      tablecolumns: this.defaultColumns() },
+    { id: '2', parentid: '0', label: 'Add Files Button', model: 'addbutton', type: 'button'},
+    { id: '3', parentid: '0', label: 'Filter', model: 'filter', type: 'filter' }
+  ];
+
+  constructor(private fileManagerAdminService: FileManagerAdminService,
+              private fileService: FileService,
+              private sweetAlertService: SweetAlertService,
+              private modalService: ModalService,
+              private userService: UserService) {
+              }
+
+  defaultColumns(): any[] {
+    return [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120, model: 'ActionColumn',
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
         const buttonview = '<button (click)=""  class="btn-sm btn-info btn-link rowview"' +
@@ -72,21 +86,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         dataField: 'ext', width: 120, model: 'File.Ext', dataType: 'text' },
       { text: this.getLabel('File.Url'), cellsAlign: 'left', align: 'left',
         dataField: 'url', width: 700, model: 'File.Url', dataType: 'text' }
-  ];
-
-  componentConfigSetup: any[] = [
-    { id: '1', parentid: '0', label: 'Files Data Table', model: 'datatable', type: 'table', 
-      tablecolumns: this.defaultTableColumns },
-    { id: '2', parentid: '0', label: 'Add Files Button', model: 'addbutton', type: 'button'},
-    { id: '3', parentid: '0', label: 'Filter', model: 'filter', type: 'filter' }
-  ];
-
-  constructor(private fileManagerAdminService: FileManagerAdminService,
-              private fileService: FileService,
-              private sweetAlertService: SweetAlertService,
-              private modalService: ModalService,
-              private userService: UserService) {
-              }
+    ];
+  }
 
   getTableWidth(): Number {
       this.tableColumns.forEach(element => {
@@ -99,9 +100,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
      this.myUser = JSON.parse(localStorage.getItem('user'));
      this.userIsCompanyAdmin = Utilities.userIsCompanyAdmin();
      this.userIsSuperAdmin = Utilities.userIsSuperAdmin();
-     this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultTableColumns,
+     this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultColumns(),
                                                     this.myUser.company.componentConfig);
-
 
      this.fileManagerAdminService.getFMAdminForUserId(this.myUser.id)
         .subscribe(
@@ -448,7 +448,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       this.userService.getUser(this.myUser.id).subscribe( next => {
         localStorage.setItem('user', JSON.stringify(next));
         this.myUser = next;
-        this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultTableColumns,
+        this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultColumns(),
                                                       this.myUser.company.componentConfig);
         this.refreshDataTable();
       }, error => {
