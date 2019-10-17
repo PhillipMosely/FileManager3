@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterComponent} from 'jqwidgets-ng/jqxsplitter';
-import { SortableModule } from 'ngx-bootstrap/sortable';
+import { SweetAlertService } from 'app/_services/sweetalert.service';
 
 @Component({
   selector: 'app-componentconfig',
@@ -22,7 +22,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   dataTableRecords: any[];
   dataTableConfigVisible = false;
   
-  constructor() { }
+  constructor(private sweetAlertService: SweetAlertService) { }
 
   ngOnInit() {
 
@@ -70,6 +70,6 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
 
   }
   myColumnConfigOnClick(event: any): void {
-    
+    this.sweetAlertService.message('Column Configuration coming soon!')
   }
 }
