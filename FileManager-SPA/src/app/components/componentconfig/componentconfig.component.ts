@@ -90,9 +90,9 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   }
 
   onSortChange(event: any): void {
-    this.dataTableColumnsAfterSort = {};
+    this.dataTableColumnsAfterSort = [];
     event.forEach(element => {
-      this.dataTableColumnsAfterSort.push({model: element.model, visible: true});
+        this.dataTableColumnsAfterSort.push({model: element.model, visible: true});
     });
   }
 
@@ -103,7 +103,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.componentConfigSetup.forEach(element => {
       switch (element.type) {
         case 'table': {
-          datatable = {columns: this.dataTableColumnsAfterSort};
+          datatable = {columns: JSON.stringify(this.dataTableColumnsAfterSort)};
           break;
         }
         case 'filter': {

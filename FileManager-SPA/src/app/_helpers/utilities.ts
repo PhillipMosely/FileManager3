@@ -62,7 +62,7 @@ export class Utilities {
             if (myComponentConfig) {
                 const myComponentConfigInner = myComponentConfig['componentconfig'];
                 const myDataTable = myComponentConfigInner['datatable'];
-                const myColumns = myDataTable['columns'];
+                const myColumns = JSON.parse(myDataTable['columns']);
                 newTableColumns = [];
                 myColumns.forEach(element => {
                     const oldColumn = tableColumns.find(x => x.model === element.model);
