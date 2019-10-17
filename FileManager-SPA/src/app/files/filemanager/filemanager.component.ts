@@ -14,6 +14,7 @@ import { User } from '../../_models/user';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 import { Utilities } from 'app/_helpers/utilities';
 import { ComponentConfigComponent } from 'app/components/componentconfig/componentconfig.component';
+import { UserService } from 'app/_services/user.service';
 
 
 @Component({
@@ -83,7 +84,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   constructor(private fileManagerAdminService: FileManagerAdminService,
               private fileService: FileService,
               private sweetAlertService: SweetAlertService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private userService: UserService) {
               }
 
   getTableWidth(): Number {
@@ -442,12 +444,17 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   processConfig(event: any): void {
-    debugger;
     if (event === 'save') {
-      this.myUser = JSON.parse(localStorage.getItem('user'));
-      this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultTableColumns,
+      this.userService.getUser(this.myUser.id).subscribe( next => {
+        localStorage.setItem('user', JSON.stringify(next));
+        this.myUser = next;
+        this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultTableColumns,
                                                       this.myUser.company.componentConfig);
-      this.refreshDataTable();
+        this.refreshDataTable();
+      }, error => {
+        this.sweetAlertService.error('Error updating current user');
+      });
+
     }
     this.modalService.close('configurecomponentmodal');
   }

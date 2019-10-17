@@ -146,14 +146,6 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     });
   }
 
-  updateUser() {
-    let myUser = JSON.parse(localStorage.getItem('user'));
-    this.userService.getUser(myUser.id).subscribe( next => {
-      localStorage.setItem('user', JSON.stringify(next));
-    }, error => {
-      this.sweetAlertService.error('Error updating current user');
-    });
-  }
   cancelConfig() {
     this.dataTableRecords = [];
     this.dataTableConfigVisible = false;
