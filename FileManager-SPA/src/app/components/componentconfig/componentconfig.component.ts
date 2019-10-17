@@ -124,15 +124,13 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
       next.componentConfig = JSON.stringify(myComponent);
       this.companyService.updateCompany(this.companyId, next).subscribe( next2 => {
         this.sweetAlertService.message('Successfully updated company configuration');
-        this.closeEventConfig.emit('done');
+        this.cancelConfig();
       }, error2 => {
         this.sweetAlertService.error('Error updating company configuration');
       })
     }, error => {
       this.sweetAlertService.error('Error retrieving company for configuration update');
     });
-
-
   }
 
   cancelConfig() {

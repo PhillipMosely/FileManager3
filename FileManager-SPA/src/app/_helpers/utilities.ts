@@ -52,4 +52,10 @@ export class Utilities {
         }
         return isAdmin;
     }
+
+    static columnsFromConfig(componentModel: string, tableColumns: any[]): any[] {
+        let newTableColumns = tableColumns;
+
+        return newTableColumns;
+    }
 }
