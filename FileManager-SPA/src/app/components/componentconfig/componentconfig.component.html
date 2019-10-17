@@ -1,3 +1,13 @@
+<ng-template #itemTemplate let-item="item" let-index="index">
+  <span>
+    <input type="checkbox" name="column" value="{{index}}" checked="true" class="mt-2">
+    <button #myColumnConfig class="btn-sm btn-warning btn-link" (click)="myColumnConfigOnClick($event)" 
+     title="Configure column {{item.value}}"><i class="fa fa-gear"></i>
+    </button>    
+    {{item.value}}
+   </span>
+</ng-template>
+
 <div class="container mt-2" style="min-width: 800px;">
   <div class="col-md-12">
     <h5 class="text-center">Configure {{componentName}}</h5>
@@ -14,14 +24,14 @@
 
           </div>
           <div class="ConfigurationPanel" >
-              <div class="col-xs-6 col-6 col-md-5 col-lg-3">
+              <div class="border-bottom text-center" *ngIf="dataTableConfigVisible">Column Configuration</div>
+              <div class="col-xs-6 col-6 col-md-5 col-lg-5">
                   <bs-sortable
-                    [(ngModel)]="dataTableRecords"
                     fieldName="name"
-                    itemClass="sortable-item"
+                    [(ngModel)]="dataTableRecords"
+                    [itemTemplate]="itemTemplate"                    
+                    itemClass="sortable-item border m-2"
                     itemActiveClass="sortable-item-active"
-                    placeholderItem="Drag here"
-                    placeholderClass="placeholderStyle"
                     wrapperClass="sortable-wrapper"
                   ></bs-sortable>
               </div>            

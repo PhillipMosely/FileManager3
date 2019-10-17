@@ -69,4 +69,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     }
 
   }
+  myColumnConfigOnClick(event: any): void {
+    
+  }
 }
