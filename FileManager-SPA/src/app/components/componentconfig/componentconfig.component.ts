@@ -5,6 +5,7 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { SortableModule } from 'ngx-bootstrap/sortable';
 import { FileService } from 'app/_services/file.service';
 import { CompanyService } from 'app/_services/company.service';
+import { UserService } from 'app/_services/user.service';
 
 @Component({
   selector: 'app-componentconfig',
@@ -26,13 +27,14 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   dataAdapter: any;
   records: any[];
   dataTableRecords: any[];
-  dataTableColumnsAfterSort: any[];
+  dataTableColumnsAfterSort: any;
   dataTableConfigVisible = false;
   buttonConfigVisible = false;
   filterConfigVisible = false;
   
   constructor(private sweetAlertService: SweetAlertService,
-              private companyService: CompanyService) { }
+              private companyService: CompanyService,
+              private userService: UserService) { }
 
   ngOnInit() {
 
@@ -88,28 +90,28 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   }
 
   onSortChange(event: any): void {
-    this.dataTableColumnsAfterSort = [];
+    this.dataTableColumnsAfterSort = {};
     event.forEach(element => {
-      this.dataTableColumnsAfterSort.push({model: element.model});
+      this.dataTableColumnsAfterSort.push({model: element.model, visible: true});
     });
   }
 
   saveConfig() {
-    let datatable: any[] = [];
-    let addbutton: any[] = [];
-    let filter: any[] = [];
+    let datatable: any;
+    let addbutton: any;
+    let filter: any;
     this.componentConfigSetup.forEach(element => {
       switch (element.type) {
         case 'table': {
-          datatable = [{columns: this.dataTableColumnsAfterSort}]
+          datatable = {columns: this.dataTableColumnsAfterSort};
           break;
         }
         case 'filter': {
-          filter = [{filter: {visible: true}}]
+          filter = {filter: {visible: true}};
           break;
         }
         case 'button': {
-          addbutton = [{addbutton: {visible: true}}]
+          addbutton = {addbutton: {visible: true}};
         break;
         }
         default: {
@@ -133,6 +135,14 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     });
   }
 
+  updateUser() {
+    let myUser = JSON.parse(localStorage.getItem('user'));
+    this.userService.getUser(myUser.id).subscribe( next => {
+      localStorage.setItem('user', JSON.stringify(next));
+    }, error => {
+      this.sweetAlertService.error('Error updating current user');
+    });
+  }
   cancelConfig() {
     this.dataTableRecords = [];
     this.dataTableConfigVisible = false;

@@ -48,7 +48,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableDataAdaptor: any;
   tableColumns: any[] =
   [
-      { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120,
+      { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120, model: 'ActionColumn',
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
         const buttonview = '<button (click)=""  class="btn-sm btn-info btn-link rowview"' +
                         ' title="View File Information"><i id="view' + row + '" class="fa fa-info"></i></button>';
@@ -398,7 +398,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
-    if (id === 'fileaddmodal' || 'configurecomponentmodal') {
+    if (id === 'fileaddmodal') {
+      this.refreshDataTable();
+    } else if  ( id === 'configurecomponentmodal')  {
+      this.myUser = JSON.parse(localStorage.getItem('user'));
       this.refreshDataTable();
     }
   }
