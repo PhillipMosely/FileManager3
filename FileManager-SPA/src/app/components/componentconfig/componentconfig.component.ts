@@ -2,6 +2,9 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, Output, EventEmitte
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterComponent} from 'jqwidgets-ng/jqxsplitter';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
+import { SortableModule } from 'ngx-bootstrap/sortable';
+import { FileService } from 'app/_services/file.service';
+import { CompanyService } from 'app/_services/company.service';
 
 @Component({
   selector: 'app-componentconfig',
@@ -11,20 +14,25 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 export class ComponentConfigComponent implements AfterViewInit, OnInit {
   @Input() componentConfigSetup: any;
   @Input() componentName: string;
+  @Input() componentModel: string;
+  @Input() companyId: number;
   @Output() closeEventConfig = new EventEmitter<string>(); 
   @ViewChild('myCCTree', {static: false}) myCCTree: jqxTreeComponent;
   @ViewChild('myCCSplitter ', {static: false}) myCCSplitter: jqxSplitterComponent;
+  @ViewChild('myColumnSort', {static: false}) myColumnSort: SortableModule;
 
   selectedNodeId = -1;
   source: any[] ;
   dataAdapter: any;
   records: any[];
   dataTableRecords: any[];
+  dataTableColumnsAfterSort: any[];
   dataTableConfigVisible = false;
   buttonConfigVisible = false;
   filterConfigVisible = false;
   
-  constructor(private sweetAlertService: SweetAlertService) { }
+  constructor(private sweetAlertService: SweetAlertService,
+              private companyService: CompanyService) { }
 
   ngOnInit() {
 
@@ -79,11 +87,59 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.sweetAlertService.message('Column Configuration coming soon!')
   }
 
+  onSortChange(event: any): void {
+    this.dataTableColumnsAfterSort = [];
+    event.forEach(element => {
+      this.dataTableColumnsAfterSort.push({id: element.id});
+    });
+  }
+
   saveConfig() {
+    let datatable: any[] = [];
+    let addbutton: any[] = [];
+    let filter: any[] = [];
+    this.componentConfigSetup.forEach(element => {
+      switch (element.type) {
+        case 'table': {
+          datatable = [{columns: this.dataTableColumnsAfterSort}]
+          break;
+        }
+        case 'filter': {
+          filter = [{filter: {visible: true}}]
+          break;
+        }
+        case 'button': {
+          addbutton = [{addbutton: {visible: true}}]
+        break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+
+    const componentconfig: any[] = [{datatable: datatable, addbutton: addbutton, filter: filter}];
+    const myComponent: any[] = [{componentmodel: this.componentModel, componentconfig}]
+    this.companyService.getCompany(this.companyId).subscribe( next => {
+      next.componentConfig = JSON.stringify(myComponent);
+      this.companyService.updateCompany(this.companyId, next).subscribe( next2 => {
+        this.sweetAlertService.message('Successfully updated company configuration');
+        this.closeEventConfig.emit('done');
+      }, error2 => {
+        this.sweetAlertService.error('Error updating company configuration');
+      })
+    }, error => {
+      this.sweetAlertService.error('Error retrieving company for configuration update');
+    });
+
 
   }
 
   cancelConfig() {
+    this.dataTableRecords = [];
+    this.dataTableConfigVisible = false;
+    this.buttonConfigVisible = false;
+    this.filterConfigVisible = false;
     this.closeEventConfig.emit('done');
   }
 }

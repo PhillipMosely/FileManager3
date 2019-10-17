@@ -40,8 +40,9 @@
             <div class="border-bottom text-center" *ngIf="dataTableConfigVisible">Column Configuration</div>
               <div class="col-xs-6 col-6 col-md-5 col-lg-5">
                   <bs-sortable
-                    fieldName="name"
                     [(ngModel)]="dataTableRecords"
+                    (onChange)="onSortChange($event)"
+                    fieldName="name"
                     [itemTemplate]="itemTemplate"                    
                     itemClass="sortable-item border m-2"
                     itemActiveClass="sortable-item-active"
