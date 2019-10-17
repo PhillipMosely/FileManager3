@@ -85,11 +85,6 @@ export class Utilities {
         }
         return newTableColumns;
     }
-    private static columnModelOrder(col1: any, col2: any, myColumns: any) {
-        const col1index = myColumns.findIndex(x => x.model === col1.model);
-        const col2index = myColumns.findIndex(x => x.model === col2.model);
-        return col1index > col2index ? -1 : 1;
-    }
 
     static columnsForConfig(componentModel: string, dataTableRecords: any[], companyConfig: string): any[] {
         let newDataTableColumns = dataTableRecords;

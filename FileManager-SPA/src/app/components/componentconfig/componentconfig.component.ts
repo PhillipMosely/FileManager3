@@ -98,6 +98,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   onSortChange(event: any): void {
     this.dataTableColumnsAfterSort = [];
     event.forEach(element => {
+
         this.dataTableColumnsAfterSort.push({id: element.id, model: element.model,
                                             name: element.text, visible: element.visible});
     });
@@ -110,6 +111,12 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.componentConfigSetup.forEach(element => {
       switch (element.type) {
         case 'table': {
+          debugger;
+          const myDiv = document.getElementsByClassName('sortable-item');
+          for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
+            const myCheckbox = <any>myDiv[i].getElementsByClassName('checkbox');
+            this.dataTableColumnsAfterSort[i].visible = myCheckbox[0].checked;
+          }
           datatable = {columns: JSON.stringify(this.dataTableColumnsAfterSort)};
           break;
         }

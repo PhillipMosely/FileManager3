@@ -1,6 +1,6 @@
 <ng-template #itemTemplate let-item="item" let-index="index">
   <span class="text-top">
-    <input type="checkbox" name="column" value="{{index}}" checked="true" class="ml-2 block" 
+    <input type="checkbox" name="column" value="{{index}}" checked="true" class="ml-2 checkbox" 
     title="Check to make column visible" >
     <button #myColumnConfig class="btn-sm btn-warning btn-link" (click)="myColumnConfigOnClick($event)" 
      title="Configure column {{item.value}}"><i class="fa fa-gear"></i>
