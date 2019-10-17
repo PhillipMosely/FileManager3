@@ -46,7 +46,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   tableWidth: number;
   tableSource: any;
   tableDataAdaptor: any;
-  tableColumns: any[] =
+  tableColumns: any[];
+  defaultTableColumns: any[] =
   [
       { text: 'Actions', cellsAlign: 'center', align: 'center', width: 120, model: 'ActionColumn',
       cellsRenderer: (row: number, column: string, value: any, rowData: any): string => {
@@ -74,7 +75,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   componentConfigSetup: any[] = [
     { id: '1', parentid: '0', label: 'Files Data Table', model: 'datatable', type: 'table', 
-      tablecolumns: this.tableColumns },
+      tablecolumns: this.defaultTableColumns },
     { id: '2', parentid: '0', label: 'Add Files Button', model: 'addbutton', type: 'button'},
     { id: '3', parentid: '0', label: 'Filter', model: 'filter', type: 'filter' }
   ];
@@ -96,7 +97,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
      this.myUser = JSON.parse(localStorage.getItem('user'));
      this.userIsCompanyAdmin = Utilities.userIsCompanyAdmin();
      this.userIsSuperAdmin = Utilities.userIsSuperAdmin();
-     this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.tableColumns,
+     this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultTableColumns,
                                                     this.myUser.company.componentConfig);
 
 
@@ -400,10 +401,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     this.modalService.close(id);
     if (id === 'fileaddmodal') {
       this.refreshDataTable();
-    } else if  ( id === 'configurecomponentmodal')  {
-      this.myUser = JSON.parse(localStorage.getItem('user'));
-      this.refreshDataTable();
-    }
+    } 
   }
 
   myFieldUpdateFinish(updated: boolean) {
@@ -441,5 +439,16 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
 
   myConfigOnClick() {
     this.openModal('configurecomponentmodal');
+  }
+
+  processConfig(event: any): void {
+    debugger;
+    if (event === 'save') {
+      this.myUser = JSON.parse(localStorage.getItem('user'));
+      this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultTableColumns,
+                                                      this.myUser.company.componentConfig);
+      this.refreshDataTable();
+    }
+    this.modalService.close('configurecomponentmodal');
   }
 }

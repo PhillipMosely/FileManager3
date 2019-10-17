@@ -3,9 +3,10 @@ import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterComponent} from 'jqwidgets-ng/jqxsplitter';
 import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { SortableModule } from 'ngx-bootstrap/sortable';
-import { FileService } from 'app/_services/file.service';
+
 import { CompanyService } from 'app/_services/company.service';
 import { UserService } from 'app/_services/user.service';
+import { Utilities } from 'app/_helpers/utilities';
 
 @Component({
   selector: 'app-componentconfig',
@@ -14,6 +15,7 @@ import { UserService } from 'app/_services/user.service';
 })
 export class ComponentConfigComponent implements AfterViewInit, OnInit {
   @Input() componentConfigSetup: any;
+  @Input() configuredColumns: any;
   @Input() componentName: string;
   @Input() componentModel: string;
   @Input() companyId: number;
@@ -47,6 +49,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     });
     this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
     this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid');
+
   }
 
   ngAfterViewInit() {
@@ -65,8 +68,11 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
         this.dataTableConfigVisible = true;
         const myColumns = this.componentConfigSetup[this.selectedNodeId - 1].tablecolumns;
         for (let i = 0; i < myColumns.length; i++) {
-          this.dataTableRecords.push({id: i, model: myColumns[i].model, name: myColumns[i].text});
+          this.dataTableRecords.push({id: i, model: myColumns[i].model, name: myColumns[i].text, visible: true});
         };
+        this.dataTableRecords = Utilities.columnsForConfig(this.componentModel, this.dataTableRecords,
+                                                           this.componentConfigSetup);
+
         break;
       }
       case 'filter': {
@@ -92,7 +98,8 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   onSortChange(event: any): void {
     this.dataTableColumnsAfterSort = [];
     event.forEach(element => {
-        this.dataTableColumnsAfterSort.push({model: element.model, visible: true});
+        this.dataTableColumnsAfterSort.push({id: element.id, model: element.model,
+                                            name: element.text, visible: element.visible});
     });
   }
 
@@ -126,7 +133,11 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
       next.componentConfig = JSON.stringify(myComponent);
       this.companyService.updateCompany(this.companyId, next).subscribe( next2 => {
         this.sweetAlertService.message('Successfully updated company configuration');
-        this.cancelConfig();
+        this.dataTableRecords = [];
+        this.dataTableConfigVisible = false;
+        this.buttonConfigVisible = false;
+        this.filterConfigVisible = false;
+        this.closeEventConfig.emit('save');
       }, error2 => {
         this.sweetAlertService.error('Error updating company configuration');
       })
@@ -148,6 +159,6 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.dataTableConfigVisible = false;
     this.buttonConfigVisible = false;
     this.filterConfigVisible = false;
-    this.closeEventConfig.emit('done');
+    this.closeEventConfig.emit('cancel');
   }
 }

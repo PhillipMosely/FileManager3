@@ -54,7 +54,6 @@ export class Utilities {
     }
 
     static columnsFromConfig(componentModel: string, tableColumns: any[], companyConfig: string): any[] {
-        debugger;
         let newTableColumns = tableColumns;
         const myCompanyConfig = <any[]>JSON.parse(companyConfig);
         if (myCompanyConfig) {
@@ -63,14 +62,51 @@ export class Utilities {
                 const myComponentConfigInner = myComponentConfig['componentconfig'];
                 const myDataTable = myComponentConfigInner['datatable'];
                 const myColumns = JSON.parse(myDataTable['columns']);
-                newTableColumns = [];
-                myColumns.forEach(element => {
-                    const oldColumn = tableColumns.find(x => x.model === element.model);
-                    newTableColumns.push(oldColumn);
+                let myDeleteModel = [];
+                newTableColumns.forEach(element => {
+                    const columnIndex = myColumns.findIndex(x => x.model === element.model);
+                    if ( columnIndex < 0 || myColumns[columnIndex].visible === false){
+                        myDeleteModel.push(element.model);
+                    }; 
                 });
+                myDeleteModel.forEach(element => {
+                    const columnIndex = newTableColumns.findIndex(x => x.model === element);
+                    newTableColumns.splice(columnIndex, 1);
+                });
+                
+                const compareIndex = function (col1: any, col2: any) {
+                    const col1index = myColumns.findIndex(x => x.model === col1.model);
+                    const col2index = myColumns.findIndex(x => x.model === col2.model);
+                    return col1index < col2index ? -1 : 1;
+                }
+                newTableColumns = newTableColumns.sort(compareIndex);
 
             }
         }
         return newTableColumns;
+    }
+    private static columnModelOrder(col1: any, col2: any, myColumns: any) {
+        const col1index = myColumns.findIndex(x => x.model === col1.model);
+        const col2index = myColumns.findIndex(x => x.model === col2.model);
+        return col1index > col2index ? -1 : 1;
+    }
+
+    static columnsForConfig(componentModel: string, dataTableRecords: any[], companyConfig: string): any[] {
+        let newDataTableColumns = dataTableRecords;
+        const myCompanyConfig = <any[]>JSON.parse(companyConfig);
+        if (myCompanyConfig) {
+            const myComponentConfig = <any[]>myCompanyConfig.find(x => x.componentmodel === componentModel);
+            if (myComponentConfig) {
+                const myComponentConfigInner = myComponentConfig['componentconfig'];
+                const myDataTable = myComponentConfigInner['datatable'];
+                const myColumns = JSON.parse(myDataTable['columns']);
+                newDataTableColumns = [];
+                myColumns.forEach(element => {
+                    newDataTableColumns.push({id: element.id, model: element.model,
+                                              name: Utilities.labelforModelName(element.model), visible: element.visible});
+                });
+            }
+        }
+        return newDataTableColumns;
     }
 }
