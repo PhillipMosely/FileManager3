@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { jqxTreeComponent } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterComponent} from 'jqwidgets-ng/jqxsplitter';
+import { SortableModule } from 'ngx-bootstrap/sortable';
 
 @Component({
   selector: 'app-componentconfig',
@@ -11,7 +12,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   @Input() componentConfigSetup: any;
   @Input() componentName: string;
   @ViewChild('myCCTree', {static: false}) myCCTree: jqxTreeComponent;
-  @ViewChild('myDTTree', {static: false}) myDTTree: jqxTreeComponent;
+  // @ViewChild('myDTTree', {static: false}) myDTTree: jqxTreeComponent;
   @ViewChild('myCCSplitter ', {static: false}) myCCSplitter: jqxSplitterComponent;
 
   selectedNodeId = -1;
@@ -39,7 +40,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.myCCTree.expandItem(document.getElementById('0'));
     this.myCCTree.refresh();
-    this.myDTTree.refresh();
+    // this.myDTTree.refresh();
   }
  
   componentSelected(event: any): void {
@@ -51,7 +52,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
         this.dataTableConfigVisible = true;
         const myColumns = this.componentConfigSetup[this.selectedNodeId - 1].tablecolumns;
         for (let i = 0; i < myColumns.length; i++) {
-          this.dataTableRecords.push({id: i.toString(), parentid: '0', label: myColumns[i].text});
+          this.dataTableRecords.push({id: i, name: myColumns[i].text});
         };
         // this.myDTTree.refresh();
         break;

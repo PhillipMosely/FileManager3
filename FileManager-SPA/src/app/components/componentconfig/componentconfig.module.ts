@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule} from 'jqwidgets-ng/jqxsplitter';
+import { SortableModule } from 'ngx-bootstrap/sortable';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { jqxSplitterModule} from 'jqwidgets-ng/jqxsplitter';
     FormsModule,
     jqxTreeModule,
     jqxSplitterModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    SortableModule.forRoot()
   ],
   declarations: [ComponentConfigComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

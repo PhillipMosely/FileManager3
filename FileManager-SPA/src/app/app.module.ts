@@ -31,6 +31,7 @@ import { CompanyService } from './_services/company.service';
 import { RoleService } from './_services/role.service';
 import { LabelService } from './_services/label.service';
 import { ComponentConfigModule } from './components/componentconfig/componentconfig.module';
+import { SortableModule } from 'ngx-bootstrap/sortable';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -66,7 +67,8 @@ export function tokenGetter() {
                blacklistedRoutes: ['localhost:5000/api/auth']
             }
          }),
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        SortableModule.forRoot()
     ],
     declarations: [
         AppComponent,
