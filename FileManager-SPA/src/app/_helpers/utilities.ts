@@ -111,9 +111,9 @@ export class Utilities {
             const myComponentConfig = <any[]>myCompanyConfig.find(x => x.componentmodel === componentModel);
             if (myComponentConfig) {
                 const myComponentConfigInner = myComponentConfig['componentconfig'];
-                const myAddButton = myComponentConfigInner[type];
-                debugger;
-                return myAddButton[0].visible === 'true';
+                const myItem = myComponentConfigInner[type];
+                const myItemInner = myItem[type];
+                return myItemInner.visible;
             }
         }
         return true;

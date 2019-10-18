@@ -132,6 +132,13 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    let mySpan = <any>document.getElementsByClassName('addbuttonsection');
+    mySpan[0].hidden = !Utilities.itemVisibleForConfig(this.componentModel, 'addbutton',
+                                                     this.myUser.company.componentConfig)
+
+    mySpan = <any>document.getElementsByClassName('filtersection');
+    mySpan[0].hidden = !Utilities.itemVisibleForConfig(this.componentModel, 'filter',
+                                                     this.myUser.company.componentConfig)
   }
 
   getLabel(modelName: string) {
@@ -451,6 +458,12 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
         this.tableColumns = Utilities.columnsFromConfig(this.componentModel, this.defaultColumns(),
                                                       this.myUser.company.componentConfig);
         this.refreshDataTable();
+        let mySpan = <any>document.getElementsByClassName('addbuttonsection');
+        mySpan[0].hidden = !Utilities.itemVisibleForConfig(this.componentModel, 'addbutton', next.company.componentConfig)
+    
+        mySpan = <any>document.getElementsByClassName('filtersection');
+        mySpan[0].hidden = !Utilities.itemVisibleForConfig(this.componentModel, 'filter', next.company.componentConfig)
+
       }, error => {
         this.sweetAlertService.error('Error updating current user');
       });
