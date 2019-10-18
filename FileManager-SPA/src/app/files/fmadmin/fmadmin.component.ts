@@ -142,7 +142,8 @@ renderedRowButtons() {
   myId = myId.replace('view', '');
   const myDBId: number = this.myDataTable.getRows()[myId]['id'];
   this.fileManagerAdminService.getFMAdmin(myDBId).subscribe(next => {
-    this.openModal('fmadminviewmodal');
+    this.sweetAlertService.message('View FM Admin User coming soon');
+    // this.openModal('fmadminviewmodal');
   }, error => {
     this.sweetAlertService.error('Not able to view User');
   })
