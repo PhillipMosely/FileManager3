@@ -216,6 +216,9 @@ namespace FileManager.API.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("BLOB");
 
+                    b.Property<string>("PhotoStorageId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("TEXT");
 

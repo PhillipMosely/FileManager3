@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FileManager.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191016131057_newinitialization")]
-    partial class newinitialization
+    [Migration("20191018123822_newinitialize")]
+    partial class newinitialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,6 +217,9 @@ namespace FileManager.API.Migrations
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("BLOB");
+
+                    b.Property<string>("PhotoStorageId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("TEXT");

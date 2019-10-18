@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class newinitialization : Migration
+    public partial class newinitialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,6 +85,7 @@ namespace FileManager.API.Migrations
                     City = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
                     PhotoUrl = table.Column<string>(nullable: true),
+                    PhotoStorageId = table.Column<string>(nullable: true),
                     CompanyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

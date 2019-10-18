@@ -10,6 +10,10 @@ using FileManager.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.WindowsAzure.Storage.Blob;
+using System.IO;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.Extensions.Options;
 
 namespace FileManager.API.Controllers
 {
@@ -20,11 +24,20 @@ namespace FileManager.API.Controllers
     {
         private readonly IFileManagerRepository _repo;
         private readonly IMapper _mapper;
+        
+        private CloudBlobClient serviceClient;
+        private CloudBlobContainer azureContainer;
 
-        public UsersController(IFileManagerRepository repo, IMapper mapper)
+        public UsersController(IFileManagerRepository repo, IMapper mapper,
+                               IOptions<AzureSettings> azureConfig)
         {
             _mapper = mapper;
             _repo = repo;
+
+            CloudStorageAccount account = CloudStorageAccount.Parse(azureConfig.Value.ConnectionString);
+            serviceClient = account.CreateCloudBlobClient();
+
+            azureContainer = serviceClient.GetContainerReference(azureConfig.Value.Container);
         }
 
         [HttpGet]
@@ -86,13 +99,15 @@ namespace FileManager.API.Controllers
                 blob.Properties.ContentType = file.ContentType;
 
                 var userFromRepo = await _repo.GetUser(id);
-                _mapper.Map(userForUpdateDto, userFromRepo);
-                userForUpdateDto.StorageId = _imageName;
+
+                var userForUpdateDto = new UserForUpdateDto();
+                _mapper.Map(userFromRepo, userForUpdateDto);
+                userForUpdateDto.PhotoStorageId = _imageName;
                 userForUpdateDto.PhotoUrl = blob.Uri.ToString();
 
                 if (file.Length > 0)
                 {
-                    using (var stream = myFile.OpenReadStream())
+                    using (var stream = file.OpenReadStream())
                     {
                         await blob.UploadFromStreamAsync(stream);
                     }
