@@ -26,11 +26,12 @@
               <span class="filtersection">
                 <app-fieldfilter #myFieldFilter [tableColumns]="tableColumns" 
                   (refreshDataTable)="setTableFilter($event)" ></app-fieldfilter>
+              </span>                  
                 <button #myComponentConfig class="btn btn-warning btn-link float-right" (click)="myConfigOnClick()" 
                   title="Configure File Manager screen for {{myUser.company.companyName}}"
                   *ngIf="userIsCompanyAdmin" >
                   <i class="fa fa-gear"></i> Configure</button>
-              </span>
+
             </div>
               <jqxDataTable #myDataTable [autoRowHeight]="false"
                 [width]="getTableWidth()" [height]="'92%'" [source]="tableDataAdaptor" [columns]="tableColumns"
