@@ -47,7 +47,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
     this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid');
 
-    this.configureCompnents();
+    this.configureComponents();
 
   }
 
@@ -56,7 +56,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.myCCTree.refresh();
   }
  
-  configureCompnents() {
+  configureComponents() {
     this.dataTableRecords = [];
     const myColumns = this.componentConfigSetup[0].tablecolumns;
     for (let i = 0; i < myColumns.length; i++) {
@@ -159,7 +159,6 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
       next.componentConfig = JSON.stringify(myComponent);
       this.companyService.updateCompany(this.companyId, next).subscribe( next2 => {
         this.sweetAlertService.message('Successfully updated company configuration');
-        this.resetComponents();
         this.closeEventConfig.emit('save');
       }, error2 => {
         this.sweetAlertService.error('Error updating company configuration');
@@ -170,7 +169,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   }
 
   cancelConfig() {
-    this.resetComponents();
+    this.configureComponents();
     this.closeEventConfig.emit('cancel');
   }
 
