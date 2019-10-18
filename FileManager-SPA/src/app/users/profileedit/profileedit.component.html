@@ -122,8 +122,8 @@
                 <i class="fa fa-upload"></i>
                 </button>
                 <button *ngIf="editPhotoMode" type="button" class="btn btn-danger btn-s"
-                  title="remove new profile image"
-                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                  title="Cancel"
+                  (click)="cancelPhotoUpdate()">
                 <i class="fa fa-remove"></i>
                 </button>                    
 

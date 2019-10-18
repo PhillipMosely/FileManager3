@@ -91,13 +91,22 @@ export class ProfileEditComponent implements OnInit {
     deletePhoto() {
         this.sweetAlertService.confirm('Are you sure you want to delete the profile photo', 'delete', () => {
             this.user.photoUrl = '../../assets/img/user.png';
+            this.userService.updateUser(this.user.id, this.user).subscribe( next => {
+                this.sweetAlertService.message('Photo removed');
+            })
         });
     }
 
     updatePhoto() {
         this.editPhotoMode = true;
     }
-   
+
+    cancelPhotoUpdate() {
+        if (this.uploader.queue.length > 0) {
+            this.uploader.clearQueue()
+        }
+        this.editPhotoMode = false;
+    }
 
     fileOverBase(e: any): void {
         this.hasBaseDropZoneOver = e;
