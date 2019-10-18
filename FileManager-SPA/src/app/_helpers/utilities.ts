@@ -104,4 +104,19 @@ export class Utilities {
         }
         return newDataTableColumns;
     }
+
+    static itemVisibleForConfig(componentModel: string, type: string, companyConfig: string): boolean {
+        const myCompanyConfig = <any[]>JSON.parse(companyConfig);
+        if (myCompanyConfig) {
+            const myComponentConfig = <any[]>myCompanyConfig.find(x => x.componentmodel === componentModel);
+            if (myComponentConfig) {
+                const myComponentConfigInner = myComponentConfig['componentconfig'];
+                const myAddButton = myComponentConfigInner[type];
+                debugger;
+                return myAddButton[0].visible === 'true';
+            }
+        }
+        return true;
+    }
+
 }

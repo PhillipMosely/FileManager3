@@ -30,9 +30,6 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
   records: any[];
   dataTableRecords: any[];
   dataTableColumnsAfterSort: any;
-  dataTableConfigVisible = false;
-  buttonConfigVisible = false;
-  filterConfigVisible = false;
   
   constructor(private sweetAlertService: SweetAlertService,
               private companyService: CompanyService,
@@ -50,58 +47,66 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
     this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
     this.records = this.dataAdapter.getRecordsHierarchy('id', 'parentid');
 
+    this.configureCompnents();
+
   }
 
   ngAfterViewInit() {
     this.myCCTree.expandItem(document.getElementById('0'));
     this.myCCTree.refresh();
-   }
+  }
  
+  configureCompnents() {
+    this.dataTableRecords = [];
+
+    let myDiv = document.getElementsByClassName('ConfigurationPanel');
+    let myCheckbox = <any>myDiv[0].getElementsByTagName('input');
+    this.companyService.getCompany(this.companyId).subscribe( next => {
+      myCheckbox[0].checked = Utilities.itemVisibleForConfig(this.componentModel, 'addbutton', next.componentConfig)
+    });
+
+    myDiv = document.getElementsByClassName('ConfigurationPanel');
+    myCheckbox = <any>myDiv[0].getElementsByTagName('input');
+    this.companyService.getCompany(this.companyId).subscribe( next => {
+      myCheckbox[0].checked = Utilities.itemVisibleForConfig(this.componentModel, 'filter', next.componentConfig)
+    });        
+  }
+
+  
   componentSelected(event: any): void {
     this.dataTableRecords = [];
-    this.dataTableConfigVisible = false;
-    this.buttonConfigVisible = false;
-    this.filterConfigVisible = false;
+    const myFilter = <any>document.getElementsByClassName('filterconfig');
+    const myAddButton = <any>document.getElementsByClassName('addbuttonconfig');
+    const myDataTable = <any>document.getElementsByClassName('datatableconfig');
+    this.resetComponents();
     this.selectedNodeId = +event.args.element.id;
     switch (this.componentConfigSetup[this.selectedNodeId - 1].type) {
       case 'table': {
-        this.dataTableConfigVisible = true;
+        myDataTable[0].hidden = false;
         const myColumns = this.componentConfigSetup[this.selectedNodeId - 1].tablecolumns;
         for (let i = 0; i < myColumns.length; i++) {
           this.dataTableRecords.push({id: i, model: myColumns[i].model, name: myColumns[i].text, visible: true});
         };
         this.companyService.getCompany(this.companyId).subscribe( next => {
           this.dataTableRecords = Utilities.columnsForConfig(this.componentModel, this.dataTableRecords,
-                                                           next.componentConfig);
-          // const myDiv = document.getElementsByClassName('sortable-item');
-          // if (myDiv && myDiv.length > 0) {
-          //   for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
-          //     const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
-          //     const myItem = this.dataTableRecords.find(x => x.model === this.dataTableColumnsAfterSort[i].model);
-          //     myCheckbox[0].checked = myItem.visible;
-          //   }
-          // }
-        })
-
-
+                                                            next.componentConfig);
+        });
         break;
       }
       case 'filter': {
-        this.filterConfigVisible = true;
+        myFilter[0].hidden = false;
         break;
-
       }
       case 'button': {
-        this.buttonConfigVisible = true;
+        myAddButton[0].hidden = false;
         break;
-
       }
       default: {
         break;
       }
     }
-
   }
+
   myColumnConfigOnClick(event: any): void {
     this.sweetAlertService.message('Column Configuration coming soon!')
   }
@@ -113,28 +118,12 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
                                             name: element.text, visible: element.visible});
     });
 
-    // const myDiv = document.getElementsByClassName('sortable-item');
-    // if (myDiv && myDiv.length > 0) {
-    //   for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
-    //     const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
-    //     const myItem = this.dataTableRecords.find(x => x.model === this.dataTableColumnsAfterSort[i].model);
-    //     myCheckbox[0].checked = myItem.visible;
-    //   }
-    // }
   }
 
   itemChecked(index: number): boolean {
-
-    // const myDiv = document.getElementsByClassName('sortable-item');
-    // if (myDiv && myDiv.length > 0) {
-    //   for (let i = 0; i < this.dataTableColumnsAfterSort.length; i++ ) {
-    //     const myCheckbox = <any>myDiv[i].getElementsByTagName('input');
-    //     const myItem = this.dataTableRecords.find(x => x.model === this.dataTableColumnsAfterSort[i].model);
-    //     myCheckbox[0].checked = myItem.visible;
-    //   }
-    // }    
     return this.dataTableRecords[index].visible;
   }
+
   saveConfig() {
     let datatable: any;
     let addbutton: any;
@@ -151,11 +140,15 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
           break;
         }
         case 'filter': {
-          filter = {filter: {visible: true}};
+          const myDiv = document.getElementsByClassName('ConfigurationPanel');
+          const myCheckbox = <any>myDiv[0].getElementsByTagName('input');
+          filter = {filter: {visible: myCheckbox[0].checked}};
           break;
         }
         case 'button': {
-          addbutton = {addbutton: {visible: true}};
+          const myDiv = document.getElementsByClassName('ConfigurationPanel');
+          const myCheckbox = <any>myDiv[0].getElementsByTagName('input');
+          addbutton = {addbutton: {visible: myCheckbox[0].checked}};
         break;
         }
         default: {
@@ -164,6 +157,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
       }
     });
 
+    debugger;
     const componentconfig = {datatable: datatable, addbutton: addbutton, filter: filter};
     const myComponent: any[] = [{componentmodel: this.componentModel, componentconfig}]
     this.companyService.getCompany(this.companyId).subscribe( next => {
@@ -171,9 +165,7 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
       this.companyService.updateCompany(this.companyId, next).subscribe( next2 => {
         this.sweetAlertService.message('Successfully updated company configuration');
         this.dataTableRecords = [];
-        this.dataTableConfigVisible = false;
-        this.buttonConfigVisible = false;
-        this.filterConfigVisible = false;
+        this.resetComponents();
         this.closeEventConfig.emit('save');
       }, error2 => {
         this.sweetAlertService.error('Error updating company configuration');
@@ -185,9 +177,16 @@ export class ComponentConfigComponent implements AfterViewInit, OnInit {
 
   cancelConfig() {
     this.dataTableRecords = [];
-    this.dataTableConfigVisible = false;
-    this.buttonConfigVisible = false;
-    this.filterConfigVisible = false;
+    this.resetComponents();
     this.closeEventConfig.emit('cancel');
+  }
+
+  resetComponents() {
+    const myFilter = <any>document.getElementsByClassName('filterconfig');
+    const myAddButton = <any>document.getElementsByClassName('addbuttonconfig');
+    const myDataTable = <any>document.getElementsByClassName('datatableconfig');
+    myFilter[0].hidden = true;
+    myAddButton[0].hidden = true;
+    myDataTable[0].hidden = true;
   }
 }
