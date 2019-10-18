@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import { User } from './_models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { User } from './_models/user';
 })
 export class AppComponent implements OnInit {
   jwtHelper = new JwtHelperService();
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -22,6 +23,8 @@ export class AppComponent implements OnInit {
       this.authService.currentUser = user;
       this.authService.changeMemberFullName(user);
     }
+
+    this.router.navigate(['/pages/login']);
   }
   
 }
