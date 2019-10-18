@@ -14,6 +14,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System.IO;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.Extensions.Options;
+using System.Net;
 
 namespace FileManager.API.Controllers
 {
@@ -87,7 +88,7 @@ namespace FileManager.API.Controllers
             throw new Exception($"Updating User {id} failed on save");
         }
 
-        [HttpPut("{id}/updateprofilepicture")]
+        [HttpPost("{id}/updateprofilepicture")]
         public async Task<IActionResult> UpdateProfilePicture(int id, [FromForm]IFormFile file)
         {
           
@@ -99,11 +100,8 @@ namespace FileManager.API.Controllers
                 blob.Properties.ContentType = file.ContentType;
 
                 var userFromRepo = await _repo.GetUser(id);
-
-                var userForUpdateDto = new UserForUpdateDto();
-                _mapper.Map(userFromRepo, userForUpdateDto);
-                userForUpdateDto.PhotoStorageId = _imageName;
-                userForUpdateDto.PhotoUrl = blob.Uri.ToString();
+                userFromRepo.PhotoStorageId = _imageName;
+                userFromRepo.PhotoUrl = blob.Uri.ToString();
 
                 if (file.Length > 0)
                 {
@@ -112,12 +110,11 @@ namespace FileManager.API.Controllers
                         await blob.UploadFromStreamAsync(stream);
                     }
                 }
+                await _repo.SaveAll();
+                return Ok("Profile Picture saved and User Updated.");
             }
 
-            if (await _repo.SaveAll())
-                return NoContent();
-            
-            throw new Exception($"Updating User {id} failed on save");
+            return NoContent();
         }
 
     }

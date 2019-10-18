@@ -110,16 +110,23 @@
               </div>
 
               <div class="text-center">
-                  <button *ngIf="!editPhotoMode"  type="button" 
-                    class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
-                    title="Update Profile {{getLabel('User.PhotoUrl')}}"><i class="fa fa-edit"></i></button>
-                  <button *ngIf="editPhotoMode" type="button" class="btn btn-primary btn-s"
-                    title="Save New Profile {{getLabel('User.PhotoUrl')}}"
-                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                    <i class="fa fa-upload"></i>
-                  </button>                    
-                  <button type="button" class="btn btn-link btn-sm btn-danger" title="Remove Profile {{getLabel('User.PhotoUrl')}}"
-                    (click)="deletePhoto()" ><i class="fa fa-trash-o"></i></button>
+                <button *ngIf="!editPhotoMode"  type="button" 
+                  class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
+                  title="Update Profile {{getLabel('User.PhotoUrl')}}"><i class="fa fa-edit"></i></button>
+                <button *ngIf="!editPhotoMode" type="button" class="btn btn-link btn-sm btn-danger" title="Remove Profile {{getLabel('User.PhotoUrl')}}"
+                  (click)="deletePhoto()" ><i class="fa fa-trash-o"></i></button>
+
+                <button *ngIf="editPhotoMode" type="button" class="btn btn-primary btn-s"
+                title="Save New Profile {{getLabel('User.PhotoUrl')}}"
+                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                <i class="fa fa-upload"></i>
+                </button>
+                <button *ngIf="editPhotoMode" type="button" class="btn btn-danger btn-s"
+                  title="remove new profile image"
+                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                <i class="fa fa-remove"></i>
+                </button>                    
+
               </div>                  
             </div>                
             </div>

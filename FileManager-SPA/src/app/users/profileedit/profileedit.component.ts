@@ -13,7 +13,8 @@ import { environment } from '../../../environments/environment';
 @Component({
     moduleId: module.id,
     selector: 'app-profileedit',
-    templateUrl: 'profileedit.component.html'
+    templateUrl: 'profileedit.component.html',
+    styleUrls: ['./profileedit.component.css']
 })
 
 export class ProfileEditComponent implements OnInit {
@@ -122,10 +123,13 @@ export class ProfileEditComponent implements OnInit {
         };
 
         this.uploader.onSuccessItem = (item, response, status, headers) => {
-            this.userService.getUser(this.user.id).subscribe(next => {
-                this.user = next;
-                this.editPhotoMode = false;
-            })
+            if (response) {
+                this.userService.getUser(this.user.id).subscribe(next => {
+                    this.user = next;
+                    this.editPhotoMode = false;
+                    this.authService.updateUserInfo(this.user);
+                })
+            }
 
         };
     }
