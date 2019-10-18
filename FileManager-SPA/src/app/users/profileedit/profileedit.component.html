@@ -98,10 +98,26 @@
         <div class="card-body">
             <div class="col-md-10">          
             <div class="col-md-10 border pt-3 mb-3" style="float: right;">
-              <img src="{{user.photoUrl || '../../assets/img/user.png'}}"  width="140px" />
+              <img src="{{user.photoUrl || '../../assets/img/user.png'}}"
+               *ngIf="!editPhotoMode"  width="140px" />
+              <div ng2FileDrop *ngIf="editPhotoMode" 
+                [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                (fileOver)="fileOverBase($event)"
+                [uploader]="uploader"
+                class="card bg-fadded p-3 text-center mb-3 my-drop-zone">
+              <i class="fa fa-upload fa-3x"></i>
+                Drop Files Here
+              </div>
+
               <div class="text-center">
-                  <button type="button" class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
+                  <button *ngIf="!editPhotoMode"  type="button" 
+                    class="btn btn-link btn-primary btn-sm mr-1" (click)="updatePhoto()" 
                     title="Update Profile {{getLabel('User.PhotoUrl')}}"><i class="fa fa-edit"></i></button>
+                  <button *ngIf="editPhotoMode" type="button" class="btn btn-primary btn-s"
+                    title="Save New Profile {{getLabel('User.PhotoUrl')}}"
+                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <i class="fa fa-upload"></i>
+                  </button>                    
                   <button type="button" class="btn btn-link btn-sm btn-danger" title="Remove Profile {{getLabel('User.PhotoUrl')}}"
                     (click)="deletePhoto()" ><i class="fa fa-trash-o"></i></button>
               </div>                  

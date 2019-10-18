@@ -5,12 +5,14 @@ import { ProfileEditRoutes } from './profileedit.routing';
 import { RouterModule } from '@angular/router';
 import { User } from 'app/_models/user';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(ProfileEditRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule
 
 ],
 declarations: [ProfileEditComponent],

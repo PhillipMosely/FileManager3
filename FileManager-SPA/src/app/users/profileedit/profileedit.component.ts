@@ -6,6 +6,8 @@ import { SweetAlertService } from 'app/_services/sweetalert.service';
 import { UserService } from 'app/_services/user.service';
 import { AuthService } from 'app/_services/auth.service';
 import { Utilities } from 'app/_helpers/utilities';
+import { FileUploader } from 'ng2-file-upload';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -17,6 +19,10 @@ import { Utilities } from 'app/_helpers/utilities';
 export class ProfileEditComponent implements OnInit {
     @Input() user: User;
     profileEditForm: FormGroup;
+    editPhotoMode = false;
+    public uploader: FileUploader;
+    hasBaseDropZoneOver = false;
+    baseUrl = environment.apiUrl;
     // @HostListener('window:beforeunload', ['$event'])
     //   unloadNotification($event: any) {
     //     if (this.editForm.dirty) {
@@ -34,6 +40,7 @@ export class ProfileEditComponent implements OnInit {
             this.user = JSON.parse(localStorage.getItem('user'));
         }
         this.createEditForm();
+        this.initializeUploader();
     }
 
     getLabel(modelName: string) {
@@ -87,6 +94,39 @@ export class ProfileEditComponent implements OnInit {
     }
 
     updatePhoto() {
+        this.editPhotoMode = true;
+    }
+   
 
+    fileOverBase(e: any): void {
+        this.hasBaseDropZoneOver = e;
+    }
+    
+    initializeUploader() {
+        this.uploader = new FileUploader({
+            url: this.baseUrl + 'users/' + this.user.id + '/updateprofilepicture',
+            authToken: 'Bearer ' + localStorage.getItem('token'),
+            isHTML5: true,
+            allowedFileType: ['image'],
+            removeAfterUpload: true,
+            autoUpload: false,
+            maxFileSize: 10 * 1024 * 1024,
+        });
+
+        this.uploader.onBeforeUploadItem = (file) => {file.url = this.baseUrl + 'users/' + this.user.id + '/updateprofilepicture' };
+        this.uploader.onAfterAddingFile = (file) => {
+            file.withCredentials = false;
+            if (this.uploader.queue.length > 1) {
+                this.uploader.removeFromQueue(this.uploader.queue[0]);
+            }
+        };
+
+        this.uploader.onSuccessItem = (item, response, status, headers) => {
+            this.userService.getUser(this.user.id).subscribe(next => {
+                this.user = next;
+                this.editPhotoMode = false;
+            })
+
+        };
     }
  }

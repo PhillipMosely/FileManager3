@@ -20,6 +20,7 @@ namespace FileManager.API.Dtos
         public int CompanyId { get; set; }
         public string MobilePhone { get; set; }
         public string PhotoUrl { get; set; }
+        public string PhotoStorageId {get; set;}        
         public string KnownAs { get; set; }
 
         public string City { get; set; }

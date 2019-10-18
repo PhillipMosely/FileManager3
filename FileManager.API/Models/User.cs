@@ -20,6 +20,7 @@ namespace FileManager.API.Models
         public string City { get; set; }
         public string Country { get; set; }
         public string PhotoUrl { get; set; }
+        public string PhotoStorageId {get; set;}
         public int CompanyId { get; set; }
         public virtual Company Company {get; set;}
         public virtual ICollection<UserRole> Roles { get; set; }

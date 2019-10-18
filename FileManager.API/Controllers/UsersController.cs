@@ -9,6 +9,7 @@ using FileManager.API.Helpers;
 using FileManager.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace FileManager.API.Controllers
 {
@@ -66,6 +67,37 @@ namespace FileManager.API.Controllers
             var userFromRepo = await _repo.GetUser(id);
 
             _mapper.Map(userForUpdateDto, userFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+            
+            throw new Exception($"Updating User {id} failed on save");
+        }
+
+        [HttpPut("{id}/updateprofilepicture")]
+        public async Task<IActionResult> UpdateProfilePicture(int id, [FromForm]IFormFile file)
+        {
+          
+            if (file != null)
+            {
+                string myGuid = Guid.NewGuid().ToString();
+                string _imageName = myGuid + "-" + Path.GetExtension(file.FileName);
+                CloudBlockBlob blob = azureContainer.GetBlockBlobReference(_imageName);
+                blob.Properties.ContentType = file.ContentType;
+
+                var userFromRepo = await _repo.GetUser(id);
+                _mapper.Map(userForUpdateDto, userFromRepo);
+                userForUpdateDto.StorageId = _imageName;
+                userForUpdateDto.PhotoUrl = blob.Uri.ToString();
+
+                if (file.Length > 0)
+                {
+                    using (var stream = myFile.OpenReadStream())
+                    {
+                        await blob.UploadFromStreamAsync(stream);
+                    }
+                }
+            }
 
             if (await _repo.SaveAll())
                 return NoContent();
