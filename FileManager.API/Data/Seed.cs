@@ -45,8 +45,6 @@ namespace FileManager.API.Data
                 };
                 context.Companys.Add(company3);
 
-                CompanySettings(ref context);
-
                 var role = new Role { 
                     RoleName="HRTMS Admin",
                     IsSuperUser = true,
@@ -161,10 +159,14 @@ namespace FileManager.API.Data
                 FolderData = "[{\"id\": \"1\",\"parentid\": \"0\",\"text\": \"Accounting\",\"value\": \"\"},{\"id\": \"2\",\"parentid\": \"0\",\"text\": \"Administrative\",\"value\": \"\"},{\"id\": \"3\",\"parentid\": \"0\",\"text\": \"Engineering\",\"value\": \"\"},{\"id\": \"4\",\"parentid\": \"0\",\"text\": \"Marketing\",\"value\": \"\"},{\"text\": \"Sales\",\"id\": \"5\",\"parentid\": \"0\",\"value\": \"\"},{\"id\": \"6\",\"text\": \"Senior Management\",\"parentid\": \"0\",\"value\": \"\"}]"
                 };
                 context.FileManagerAdmin.Add(fmAdmin3);
-
+                
+                context.SaveChanges();
+                
+                CompanySettings(ref context);
+                context.SaveChanges();
             }
 
-            context.SaveChanges();
+
             
         }
 
