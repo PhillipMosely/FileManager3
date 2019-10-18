@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } 
 import { User } from 'app/_models/user';
 import { AuthService } from 'app/_services/auth.service';
 import { Utilities } from 'app/_helpers/utilities';
+import { UserService } from 'app/_services/user.service';
 
 //Metadata
 export interface RouteInfo {
@@ -169,6 +170,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
         this.user = JSON.parse(localStorage.getItem('user'));
         this.userIsSuperAdmin = Utilities.userIsSuperAdmin();
         this.userIsCompanyAdmin = Utilities.userIsCompanyAdmin();
+        this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     }
     ngAfterViewInit() {
     }

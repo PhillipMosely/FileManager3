@@ -137,6 +137,7 @@ export class ProfileEditComponent implements OnInit {
                     this.user = next;
                     this.editPhotoMode = false;
                     this.authService.updateUserInfo(this.user);
+                    this.authService.updateMemberPhoto(this.user.photoUrl);
                 })
             }
 

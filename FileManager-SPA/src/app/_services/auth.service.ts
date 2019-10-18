@@ -18,6 +18,8 @@ export class AuthService {
   decodedToken: any;
   currentUser: User;
   fullName = 'user';
+  photoUrl = new BehaviorSubject<string>('../../assets/img/user.png');
+  currentPhotoUrl = this.photoUrl.asObservable();
 
   constructor(private http: HttpClient, private labelService: LabelService) {}
 
@@ -38,6 +40,9 @@ export class AuthService {
             this.currentUser = user.user;
             this.changeMemberFullName(this.currentUser);
             this.updateCompanyLabels(this.currentUser.companyId);
+            if (this.currentUser.photoUrl) {
+              this.updateMemberPhoto(this.currentUser.photoUrl);
+            }
 
           }
       })
@@ -67,5 +72,9 @@ export class AuthService {
           localStorage.setItem('labels', null);
         }
       });
+  }
+  
+  updateMemberPhoto(photoUrl: string) {
+    this.photoUrl.next(photoUrl);
   }
 }
