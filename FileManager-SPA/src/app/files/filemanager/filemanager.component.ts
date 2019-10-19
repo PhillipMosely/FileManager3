@@ -159,11 +159,15 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   myTreeUpdateOnClick(): void {
     const selectedItem: any = this.myTree.getSelectedItem();
     if (selectedItem != null) {
-        this.myFieldUpdate.myId = +selectedItem.id;
-        this.myFieldUpdate.myTitle = 'Update Folder Name';
-        this.myFieldUpdate.myType = 'Update FolderName';
-        this.myFieldUpdate.myFields = [{field: 'Folder Name', value: selectedItem.label, size: 50, type: 'Text'}];
-        this.openModal('fieldupdatemodal');
+      if (+selectedItem.id === 0) {
+        this.sweetAlertService.message('You cannot update the main folder');
+      } else {
+          this.myFieldUpdate.myId = +selectedItem.id;
+          this.myFieldUpdate.myTitle = 'Update Folder Name';
+          this.myFieldUpdate.myType = 'Update FolderName';
+          this.myFieldUpdate.myFields = [{field: 'Folder Name', value: selectedItem.label, size: 50, type: 'Text'}];
+          this.openModal('fieldupdatemodal');
+      }
     }
   };
 
@@ -186,6 +190,7 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
       this.refreshDataTable();
       this.myTree.render();
     });
+
   }
 
 
@@ -193,29 +198,33 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
   myTreeRemoveOnClick(): void {
     const selectedItem: any = this.myTree.getSelectedItem();
     if (selectedItem != null) {
-       this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
-          const mySourceTree = this.myTree;
-          this.myTree.removeItem(selectedItem.element);
-          this.fmAdmin.folderData = this.GetFolderDataString();
-          this.fileService.deleteFilesforFMNode(this.fmAdmin.id, +selectedItem.id).subscribe(next => {
-            this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next2 => {
-              this.refreshDataTable();
-              this.myTree.render();
-              this.sweetAlertService.success('Successfully deleted folder');
+       if (+selectedItem.id === 0) {
+         this.sweetAlertService.message('You cannot remove the main folder');
+       } else {
+        this.sweetAlertService.confirm('Are you sure you want to delete \'' + selectedItem.label + '\'', 'delete', () => {
+            const mySourceTree = this.myTree;
+            this.myTree.removeItem(selectedItem.element);
+            this.fmAdmin.folderData = this.GetFolderDataString();
+            this.fileService.deleteFilesforFMNode(this.fmAdmin.id, +selectedItem.id).subscribe(next => {
+              this.fileManagerAdminService.updateFMAdmin(this.fmAdmin.id, this.fmAdmin).subscribe(next2 => {
+                this.refreshDataTable();
+                this.myTree.render();
+                this.sweetAlertService.success('Successfully deleted folder');
 
-            }, error2 => {
+              }, error2 => {
+                this.myTree = mySourceTree;
+                this.myTree.render();
+                this.sweetAlertService.error('Not able to delete folder');
+              });
+
+            }, error => {
               this.myTree = mySourceTree;
+              this.sweetAlertService.error('Not able to delete files for folder');
               this.myTree.render();
-              this.sweetAlertService.error('Not able to delete folder');
-            });
+            })
 
-          }, error => {
-            this.myTree = mySourceTree;
-            this.sweetAlertService.error('Not able to delete files for folder');
-            this.myTree.render();
-          })
-
-       });
+        });
+      }
     }
   };
 
