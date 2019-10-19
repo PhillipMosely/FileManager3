@@ -77,7 +77,7 @@ namespace FileManager.API.Migrations
                     b.Property<int>("NodeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("Size")
+                    b.Property<long>("Size");
 
                     b.Property<string>("StorageId");
                         
