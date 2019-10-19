@@ -13,7 +13,7 @@ namespace FileManager.API.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
+           modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
             modelBuilder.Entity("FileManager.API.Models.Company", b =>
@@ -22,26 +22,26 @@ namespace FileManager.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("CompanyName");
+                        
 
-                    b.Property<string>("ComponentConfig")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("ComponentConfig");
+                        
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
                     b.Property<DateTime>("DateModified")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
-                    b.Property<string>("LogoUrl")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("LogoUrl");
+                        
 
-                    b.Property<string>("OverallStyleConfig")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("OverallStyleConfig");
+                        
 
-                    b.Property<string>("WebsiteUrl")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("WebsiteUrl");
+                        
 
                     b.HasKey("Id");
 
@@ -55,34 +55,33 @@ namespace FileManager.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
                     b.Property<DateTime>("DateModified")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Description");
+                        
 
-                    b.Property<string>("Ext")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Ext");
+                        
 
                     b.Property<int>("FileManagerAdminId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FileName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("FileName");
+                        
 
                     b.Property<int>("NodeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("Size")
-                        .HasColumnType("INTEGER");
+                    b.Property<long>("Size");
 
-                    b.Property<string>("StorageId")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("StorageId");
+                        
 
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Url");
+                        
 
                     b.HasKey("Id");
 
@@ -98,16 +97,16 @@ namespace FileManager.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
                     b.Property<DateTime>("DateModified")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
-                    b.Property<string>("FolderData")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("FolderData");
+                        
 
-                    b.Property<string>("SubFolderName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("SubFolderName");
+                        
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -128,11 +127,11 @@ namespace FileManager.API.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("LabelName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("LabelName");
+                        
 
-                    b.Property<string>("ModelName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("ModelName");
+                        
 
                     b.HasKey("Id");
 
@@ -148,22 +147,22 @@ namespace FileManager.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
                     b.Property<DateTime>("DateModified")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Description");
+                        
 
                     b.Property<bool>("IsCompanyAdmin")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BIT");
 
                     b.Property<bool>("IsSuperUser")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("BIT");
 
-                    b.Property<string>("RoleName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("RoleName");
+                        
 
                     b.HasKey("Id");
 
@@ -176,53 +175,51 @@ namespace FileManager.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("City");
+                        
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Country");
+                        
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
                     b.Property<DateTime>("DateModified")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("Email");
+                        
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("FirstName");
+                        
 
-                    b.Property<string>("KnownAs")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("KnownAs");
+                        
 
                     b.Property<DateTime>("LastActive")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("DATETIME2");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("LastName");
+                        
 
-                    b.Property<string>("MobilePhone")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("MobilePhone");
+                        
 
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("BLOB");
+                    b.Property<byte[]>("PasswordHash");
 
-                    b.Property<byte[]>("PasswordSalt")
-                        .HasColumnType("BLOB");
+                    b.Property<byte[]>("PasswordSalt");
 
-                    b.Property<string>("PhotoStorageId")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("PhotoStorageId");
+                        
 
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("PhotoUrl");
+                        
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("UserName");
+                        
 
                     b.HasKey("Id");
 
