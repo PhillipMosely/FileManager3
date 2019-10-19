@@ -26,8 +26,7 @@ namespace FileManager.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ComponentConfig")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(5000);
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");

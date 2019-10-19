@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FileManager.API.Migrations
 {
-    public partial class newinitialize : Migration
+    public partial class NewInitialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace FileManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)                    
                         .Annotation("Sqlite:Autoincrement", true),
                     CompanyName = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
@@ -21,7 +21,7 @@ namespace FileManager.API.Migrations
                     WebsiteUrl = table.Column<string>(nullable: true),
                     LogoUrl = table.Column<string>(nullable: true),
                     OverallStyleConfig = table.Column<string>(nullable: true),
-                    ComponentConfig = table.Column<string>(maxLength: 5000, nullable: true)
+                    ComponentConfig = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace FileManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)                    
                         .Annotation("Sqlite:Autoincrement", true),
                     RoleName = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -52,7 +52,7 @@ namespace FileManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)                    
                         .Annotation("Sqlite:Autoincrement", true),
                     CompanyId = table.Column<int>(nullable: false),
                     ModelName = table.Column<string>(nullable: true),
@@ -74,7 +74,7 @@ namespace FileManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)                    
                         .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
@@ -109,7 +109,7 @@ namespace FileManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)                    
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(nullable: false),
                     SubFolderName = table.Column<string>(nullable: true),
@@ -157,7 +157,7 @@ namespace FileManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)                    
                         .Annotation("Sqlite:Autoincrement", true),
                     FileName = table.Column<string>(nullable: true),
                     Ext = table.Column<string>(nullable: true),
