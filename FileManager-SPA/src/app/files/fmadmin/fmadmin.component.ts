@@ -113,16 +113,26 @@ renderedRowButtons() {
   for (let i = 0; i < viewbuttons.length; i++) {
     viewbuttons[i].addEventListener('click', () => {
         const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-        const idAttr = target.id;
-        window.dispatchEvent(new CustomEvent('custom-eventv', { detail: idAttr}));
+        let idAttr = target.id;
+        if (Utilities.detectIE()) {
+          idAttr = target.firstElementChild.id;
+          Utilities.createCustomEventIE('custom-eventv', idAttr);
+        } else {
+           window.dispatchEvent(new CustomEvent('custom-eventv', { detail: idAttr}));
+        }
       });
   }
   const editbuttons = document.getElementsByClassName('rowedit');
   for (let i = 0; i < editbuttons.length; i++) {
       editbuttons[i].addEventListener('click', () => {
         const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-        const idAttr = target.id;
-        window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+        let idAttr = target.id;
+        if (Utilities.detectIE()) {
+          idAttr = target.firstElementChild.id;
+          Utilities.createCustomEventIE('custom-evente', idAttr);
+        } else {
+          window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+        }
       });
   }
 
@@ -130,8 +140,13 @@ renderedRowButtons() {
   for (let i = 0; i < delbuttons.length; i++) {
       delbuttons[i].addEventListener('click', () => {
         const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-        const idAttr = target.id;
-        window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
+        let idAttr = target.id;
+        if (Utilities.detectIE()) {
+          idAttr = target.firstElementChild.id;
+          Utilities.createCustomEventIE('custom-eventd', idAttr);
+        } else {
+          window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
+        }
       });
   }
 };

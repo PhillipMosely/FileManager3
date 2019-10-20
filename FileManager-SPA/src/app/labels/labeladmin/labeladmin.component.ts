@@ -9,6 +9,7 @@ import { Label } from 'app/_models/label';
 import { ModalService } from 'app/_services/modal.service';
 import { FieldUpdateComponent } from 'app/components/fieldupdate/fieldupdate.component';
 import { AuthService } from 'app/_services/auth.service';
+import { Utilities } from 'app/_helpers/utilities';
 
 @Component({
   selector: 'app-labeladmin',
@@ -91,8 +92,13 @@ renderedRowButtons() {
   for (let i = 0; i < editbuttons.length; i++) {
       editbuttons[i].addEventListener('click', () => {
         const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-        const idAttr = target.id;
-        window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+        let idAttr = target.id;
+        if (Utilities.detectIE()) {
+          idAttr = target.firstElementChild.id;
+          Utilities.createCustomEventIE('custom-evente', idAttr);
+        } else {
+          window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+        }
       });
   }
 
