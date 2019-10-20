@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { jqxTreeModule } from 'jqwidgets-ng/jqxtree';
 import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
@@ -32,6 +32,7 @@ import { RoleService } from './_services/role.service';
 import { LabelService } from './_services/label.service';
 import { ComponentConfigModule } from './components/componentconfig/componentconfig.module';
 import { SortableModule } from 'ngx-bootstrap/sortable';
+import { CustomHttpInterceptorService } from './_services/customhttpinterceptor.service';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -83,7 +84,9 @@ export function tokenGetter() {
         ModalService,
         CompanyService,
         RoleService,
-        LabelService
+        LabelService,
+        { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true }
+
     ],
     bootstrap:    [ AppComponent ]
 })

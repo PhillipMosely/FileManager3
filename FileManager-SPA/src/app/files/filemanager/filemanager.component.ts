@@ -293,7 +293,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < viewbuttons.length; i++) {
       viewbuttons[i].addEventListener('click', () => {
           const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-          const idAttr = target.id;
+          let idAttr = target.id;
+          if (Utilities.detectIE()) {
+            idAttr = target.firstElementChild.id;
+          }
           window.dispatchEvent(new CustomEvent('custom-eventv', { detail: idAttr}));
         });
     }
@@ -301,8 +304,12 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < editbuttons.length; i++) {
         editbuttons[i].addEventListener('click', () => {
           const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-          const idAttr = target.id;
+          let idAttr = target.id;
+          if (Utilities.detectIE()) {
+            idAttr = target.firstElementChild.id;
+          };
           window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+
         });
     }
 
@@ -310,12 +317,14 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     for (let i = 0; i < delbuttons.length; i++) {
         delbuttons[i].addEventListener('click', () => {
           const target = (<Element>event.target) || (<Element>event.srcElement) || (<Element>event.currentTarget);
-          const idAttr = target.id;
+          let idAttr = target.id;
+          if (Utilities.detectIE()) {
+            idAttr = target.firstElementChild.id;
+          };
           window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
         });
     }
   };
-
 
   @HostListener('window:custom-eventv', ['$event']) onClickv() {
     let myId: string = (<string>event['detail'])
@@ -327,8 +336,8 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
     }, error => {
       this.sweetAlertService.error('Not able to view file');
     })
-
   }
+
   @HostListener('window:custom-evente', ['$event']) onClicke() {
     let myId: string = (<string>event['detail'])
     myId = myId.replace('edit', '');
