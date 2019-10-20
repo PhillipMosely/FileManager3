@@ -145,4 +145,15 @@ export class Utilities {
         return false;
     }
 
+    static createCustomEventIE(eventname: string, detailstring: string) {
+        function myCustomEvent ( event, detail ) {
+          const params = { bubbles: false, cancelable: false, detail: detail };
+          const evt = document.createEvent( 'CustomEvent' );
+          evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+          return evt;
+         }
+
+        window.dispatchEvent(myCustomEvent(eventname, detailstring));
+    }
+
 }

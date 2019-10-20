@@ -296,8 +296,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
           let idAttr = target.id;
           if (Utilities.detectIE()) {
             idAttr = target.firstElementChild.id;
+            Utilities.createCustomEventIE('custom-eventv', idAttr);
+          } else {
+            window.dispatchEvent(new CustomEvent('custom-eventv', { detail: idAttr}));
           }
-          window.dispatchEvent(new CustomEvent('custom-eventv', { detail: idAttr}));
         });
     }
     const editbuttons = document.getElementsByClassName('rowedit');
@@ -307,8 +309,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
           let idAttr = target.id;
           if (Utilities.detectIE()) {
             idAttr = target.firstElementChild.id;
-          };
-          window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+            Utilities.createCustomEventIE('custom-evente', idAttr);
+          } else {
+            window.dispatchEvent(new CustomEvent('custom-evente', { detail: idAttr}));
+          }
 
         });
     }
@@ -320,8 +324,10 @@ export class FilemanagerComponent implements AfterViewInit, OnInit {
           let idAttr = target.id;
           if (Utilities.detectIE()) {
             idAttr = target.firstElementChild.id;
-          };
-          window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
+            Utilities.createCustomEventIE('custom-eventd', idAttr);
+          } else {
+            window.dispatchEvent(new CustomEvent('custom-eventd', { detail: idAttr}));
+          }
         });
     }
   };
