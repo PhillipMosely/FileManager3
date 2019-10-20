@@ -1,28 +1,39 @@
 <div class="container mt-4">
-    <div style="width: 300px;"></div>
-<div class="row mt-3 ">
- 
-  <div class="col-md-3 ">
+    <div style="min-width: 700px;"></div>
+        <div class="row mt-3 ">
+            <div class="col-md-3 ">
 
-      <strong>Add Files</strong>
+                <strong>Add Files</strong>
 
-      <div ng2FileDrop
-           [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-           (fileOver)="fileOverBase($event)"
-           [uploader]="uploader"
-           class="card bg-fadded p-3 text-center mb-3 my-drop-zone">
-          <i class="fa fa-upload fa-3x"></i>
-           Drop Files Here
-      </div>
+                <div ng2FileDrop
+                    [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                    (fileOver)="fileOverBase($event)"
+                    [uploader]="uploader"
+                    class="card bg-fadded p-3 text-center mb-3 my-drop-zone">
+                    <i class="fa fa-upload fa-3x"></i>
+                    Drop Files Here
+                </div>
 
-      Multiple
-      <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+                <p>Multiple</p>
+                <div>
+                    <button (click)="fileInput.click()" class="btn-sm btn-default">Upload Multiple</button>
+                    <span style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
+                            <input type="file" #fileInput ng2FileSelect [uploader]="uploader" multiple />
+                    </span>
+                    <!-- <input type="file" ng2FileSelect [uploader]="uploader" multiple  /> -->
+                </div><br/>
 
-      Single
-      <input type="file" ng2FileSelect [uploader]="uploader" />
-  </div>
+                <p>Single</p>
+                <div>
+                    <button (click)="fileInputSingle.click()" class="btn-sm btn-default">Upload</button>
+                    <span style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
+                            <input type="file"  #fileInputSingle  ng2FileSelect [uploader]="uploader"/>
+                    </span>                    
+                    <!-- <input type="file"ng2FileSelect [uploader]="uploader" /> -->
+                </div>
+            </div>
 
-  <div class="col-md-9" style="margin-bottom: 40px" >
+            <div class="col-md-9" style="margin-bottom: 40px" >
 
       <h3>Upload queue</h3>
       <p>Queue length: {{ uploader?.queue?.length }}</p>

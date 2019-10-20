@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 
 import { ModalService } from '../../_services/modal.service';
+import { Utilities } from 'app/_helpers/utilities';
 
 @Component({
     selector: 'jw-modal',
@@ -41,7 +42,9 @@ export class ModalComponent implements OnInit, OnDestroy {
     // remove self from modal service when component is destroyed
     ngOnDestroy(): void {
         this.modalService.remove(this.id);
-        this.element.remove();
+        if (!Utilities.detectIE()) {
+            this.element.remove();
+        }
     }
 
     // open modal
