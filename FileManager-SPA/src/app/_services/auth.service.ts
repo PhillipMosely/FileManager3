@@ -42,6 +42,8 @@ export class AuthService {
             this.updateCompanyLabels(this.currentUser.companyId);
             if (this.currentUser.photoUrl) {
               this.updateMemberPhoto(this.currentUser.photoUrl);
+            } else {
+              this.updateMemberPhoto('../../assets/img/user.png');
             }
 
           }
