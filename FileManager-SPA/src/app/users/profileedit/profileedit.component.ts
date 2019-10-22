@@ -92,7 +92,10 @@ export class ProfileEditComponent implements OnInit {
         this.sweetAlertService.confirm('Are you sure you want to delete the profile photo', 'delete', () => {
             this.user.photoUrl = '../../assets/img/user.png';
             this.userService.updateUser(this.user.id, this.user).subscribe( next => {
+                this.authService.updateMemberPhoto('../../assets/img/user.png');
                 this.sweetAlertService.message('Photo removed');
+            }, error => {
+                this.sweetAlertService.message('Not able to remove photo');
             })
         });
     }
@@ -119,7 +122,7 @@ export class ProfileEditComponent implements OnInit {
             isHTML5: true,
             allowedFileType: ['image'],
             removeAfterUpload: true,
-            autoUpload: false,
+            autoUpload: true,
             maxFileSize: 10 * 1024 * 1024,
         });
 
